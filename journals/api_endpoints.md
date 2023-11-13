@@ -11,7 +11,7 @@
   - password: string
 
 - Response: Account information and a token
-- JSON Shape:
+- JSON Shape
   ```json
   {
     "account": {
@@ -31,7 +31,7 @@
   - Authorization: Bearer token
 
 - Response: Always true
-- JSON Shape:
+- JSON Shape
   ```json
   true
   ```
@@ -45,7 +45,7 @@
 
 - Allows user to chat with other users.
 
-### JSON Shape:
+### JSON Shape
 
 ```JSON
 {
@@ -64,7 +64,7 @@
 - Allows user to view/edit profile picture.
 - Allows user to view calendar of study streak (in days).
 
-### JSON Shape:
+### JSON Shape
 
 ```JSON
 {
@@ -82,7 +82,7 @@
 - Allows user to answer random cards.
 - Allows user to check if they got it right or wrong.
 
-### JSON Shape:
+### JSON Shape
 
 ```JSON
 {
@@ -99,7 +99,7 @@
 
 This will be the Deck api list view for the JSON we can utilize on the front end.
 
-### JSON Shape:
+### JSON Shape
 
 Output:
 
@@ -133,7 +133,7 @@ Output:
 
 This will be the Deck api view for the JSON we can utilize on the front end.
 
-### JSON Shape:
+### JSON Shape
 
 Output:
 
@@ -155,7 +155,7 @@ Output:
 
 This will be the delete method api for each card deck.
 
-### JSON Shape:
+### JSON Shape
 
 Input:
 
@@ -178,7 +178,7 @@ Output:
 
 This will be the create method api for each card deck.
 
-### JSON Shape:
+### JSON Shape
 
 Input:
 
@@ -208,7 +208,7 @@ Output:
 
 This will be the udpate method api for each card deck.
 
-### JSON Shape:
+### JSON Shape
 
 Input:
 
@@ -239,7 +239,7 @@ Output:
 - Api view to show a list of cards.
 - Api returns all cards with the deck id it belongs to, so we can filter on the front end.
 
-### JSON Shape:
+### JSON Shape
 
 ```JSON
 { "cards": [
@@ -268,7 +268,7 @@ Output:
 
 - Api view to show card details.
 
-### JSON Shape:
+### JSON Shape
 
 ```JSON
 {
@@ -291,7 +291,7 @@ Output:
 
 - Api view to create a new card.
 
-### JSON Shape:
+### JSON Shape
 
 Input:
 
@@ -317,7 +317,7 @@ Output:
 }
 ```
 
-## Update Card:
+## Update Card
 
 - Endpoint path: /api/cards/{:id}
 - Endpoint method: PUT
@@ -326,7 +326,7 @@ Output:
 
 - Api view to update an existing card.
 
-### JSON Shape:
+### JSON Shape
 
 Input:
 
@@ -352,7 +352,7 @@ Output:
 }
 ```
 
-## Delete Card:
+## Delete Card
 
 - Endpoint path: /api/cards/{:id}
 - Endpoint method: PUT
@@ -361,7 +361,7 @@ Output:
 
 - Api view to update an existing card.
 
-### JSON Shape:
+### JSON Shape
 
 Input:
 
@@ -385,7 +385,7 @@ Output:
 - Api view to list answers for each card.
 - Api returns all answers with the card id it belongs to, so we can filter on the front end.
 
-### JSON Shape:
+### JSON Shape
 
 Input:
 
@@ -422,7 +422,7 @@ Output:
 
 - Api view to show answer.
 
-### JSON Shape:
+### JSON Shape
 
 Input:
 
@@ -441,54 +441,81 @@ Output:
 
 ## Delete Answer
 
+- Endpoint path:
+- Endpoint method:
+
 ### Description
 
-### JSON Shape:
+### JSON Shape
 
 ## Update Answer
 
+- Endpoint path:
+- Endpoint method:
+
 ### Description
 
-### JSON Shape:
+### JSON Shape
 
 ## List Dates
 
+- Endpoint path:
+- Endpoint method:
+
 ### Description
 
-### JSON Shape:
+### JSON Shape
 
 ## View User
 
+- Endpoint path:
+- Endpoint method:
+
 ### Description
 
-### JSON Shape:
+### JSON Shape
 
 ## Create User
 
+- Endpoint path:
+- Endpoint method:
+
 ### Description
 
-### JSON Shape:
+### JSON Shape
 
 ## Update User
 
+- Endpoint path:
+- Endpoint method:
+
 ### Description
 
-### JSON Shape:
+### JSON Shape
 
 ## List Chat Rooms
 
+- Endpoint path:
+- Endpoint method:
+
 ### Description
 
-### JSON Shape:
+### JSON Shape
 
 ## View Chat Room
 
+- Endpoint path:
+- Endpoint method:
+
 ### Description
 
-### JSON Shape:
+### JSON Shape
 
 ## View Message
 
+- Endpoint path:
+- Endpoint method:
+
 ### Description
 
-### JSON Shape:
+### JSON Shape
