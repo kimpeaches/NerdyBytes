@@ -11,7 +11,7 @@
   - password: string
 
 - Response: Account information and a token
-- Response shape (JSON):
+- JSON Shape:
   ```json
   {
     "account": {
@@ -31,7 +31,7 @@
   - Authorization: Bearer token
 
 - Response: Always true
-- Response shape (JSON):
+- JSON Shape:
   ```json
   true
   ```
@@ -45,7 +45,7 @@
 
 - Allows user to chat with other users.
 
-### Response Shape (JSON):
+### JSON Shape:
 
 ```JSON
 {
@@ -53,7 +53,7 @@
 }
 ```
 
-## Dashboard
+<!-- ## Dashboard
 
 - Endpoint path: /api/dashboad
 - Endpoint method: GET, PUT (Update Profile Pic)
@@ -64,15 +64,15 @@
 - Allows user to view/edit profile picture.
 - Allows user to view calendar of study streak (in days).
 
-### Response Shape (JSON):
+### JSON Shape:
 
 ```JSON
 {
     "TBD:" TBD
 }
-```
+``` -->
 
-## Practice Page
+<!-- ## Practice Page
 
 - Endpoint path: /api/study/{:id}
 - Endpoint method: GET, PUT (Update Profile Pic)
@@ -82,115 +82,413 @@
 - Allows user to answer random cards.
 - Allows user to check if they got it right or wrong.
 
-### Response Shape (JSON):
+### JSON Shape:
 
 ```JSON
 {
     "TBD:" TBD
 }
-```
+``` -->
 
-## Deck View Page
+## List Decks
 
-- Endpoint path: /api/deck
-- Endpoint method: GET, DELETE
-
-### Description
-
-- Allows user to view details of a particular deck.
-- Allows user to view how many cards in deck.
-- Allows user to view how many cards studied today.
-- Allows user to delete a deck.
-
-### Response Shape (JSON):
-
-```JSON
-{
-    "TBD:" TBD
-}
-```
-
-## Browse Deck View Page
-
-- Endpoint path: /api/deck
+- Endpoint path: /api/decks/
 - Endpoint method: GET
 
 ### Description
 
-- TBD
+This will be the Deck api list view for the JSON we can utilize on the front end.
 
-### Response Shape (JSON):
+### JSON Shape:
+
+Output:
 
 ```JSON
 {
-    "TBD:" TBD
+  "decks": [
+    {
+    "id": int,
+    "name": str,
+    "public_status": bool,
+    "total_cards": int,
+    "total_touched_cards": int,
+  },
+  {
+    "id": int,
+    "name": str,
+    "public_status": bool,
+    "total_cards": int,
+    "total_touched_cards": int,
+  },
+  ]
 }
 ```
 
-## Card View Page
+## Show Deck
 
-- Endpoint path: /api/card/{:id}
+- Endpoint path: /api/decks/{:id}
 - Endpoint method: GET
 
 ### Description
 
-- TBD
+This will be the Deck api view for the JSON we can utilize on the front end.
 
-### Response Shape (JSON):
+### JSON Shape:
+
+Output:
 
 ```JSON
 {
-    "TBD:" TBD
+    "name": str,
+    "public_status": bool,
+    "total_cards": int,
+    "total_touched_cards": int,
 }
 ```
 
-## Card Edit Page
+## Delete Deck
 
-- Endpoint path: /api/card/edit/{:id}
-- Endpoint method: GET
+- Endpoint path: /api/decks/{:id}
+- Endpoint method: DELETE
 
 ### Description
 
-- TBD
+This will be the delete method api for each card deck.
 
-### Response Shape (JSON):
+### JSON Shape:
 
-```JSON
-{
-    "TBD:" TBD
-}
-```
+Input:
 
-## Public Decks List View Page
+Not needed. Id will be in the href/url of the DELETE request.
 
-- Endpoint path: /api/card/edit/{:id}
-- Endpoint method: GET
-
-### Description
-
-- TBD
-
-### Response Shape (JSON):
+Output:
 
 ```JSON
 {
-    "TBD:" TBD
+  "deleted": bool
 }
 ```
 
-## Create Card Page
+## Create Deck
 
-- Endpoint path: /api/card/create
+- Endpoint path: /api/decks/
 - Endpoint method: POST
 
 ### Description
 
-- TBD
+This will be the create method api for each card deck.
 
-### Response Shape (JSON):
+### JSON Shape:
+
+Input:
 
 ```JSON
 {
-    "TBD:" TBD
+  "name": str,
+  "public_status": bool (default=false),
 }
 ```
+
+Output:
+
+```JSON
+{
+  "id": int,
+  "name": str,
+  "public_status": bool,
+}
+```
+
+## Update Deck
+
+- Endpoint path: /api/decks/{:id}
+- Endpoint method: PUT
+
+### Description
+
+This will be the udpate method api for each card deck.
+
+### JSON Shape:
+
+Input:
+
+```JSON
+{
+  "name": str,
+  "public_status": bool,
+}
+```
+
+Output:
+
+```JSON
+{
+  "id": int,
+  "name": str,
+  "public_status": bool,
+}
+```
+
+## List Cards
+
+- Endpoint path: /api/cards/
+- Endpoint method: GET
+
+### Description
+
+- Api view to show a list of cards.
+- Api returns all cards with the deck id it belongs to, so we can filter on the front end.
+
+### JSON Shape:
+
+```JSON
+{ "cards": [
+  {
+    "id": int,
+      "deck_id": int,
+      "card_type": multiple_choice/reorder/matching,
+      "flag": bool,
+  },
+    {
+    "id": int,
+      "deck_id": int,
+      "card_type": multiple_choice/reorder/matching,
+      "flag": bool,
+  },
+]
+}
+```
+
+## Show Card
+
+- Endpoint path: /api/cards/{:id}
+- Endpoint method: GET
+
+### Description
+
+- Api view to show card details.
+
+### JSON Shape:
+
+```JSON
+{
+    "id": int,
+    "deck_id": int,
+    "card_type": multiple_choice/reorder/matching,
+    "question": str,
+    "wrong_count": int,
+    "right_count": int,
+    "flag": bool
+}
+```
+
+## Create Card:
+
+- Endpoint path: /api/cards/
+- Endpoint method: PUT
+
+### Description
+
+- Api view to create a new card.
+
+### JSON Shape:
+
+Input:
+
+```JSON
+{
+    "deck_id": int,
+    "card_type": multiple_choice/reorder/matching,
+    "question": str
+}
+```
+
+Output:
+
+```JSON
+{
+    "id": int,
+    "deck_id": int,
+    "card_type": multiple_choice/reorder/matching,
+    "question": str,
+    "wrong_count": int,
+    "right_count": int,
+    "flag": bool
+}
+```
+
+## Update Card:
+
+- Endpoint path: /api/cards/{:id}
+- Endpoint method: PUT
+
+### Description
+
+- Api view to update an existing card.
+
+### JSON Shape:
+
+Input:
+
+```JSON
+{
+    "deck_id": int,
+    "question": str,
+    "flag": bool
+}
+```
+
+Output:
+
+```JSON
+{
+    "id": int,
+    "deck_id": int,
+    "card_type": multiple_choice/reorder/matching,
+    "question": str,
+    "wrong_count": int,
+    "right_count": int,
+    "flag": bool
+}
+```
+
+## Delete Card:
+
+- Endpoint path: /api/cards/{:id}
+- Endpoint method: PUT
+
+### Description
+
+- Api view to update an existing card.
+
+### JSON Shape:
+
+Input:
+
+Not needed. Id will be in the href/url of the DELETE request.
+
+Output:
+
+```JSON
+{
+  "deleted": bool
+}
+```
+
+## List Answers
+
+- Endpoint path: /api/answer/{:id}
+- Endpoint method: GET
+
+### Description
+
+- Api view to list answers for each card.
+- Api returns all answers with the card id it belongs to, so we can filter on the front end.
+
+### JSON Shape:
+
+Input:
+
+Not needed. Id will be in the href/url of the DELETE request.
+
+Output:
+
+```JSON
+{
+  answer: [
+    {
+      "id": int,
+      "card_id": int,
+      "text": str,
+      "is_correct": bool
+    },
+    {
+      "id": int,
+      "card_id": int,
+      "text": str,
+      "is_correct": bool
+    },
+  ]
+}
+
+```
+
+## Show Answer
+
+- Endpoint path: /api/answer/{:id}
+- Endpoint method: PUT
+
+### Description
+
+- Api view to show answer.
+
+### JSON Shape:
+
+Input:
+
+Not needed. Id will be in the href/url of the DELETE request.
+
+Output:
+
+```JSON
+{
+  "id": int,
+  "card_id": int,
+  "text": str,
+  "is_correct": bool
+}
+```
+
+## Delete Answer
+
+### Description
+
+### JSON Shape:
+
+## Update Answer
+
+### Description
+
+### JSON Shape:
+
+## List Dates
+
+### Description
+
+### JSON Shape:
+
+## View User
+
+### Description
+
+### JSON Shape:
+
+## Create User
+
+### Description
+
+### JSON Shape:
+
+## Update User
+
+### Description
+
+### JSON Shape:
+
+## List Chat Rooms
+
+### Description
+
+### JSON Shape:
+
+## View Chat Room
+
+### Description
+
+### JSON Shape:
+
+## View Message
+
+### Description
+
+### JSON Shape:
