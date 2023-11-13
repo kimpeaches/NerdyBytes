@@ -282,7 +282,7 @@ Output:
 }
 ```
 
-## Create Card:
+## Create Card
 
 - Endpoint path: /api/cards/
 - Endpoint method: PUT
