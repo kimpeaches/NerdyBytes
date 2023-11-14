@@ -333,15 +333,11 @@ Output:
 
 ### JSON Shape
 
-Input:
-
-Not needed. Id will be in the href/url of the DELETE request.
-
 Output:
 
 ```JSON
 {
-  answer: [
+  answers: [
     {
       "id": int,
       "card_id": int,
@@ -370,10 +366,6 @@ Output:
 
 ### JSON Shape
 
-Input:
-
-Not needed. Id will be in the href/url of the DELETE request.
-
 Output:
 
 ```JSON
@@ -387,108 +379,338 @@ Output:
 
 ## Delete Answer
 
-- Endpoint path:
-- Endpoint method:
+- Endpoint path: /api/answer/{:id}
+- Endpoint method: DELETE
 
 ### Description
 
+- Api to delete an answer
+
 ### JSON Shape
+
+Input:
+
+Not needed. Id will be in the href/url of the DELETE request.
+
+```JSON
+{
+  "delted": true
+}
+```
 
 ## Update Answer
 
-- Endpoint path:
-- Endpoint method:
+- Endpoint path:/api/answers/{:id}
+- Endpoint method:PUT
 
 ### Description
 
+API view to update an existing answer.
+
 ### JSON Shape
+
+Input:
+
+```JSON
+{
+  "text": str,
+  "is_correct": bool
+}
+```
+
+Output:
+
+```JSON
+{
+  "id": int,
+  "card_id": int,
+  "text": str,
+  "is_correct": bool
+}
+```
 
 ## List Dates
 
-- Endpoint path:
-- Endpoint method:
+- Endpoint path: /api/date/
+- Endpoint method: get
+  ​
 
 ### Description
 
+- get a list of all the dates.
+  ​
+
 ### JSON Shape
 
-## View User
+```JSON
+{
+  "id": int,
+  "user_id": int,
+  "date": date,
+  "studied_today": bool
+}
+```
 
-- Endpoint path:
-- Endpoint method:
+## SHOW User
+
+- Endpoint path: /api/user/{:id}
+- Endpoint method: GET
 
 ### Description
 
+- Api to view user details.
+- This will be displayed on the dashboard.
+
 ### JSON Shape
+
+```JSON
+{
+  "id": int,
+  "picture": url,
+  "username": str,
+  "password": str,
+  "streak_count": int
+}
+```
 
 ## Create User
 
-- Endpoint path:
-- Endpoint method:
+- Endpoint path:/api/users/
+- Endpoint method:POST
 
 ### Description
 
+API view to create a new user account.
+
 ### JSON Shape
+
+Input:
+
+```JSON
+{
+  "username": str,
+  "password": str,
+  "profile_picture": str
+}
+```
+
+Output:
+
+```JSON
+{
+  "id": int,
+  "username": str,
+  "profile_picture": str,
+  "creation_date": datetime
+}
+```
 
 ## Update User
 
-- Endpoint path:
-- Endpoint method:
+- Endpoint path: /api/answer/{:id}
+- Endpoint method: PUT
+  ​
 
 ### Description
 
+- Edit User profile (picture/password/name)
+  ​
+
 ### JSON Shape
+
+```JSON
+{
+  "user_name": str,
+  "password": str,
+  "picture": url,
+}
+```
 
 ## List Chat Rooms
 
-- Endpoint path:
-- Endpoint method:
+- Endpoint path: /api/name/{:id}
+- Endpoint method: GET
+  ​
 
 ### Description
 
+- Api view to show a list of chat rooms
+  ​
+
 ### JSON Shape
 
-## View Chat Room
+Input:
 
-- Endpoint path:
-- Endpoint method:
+```JSON
+{
+  "id": int,
+  "user_id": int,
+  "name": str,
+}
+```
+
+Output:
+
+```Json
+{
+"name": str
+}
+```
+
+## SHOW Chat Room
+
+- Endpoint path: /api/name/{:id}
+- Endpoint method: GET
+  ​
 
 ### Description
 
+- Api view to show a specific chat room
+  ​
+
 ### JSON Shape
+
+Input:
+
+```JSON
+{
+  "id": int,
+  "name": str,
+}
+```
+
+Output:
+​
+
+```JSON
+{
+  "name": str
+}
+```
 
 ## Create Chat Room
 
-- Endpoint path:
-- Endpoint method:
+- Endpoint path: /api/name/create
+- Endpoint method: POST
+  ​
 
 ### Description
 
+- Api view for a user to create a chat room
+  ​
+
 ### JSON Shape
+
+Input:
+
+```JSON
+{
+  "id": int,
+  "name": str,
+}
+```
+
+Output:
+​
+
+```JSON
+{
+  "name": str
+}
+```
 
 ## Delete Chat Room
 
-- Endpoint path:
-- Endpoint method:
+- Endpoint path: /api/name/{:id}
+- Endpoint method: DELETE
+  ​
 
 ### Description
 
+- Api view to delete a chat room
+  ​
+
 ### JSON Shape
+
+Input:
+​
+Not needed. Id will be in the href/url of the DELETE request.
+​
+Output:
+​
+
+```JSON
+{
+  "deleted": bool
+}
+```
 
 ## Create Message
 
-- Endpoint path:
-- Endpoint method:
+- Endpoint path: api/message/create
+- Endpoint method: POST
+  ​
 
 ### Description
 
+- Api view for a user to create a message and send to another user
+  ​
+
 ### JSON Shape
 
-## View Message
+Input:
 
-- Endpoint path:
-- Endpoint method:
+```JSON
+{
+  "id": int,
+  "user_id": int,
+  "chat_room_id": int,
+  "text": str,
+  "date_created": datetime
+}
+```
+
+Output:
+​
+
+```JSON
+{
+  "chat_room_id": int,
+  "text": str,
+  "date_created": datetime
+}
+```
+
+## SHOW Message
+
+- Endpoint path: api/messages/{:id}
+- Endpoint method: GET
+  ​
 
 ### Description
 
+- Api view to show messages
+  ​
+
 ### JSON Shape
+
+Input:
+
+```JSON
+{
+  "id": int,
+  "user_id": int,
+  "chat_room_id": int,
+}
+```
+
+Output:
+​
+
+```JSON
+{
+  "chat_room_id": int,
+  "text": str,
+  "date_created": datetime,
+}
+```
