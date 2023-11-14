@@ -451,7 +451,7 @@ Output:
 }
 ```
 
-## SHOW User
+## Show User
 
 - Endpoint path: /api/user/{:id}
 - Endpoint method: GET
@@ -557,7 +557,7 @@ Output:
 }
 ```
 
-## SHOW Chat Room
+## Show Chat Room
 
 - Endpoint path: /api/name/{:id}
 - Endpoint method: GET
@@ -681,7 +681,7 @@ Output:
 }
 ```
 
-## SHOW Message
+## Show Message
 
 - Endpoint path: api/messages/{:id}
 - Endpoint method: GET
