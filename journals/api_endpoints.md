@@ -36,60 +36,6 @@
   true
   ```
 
-## Chat Component
-
-- Endpoint path: /api/chat/{:id}
-- Endpoint method: GET, POST\*
-
-### Description
-
-- Allows user to chat with other users.
-
-### JSON Shape
-
-```JSON
-{
-    "TBD:" TBD
-}
-```
-
-<!-- ## Dashboard
-
-- Endpoint path: /api/dashboad
-- Endpoint method: GET, PUT (Update Profile Pic)
-
-### Description
-
-- Allows user to view decks available to study.
-- Allows user to view/edit profile picture.
-- Allows user to view calendar of study streak (in days).
-
-### JSON Shape
-
-```JSON
-{
-    "TBD:" TBD
-}
-``` -->
-
-<!-- ## Practice Page
-
-- Endpoint path: /api/study/{:id}
-- Endpoint method: GET, PUT (Update Profile Pic)
-
-### Description
-
-- Allows user to answer random cards.
-- Allows user to check if they got it right or wrong.
-
-### JSON Shape
-
-```JSON
-{
-    "TBD:" TBD
-}
-``` -->
-
 ## List Decks
 
 - Endpoint path: /api/decks/
@@ -503,6 +449,33 @@ Output:
 ### JSON Shape
 
 ## View Chat Room
+
+- Endpoint path:
+- Endpoint method:
+
+### Description
+
+### JSON Shape
+
+## Create Chat Room
+
+- Endpoint path:
+- Endpoint method:
+
+### Description
+
+### JSON Shape
+
+## Delete Chat Room
+
+- Endpoint path:
+- Endpoint method:
+
+### Description
+
+### JSON Shape
+
+## Create Message
 
 - Endpoint path:
 - Endpoint method:
