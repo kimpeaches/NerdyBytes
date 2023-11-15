@@ -301,7 +301,7 @@ Output:
 ## Delete Card
 
 - Endpoint path: /api/cards/{:id}
-- Endpoint method: PUT
+- Endpoint method: DELETE
 
 ### Description
 
