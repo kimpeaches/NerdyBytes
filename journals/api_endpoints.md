@@ -654,7 +654,7 @@ Output:
 ```JSON
 {
   "id": int,
-  "picture": url,
+  "picture": picture_url,
   "username": str,
   "password": str,
   "streak_count": int
@@ -678,7 +678,7 @@ Input:
 {
   "username": str,
   "password": str,
-  "profile_picture": str
+  "profile_picture": picture_url
 }
 ```
 
@@ -688,7 +688,7 @@ Output:
 {
   "id": int,
   "username": str,
-  "profile_picture": str,
+  "profile_picture": picture_url,
   "creation_date": datetime
 }
 ```
@@ -710,7 +710,7 @@ Output:
 {
   "user_name": str,
   "password": str,
-  "picture": url,
+  "picture": picture_url,
 }
 ```
 
@@ -835,7 +835,7 @@ Output:
 ```JSON
 {
   "id": int,
-  "picture": url,
+  "picture": picture_url,
   "username": str,
   "password": str,
   "streak_count": int
@@ -859,7 +859,7 @@ Input:
 {
   "username": str,
   "password": str,
-  "profile_picture": str
+  "profile_picture": picture_url
 }
 ```
 
@@ -869,7 +869,7 @@ Output:
 {
   "id": int,
   "username": str,
-  "profile_picture": str,
+  "profile_picture": picture_url,
   "creation_date": datetime
 }
 ```
@@ -891,7 +891,7 @@ Output:
 {
   "user_name": str,
   "password": str,
-  "picture": url,
+  "picture": picture_url,
 }
 ```
 
