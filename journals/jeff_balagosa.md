@@ -1,5 +1,20 @@
 # Journals
 
+## 2023-11-16 7:00:10
+
+### Items worked on today:
+
+- Delivered stand up of stand ups.
+- Mob program backend enpoint for User create.
+
+### Reflection on any design conversations that I had
+
+- None
+
+### At least one ah-ha! moment that you had during your coding, however small
+
+- If you're troubleshooting someone else's code it's good to step through the code and see what's happening line by line. If you can't define something, follow it through until you do. Not really an "Aha!" moment, but yesterday was a good reminder of that.
+
 ## 2023-11-15 18:01:30
 
 ### Items worked on today:
