@@ -1,6 +1,21 @@
 # Journals
 
-## 2023-11-16 7:00:10
+## 2023-11-17 17:22:09
+
+### Items worked on today:
+
+- Delivered stand up of stand ups.
+- Mob program authentication.
+
+### Reflection on any design conversations that I had
+
+- I think we should find a way to make picture_url an optional field.
+
+### At least one ah-ha! moment that you had during your coding, however small
+
+- I need new glasses.
+
+## 2023-11-16 17:00:10
 
 ### Items worked on today:
 
