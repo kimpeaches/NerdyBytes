@@ -2,6 +2,8 @@ from pydantic import BaseModel
 from queries.accounts import pool
 from typing import Union
 
+class DuplicateAccountError(ValueError):
+    pass
 
 class Error(BaseModel):
     message: str
@@ -19,8 +21,31 @@ class UserOut(BaseModel):
     picture_url: str
 
 
+class UserOutWithPassword(UserOut):
+    hashed_password: str
+
+
 class UserRepository:
-    def create(self, user: UserIn) -> Union[UserOut, Error]:
+    def get(self, username: str) -> UserOutWithPassword:
+        # with pool.connection() as conn:
+        with pool.connection() as conn:
+            with conn.cursor() as db:
+                result = db.execute(
+                    """
+                    SELECT *
+                    FROM users
+                    WHERE username = %s
+                    """,
+                    [username],
+                )
+                user = result.fetchone()
+                return UserOutWithPassword(
+                    id=user[0],
+                    username=user[1],
+                    hashed_password=user[2],
+                )
+
+    def create(self, info: UserIn, hashed_password: str) -> Union[UserOut, Error]:
         try:
             with pool.connection() as conn:
                 # get a cursor (something to run SQL with)
@@ -35,13 +60,13 @@ class UserRepository:
                         RETURNING id;
                         """,
                         [
-                            user.username,
-                            user.password,
-                            user.picture_url
+                            info.username,
+                            info.password,
+                            info.picture_url
                         ]
                     )
                     id = result.fetchone()[0]
-                    return self.user_in_to_out(id, user)
+                    return self.user_in_to_out(id, )
         except Exception:
             return {"message": "Create did not work"}
 
