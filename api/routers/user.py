@@ -48,10 +48,9 @@ async def create_User(
     response: Response,
     repo: UserRepository = Depends(),
 ):
-    hashed_password = authenticator.hashed_password(info.password)
+    hashed_password = authenticator.hash_password(info.password)
     try:
-        User = repo.create(info, hashed_password)
-        print(f"User: {User}")
+        user = repo.create(info, hashed_password)
     except DuplicateAccountError:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -59,4 +58,4 @@ async def create_User(
         )
     form = UserForm(username=info.username, password=info.password, picture_url = info.picture_url)
     token = await authenticator.login(response, request, form, repo)
-    return UserToken(account=User, **token.dict())
+    return UserToken(account=user, **token.dict())
