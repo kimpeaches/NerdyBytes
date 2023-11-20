@@ -6,6 +6,8 @@ from fastapi import (
     APIRouter,
     Request,
 )
+
+
 from jwtdown_fastapi.authentication import Token
 from authenticator import authenticator
 
@@ -18,16 +20,20 @@ from queries.user import (
     DuplicateAccountError
 )
 
+
 class UserForm(BaseModel):
     username: str
     password: str
     picture_url: str
 
+
 class UserToken(Token):
     account: UserOut
 
+
 class HttpError(BaseModel):
     detail: str
+
 
 router = APIRouter()
 
@@ -47,6 +53,6 @@ async def create_User(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Cannot create an User with those credentials",
         )
-    form = UserForm(username=info.username, password=info.password, picture_url = info.picture_url)
+    form = UserForm(username=info.username, password=info.password, picture_url=info.picture_url)
     token = await authenticator.login(response, request, form, repo)
     return UserToken(account=user, **token.dict())
