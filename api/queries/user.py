@@ -2,8 +2,10 @@ from pydantic import BaseModel
 from queries.accounts import pool
 from typing import Union
 
+
 class DuplicateAccountError(ValueError):
     pass
+
 
 class Error(BaseModel):
     message: str
@@ -46,6 +48,7 @@ class UserRepository:
                     username=user[2],
                     hashed_password=user[3],
                 )
+
 
     def create(self, info: UserIn, hashed_password: str) -> Union[UserOut, Error]:
         with pool.connection() as conn:

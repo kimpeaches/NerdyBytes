@@ -53,6 +53,14 @@ async def create_User(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Cannot create an User with those credentials",
         )
-    form = UserForm(username=info.username, password=info.password, picture_url=info.picture_url)
+
+
+    form = UserForm(
+        username=info.username,
+        password=info.password,
+        picture_url=info.picture_url
+    )
+
+
     token = await authenticator.login(response, request, form, repo)
     return UserToken(account=user, **token.dict())
