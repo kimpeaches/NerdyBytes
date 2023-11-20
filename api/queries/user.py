@@ -49,8 +49,9 @@ class UserRepository:
                     hashed_password=user[3],
                 )
 
-
-    def create(self, info: UserIn, hashed_password: str) -> Union[UserOut, Error]:
+    def create(
+        self, info: UserIn, hashed_password: str
+    ) -> Union[UserOut, Error]:
         with pool.connection() as conn:
             # get a cursor (something to run SQL with)
             with conn.cursor() as db:
@@ -63,11 +64,7 @@ class UserRepository:
                         (%s, %s, %s)
                     RETURNING id;
                     """,
-                    [
-                        info.username,
-                        hashed_password,
-                        info.picture_url
-                    ]
+                    [info.username, hashed_password, info.picture_url],
                 )
                 id = result.fetchone()[0]
                 return self.user_in_to_out(id, info)

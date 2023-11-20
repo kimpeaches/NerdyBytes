@@ -13,12 +13,7 @@ from authenticator import authenticator
 
 from pydantic import BaseModel
 
-from queries.user import (
-    UserIn,
-    UserOut,
-    UserRepository,
-    DuplicateAccountError
-)
+from queries.user import UserIn, UserOut, UserRepository, DuplicateAccountError
 
 
 class UserForm(BaseModel):
@@ -54,13 +49,11 @@ async def create_User(
             detail="Cannot create an User with those credentials",
         )
 
-
     form = UserForm(
         username=info.username,
         password=info.password,
-        picture_url=info.picture_url
+        picture_url=info.picture_url,
     )
-
 
     token = await authenticator.login(response, request, form, repo)
     return UserToken(account=user, **token.dict())
