@@ -32,15 +32,6 @@ class HttpError(BaseModel):
 router = APIRouter()
 
 
-# @router.post("/user", response_model=Union[UserOut, Error])
-# def create_user(
-#     user: UserIn,
-#     # response: Response,
-#     repo: UserRepository = Depends(),
-# ):
-#     # response.status_code = 400
-#     return repo.create(user)
-
 @router.post("/user", response_model=UserToken | HttpError)
 async def create_User(
     info: UserIn,
