@@ -1,5 +1,22 @@
 # Journals
 
+## 2023-11-20 23:11:03
+
+### Items worked on today:
+
+- Delivered stand up of stand ups.
+- Mob program Deck table.
+- Mob program Deck create method and POST route.
+
+### Reflection on any design conversations that I had
+
+- Made some fields optional in Deck table.
+- Made some fields default to 0 Deck table.
+
+### At least one ah-ha! moment that you had during your coding, however small
+
+- Detailed errors are a Software Engineer's best friend!
+
 ## 2023-11-17 17:22:09
 
 ### Items worked on today:
