@@ -7,6 +7,7 @@ from fastapi import (
 )
 from pydantic import BaseModel
 from queries.deck import DeckIn, DeckRepository
+from authenticator import authenticator
 
 
 class NoDeckError(ValueError):
@@ -29,6 +30,7 @@ router = APIRouter()
 async def create_deck(
     request: Request,
     info: DeckIn,
+    account_data: dict = Depends(authenticator.get_current_account_data),
     repo: DeckRepository = Depends(),
 ) -> DeckIn:
     try:
