@@ -17,7 +17,7 @@ services:
 
     ghi:
         image: node:lts-bullseye
-        command: /bin/docubash run.sh
+        command: /bin/bash run.sh
         working_dir: /app
         volumes:
             - ./ghi:/app
