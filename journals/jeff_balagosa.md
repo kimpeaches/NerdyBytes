@@ -1,5 +1,22 @@
 # Journals
 
+## 2023-11-21 19:00:03
+
+### Items worked on today:
+
+- Delivered stand up of stand ups.
+- Ensure react is working within docker container.
+- Mob program adding auth to create deck endpoint
+- Mob program front end login.
+
+### Reflection on any design conversations that I had
+
+- none
+
+### At least one ah-ha! moment that you had during your coding, however small
+
+- Computing is nothing short of magic if you think about it. It's incredible how humans figured out that simply adding electricity to sand (silicon) can change the world!
+
 ## 2023-11-20 23:11:03
 
 ### Items worked on today:
