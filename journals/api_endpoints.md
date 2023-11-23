@@ -2,44 +2,44 @@
 
 ## Log in
 
--   Endpoint path: /login
--   Endpoint method: POST
+- Endpoint path: /login
+- Endpoint method: POST
 
--   Request shape (form):
+- Request shape (form):
 
-    -   username: string
-    -   password: string
+  - username: string
+  - password: string
 
--   Response: Account information and a token
--   JSON Shape
-    ```json
-    {
-      "account": {
-        «key»: type»,
-      },
-      "token": string
-    }
-    ```
+- Response: Account information and a token
+- JSON Shape
+  ```json
+  {
+    "account": {
+      «key»: type»,
+    },
+    "token": string
+  }
+  ```
 
 ## Log out
 
--   Endpoint path: /logout
--   Endpoint method: DELETE
+- Endpoint path: /logout
+- Endpoint method: DELETE
 
--   Headers:
+- Headers:
 
-    -   Authorization: Bearer token
+  - Authorization: Bearer token
 
--   Response: Always true
--   JSON Shape
-    ```json
-    true
-    ```
+- Response: Always true
+- JSON Shape
+  ```json
+  true
+  ```
 
 ## List Decks
 
--   Endpoint path: /api/decks/
--   Endpoint method: GET
+- Endpoint path: /api/decks/
+- Endpoint method: GET
 
 ### Description
 
@@ -54,6 +54,7 @@ Output:
   "decks": [
     {
     "id": int,
+    "user_id": int,
     "name": str,
     "public_status": bool,
     "total_cards": int,
@@ -61,6 +62,7 @@ Output:
   },
   {
     "id": int,
+    "user_id": int,
     "name": str,
     "public_status": bool,
     "total_cards": int,
@@ -72,8 +74,8 @@ Output:
 
 ## Show Deck
 
--   Endpoint path: /api/decks/{:id}
--   Endpoint method: GET
+- Endpoint path: /api/decks/{:deck_id}
+- Endpoint method: GET
 
 ### Description
 
@@ -81,20 +83,12 @@ This will be the Deck api view for the JSON we can utilize on the front end.
 
 ### JSON Shape
 
-This will be the Deck api view for the JSON we can utilize on the front end.
-
-### JSON Shape
-
-Output:
 Output:
 
 ```JSON
 {
     "name": str,
-    "public_status": bool,
-    "total_cards": int,
-    "total_touched_cards": int,
-    "name": str,
+    "user_id": int,
     "public_status": bool,
     "total_cards": int,
     "total_touched_cards": int,
@@ -103,12 +97,11 @@ Output:
 
 ## Delete Deck
 
--   Endpoint path: /api/decks/{:id}
--   Endpoint method: DELETE
+- Endpoint path: /api/decks/{:deck_id}
+- Endpoint method: DELETE
 
 ### Description
 
-This will be the delete method api for each card deck.
 This will be the delete method api for each card deck.
 
 ### JSON Shape
@@ -129,33 +122,18 @@ Output:
 
 ```JSON
 {
-  "deleted": bool
   "deleted": bool
 }
 ```
 
 ## Create Deck
 
--   Endpoint path: /api/decks/
--   Endpoint method: POST
+- Endpoint path: /api/{:user_id}/decks/
+- Endpoint method: POST
 
 ### Description
 
 This will be the create method api for each card deck.
-This will be the create method api for each card deck.
-
-### JSON Shape
-
-Input:
-
-```JSON
-{
-  "name": str,
-  "public_status": bool (default=false),
-}
-```
-
-Output:
 
 ### JSON Shape
 
@@ -173,6 +151,7 @@ Output:
 ```JSON
 {
   "id": int,
+  "user_id": int,
   "name": str,
   "public_status": bool,
   "id": int,
@@ -183,28 +162,12 @@ Output:
 
 ## Update Deck
 
-## Update Deck
-
--   Endpoint path: /api/decks/{:id}
--   Endpoint method: PUT
+- Endpoint path: /api/{:user_id}/decks/{:deck_id}
+- Endpoint method: PUT
 
 ### Description
 
 This will be the udpate method api for each card deck.
-This will be the udpate method api for each card deck.
-
-### JSON Shape
-
-Input:
-
-```JSON
-{
-  "name": str,
-  "public_status": bool,
-}
-```
-
-Output:
 
 ### JSON Shape
 
@@ -222,9 +185,7 @@ Output:
 ```JSON
 {
   "id": int,
-  "name": str,
-  "public_status": bool,
-  "id": int,
+  "user_id": int,
   "name": str,
   "public_status": bool,
 }
@@ -232,13 +193,13 @@ Output:
 
 ## List Cards
 
--   Endpoint path: /api/cards/
--   Endpoint method: GET
+- Endpoint path: /api/{:deck_id}/cards
+- Endpoint method: GET
 
 ### Description
 
--   Api view to show a list of cards.
--   Api returns all cards with the deck id it belongs to, so we can filter on the front end.
+- Api view to show a list of cards.
+- Api returns all cards with the deck id it belongs to, so we can filter on the front end.
 
 ### JSON Shape
 
@@ -276,12 +237,12 @@ Output:
 
 ## Show Card
 
--   Endpoint path: /api/cards/{:id}
--   Endpoint method: GET
+- Endpoint path: /api/{:deck_id}/cards/{:card_id}
+- Endpoint method: GET
 
 ### Description
 
--   Api view to show card details.
+- Api view to show card details.
 
 ### JSON Shape
 
@@ -299,12 +260,12 @@ Output:
 
 ## Create Card
 
--   Endpoint path: /api/cards/
--   Endpoint method: PUT
+- Endpoint path: /api/{:deck_id}/cards/
+- Endpoint method: POST
 
 ### Description
 
--   Api view to create a new card.
+- Api view to create a new card.
 
 ### JSON Shape
 
@@ -334,12 +295,12 @@ Output:
 
 ## Update Card
 
--   Endpoint path: /api/cards/{:id}
--   Endpoint method: PUT
+- Endpoint path: /api/{:deck_id}/cards/{:card_id}
+- Endpoint method: PUT
 
 ### Description
 
--   Api view to update an existing card.
+- Api view to update an existing card.
 
 ### JSON Shape
 
@@ -369,12 +330,12 @@ Output:
 
 ## Delete Card
 
--   Endpoint path: /api/cards/{:id}
--   Endpoint method: PUT
+- Endpoint path: /api/{:deck_id}/cards/{:card_id}
+- Endpoint method: PUT
 
 ### Description
 
--   Api view to update an existing card.
+- Api view to update an existing card.
 
 ### JSON Shape
 
@@ -387,19 +348,18 @@ Output:
 ```JSON
 {
   "deleted": bool
-  "deleted": bool
 }
 ```
 
-## List Answers
+## List Options
 
--   Endpoint path: /api/answer/{:id}
--   Endpoint method: GET
+- Endpoint path: /api/option/{:option_id}
+- Endpoint method: GET
 
 ### Description
 
--   Api view to list answers for each card.
--   Api returns all answers with the card id it belongs to, so we can filter on the front end.
+- Api view to list answers for each card.
+- Api returns all answers with the card id it belongs to, so we can filter on the front end.
 
 ### JSON Shape
 
@@ -425,14 +385,14 @@ Output:
 
 ```
 
-## Show Answer
+## Show Option
 
--   Endpoint path: /api/answer/{:id}
--   Endpoint method: PUT
+- Endpoint path: /api/ption/{:option_id}
+- Endpoint method: PUT
 
 ### Description
 
--   Api view to show answer.
+- Api view to show ption.
 
 ### JSON Shape
 
@@ -442,19 +402,19 @@ Output:
 {
   "id": int,
   "card_id": int,
-  "text": str,
+  "possible_answer": str,
   "is_correct": bool
 }
 ```
 
-## Delete Answer
+## Delete Option
 
--   Endpoint path: /api/answer/{:id}
--   Endpoint method: DELETE
+- Endpoint path: /api/option/{:option_id}
+- Endpoint method: DELETE
 
 ### Description
 
--   Api to delete an answer
+- Api to delete an option
 
 ### JSON Shape
 
@@ -468,14 +428,14 @@ Not needed. Id will be in the href/url of the DELETE request.
 }
 ```
 
-## Update Answer
+## Update Option
 
--   Endpoint path:/api/answers/{:id}
--   Endpoint method:PUT
+- Endpoint path:/api/option/{:option_id}
+- Endpoint method:PUT
 
 ### Description
 
-API view to update an existing answer.
+API view to update an existing option.
 
 ### JSON Shape
 
@@ -494,26 +454,26 @@ Output:
 {
   "id": int,
   "card_id": int,
-  "text": str,
+  "possible_answer": str,
   "is_correct": bool
 }
 ```
 
 ## List Dates
 
--   Endpoint path: /api/date/
--   Endpoint method: get
-    ​
+- Endpoint path: /api/date/
+- Endpoint method: get
+  ​
 
 ### Description
 
--   get a list of all the dates.
-    ​
+- get a list of all the dates.
+  ​
 
 ### JSON Shape
 
--   Api view to list answers for each card.
--   Api returns all answers with the card id it belongs to, so we can filter on the front end.
+- Api view to list answers for each card.
+- Api returns all answers with the card id it belongs to, so we can filter on the front end.
 
 ### JSON Shape
 
@@ -539,14 +499,14 @@ Output:
 
 ```
 
-## Show Answer
+## Show Option
 
--   Endpoint path: /api/answer/{:id}
--   Endpoint method: PUT
+- Endpoint path: /api/answer/{:option_id}
+- Endpoint method: PUT
 
 ### Description
 
--   Api view to show answer.
+- Api view to show answer.
 
 ### JSON Shape
 
@@ -556,21 +516,21 @@ Output:
 {
   "id": int,
   "card_id": int,
-  "text": str,
+  "possible_answer": str,
   "is_correct": bool
 }
 ```
 
-## Delete Answer
+## Delete Option
 
--   Endpoint path: /api/answer/{:id}
--   Endpoint method: DELETE
+- Endpoint path: /api/option/{:option_id}
+- Endpoint method: DELETE
 
 ### Description
 
--   Api to delete an answer
+- Api to delete an option
 
-### JSON Shape
+#option\_## JSON Shape
 
 Input:
 
@@ -582,14 +542,14 @@ Not needed. Id will be in the href/url of the DELETE request.
 }
 ```
 
-## Update Answer
+## Update Option
 
--   Endpoint path:/api/answers/{:id}
--   Endpoint method:PUT
+- Endpoint path:/api/options/{:options_id}
+- Endpoint method:PUT
 
 ### Description
 
-API view to update an existing answer.
+API view to update an existing options.
 
 ### JSON Shape
 
@@ -608,30 +568,26 @@ Output:
 {
   "id": int,
   "card_id": int,
-  "text": str,
+  "possible_answer": str,
   "is_correct": bool
 }
 ```
 
 ## List Dates
 
--   Endpoint path: /api/date/
--   Endpoint method: get
-    ​
+- Endpoint path: /api/date/
+- Endpoint method: get
+  ​
 
 ### Description
 
--   get a list of all the dates.
-    ​
+- get a list of all the dates.
+  ​
 
 ### JSON Shape
 
 ```JSON
 {
-  "id": int,
-  "user_id": int,
-  "date": date,
-  "studied_today": bool
   "id": int,
   "user_id": int,
   "date": date,
@@ -641,13 +597,13 @@ Output:
 
 ## Show User
 
--   Endpoint path: /api/user/{:id}
--   Endpoint method: GET
+- Endpoint path: /api/user/{:user_id}
+- Endpoint method: GET
 
 ### Description
 
--   Api to view user details.
--   This will be displayed on the dashboard.
+- Api to view user details.
+- This will be displayed on the dashboard.
 
 ### JSON Shape
 
@@ -663,8 +619,8 @@ Output:
 
 ## Create User
 
--   Endpoint path:/api/users/
--   Endpoint method:POST
+- Endpoint path:/api/users/
+- Endpoint method:POST
 
 ### Description
 
@@ -695,14 +651,14 @@ Output:
 
 ## Update User
 
--   Endpoint path: /api/answer/{:id}
--   Endpoint method: PUT
-    ​
+- Endpoint path: /api/answer/{:user_id}
+- Endpoint method: PUT
+  ​
 
 ### Description
 
--   Edit User profile (picture/password/name)
-    ​
+- Edit User profile (picture/password/name)
+  ​
 
 ### JSON Shape
 
@@ -716,14 +672,14 @@ Output:
 
 ## List Chat Rooms
 
--   Endpoint path: /api/rooms/{:id}
--   Endpoint method: GET
-    ​
+- Endpoint path: /api/rooms/{:user_id}
+- Endpoint method: GET
+  ​
 
 ### Description
 
--   Api view to show a list of chat rooms
-    ​
+- Api view to show a list of chat rooms
+  ​
 
 ### JSON Shape
 
@@ -747,14 +703,14 @@ Output:
 
 ## Show Chat Room
 
--   Endpoint path: /api/name/{:id}
--   Endpoint method: GET
-    ​
+- Endpoint path: /api/rooms/{:room_id}
+- Endpoint method: GET
+  ​
 
 ### Description
 
--   Api view to show a specific chat room
-    ​
+- Api view to show a specific chat room
+  ​
 
 ### JSON Shape
 
@@ -778,14 +734,14 @@ Output:
 
 ## Create Chat Room
 
--   Endpoint path: /api/name/create
--   Endpoint method: POST
-    ​
+- Endpoint path: /api/rooms
+- Endpoint method: POST
+  ​
 
 ### Description
 
--   Api view for a user to create a chat room
-    ​
+- Api view for a user to create a chat room
+  ​
 
 ### JSON Shape
 
@@ -809,14 +765,14 @@ Output:
 
 ## Delete Chat Room
 
--   Endpoint path: /api/name/{:id}
--   Endpoint method: DELETE
-    ​
+- Endpoint path: /api/rooms/{:room_id}
+- Endpoint method: DELETE
+  ​
 
 ### Description
 
--   Api view to delete a chat room
-    ​
+- Api view to delete a chat room
+  ​
 
 ### JSON Shape
 
@@ -827,8 +783,8 @@ Not needed. Id will be in the href/url of the DELETE request.
 Output:
 ​
 
--   Api to view user details.
--   This will be displayed on the dashboard.
+- Api to view user details.
+- This will be displayed on the dashboard.
 
 ### JSON Shape
 
@@ -844,8 +800,8 @@ Output:
 
 ## Create User
 
--   Endpoint path:/api/users/
--   Endpoint method:POST
+- Endpoint path:/api/users/
+- Endpoint method:POST
 
 ### Description
 
@@ -876,14 +832,14 @@ Output:
 
 ## Update User
 
--   Endpoint path: /api/answer/{:id}
--   Endpoint method: PUT
-    ​
+- Endpoint path: /api/users/{:user_id}
+- Endpoint method: PUT
+  ​
 
 ### Description
 
--   Edit User profile (picture/password/name)
-    ​
+- Edit User profile (picture/password/name)
+  ​
 
 ### JSON Shape
 
@@ -897,14 +853,14 @@ Output:
 
 ## List Chat Rooms
 
--   Endpoint path: /api/name/{:id}
--   Endpoint method: GET
-    ​
+- Endpoint path: /api/rooms/{:room_id}
+- Endpoint method: GET
+  ​
 
 ### Description
 
--   Api view to show a list of chat rooms
-    ​
+- Api view to show a list of chat rooms
+  ​
 
 ### JSON Shape
 
@@ -928,14 +884,14 @@ Output:
 
 ## Show Chat Room
 
--   Endpoint path: /api/rooms/{:id}
--   Endpoint method: GET
-    ​
+- Endpoint path: /api/rooms/{:room_id}
+- Endpoint method: GET
+  ​
 
 ### Description
 
--   Api view to show a specific chat room
-    ​
+- Api view to show a specific chat room
+  ​
 
 ### JSON Shape
 
@@ -959,14 +915,14 @@ Output:
 
 ## Create Chat Room
 
--   Endpoint path: /api/rooms/
--   Endpoint method: POST
-    ​
+- Endpoint path: /api/rooms/
+- Endpoint method: POST
+  ​
 
 ### Description
 
--   Api view for a user to create a chat room
-    ​
+- Api view for a user to create a chat room
+  ​
 
 ### JSON Shape
 
@@ -990,14 +946,14 @@ Output:
 
 ## Delete Chat Room
 
--   Endpoint path: /api/rooms/{:id}
--   Endpoint method: DELETE
-    ​
+- Endpoint path: /api/rooms/{:room_id}
+- Endpoint method: DELETE
+  ​
 
 ### Description
 
--   Api view to delete a chat room
-    ​
+- Api view to delete a chat room
+  ​
 
 ### JSON Shape
 
@@ -1010,21 +966,20 @@ Output:
 
 ```JSON
 {
-  "deleted": bool
   "deleted": bool
 }
 ```
 
 ## Create Message
 
--   Endpoint path: api/message/create
--   Endpoint method: POST
-    ​
+- Endpoint path: api/message/
+- Endpoint method: POST
+  ​
 
 ### Description
 
--   Api view for a user to create a message and send to another user
-    ​
+- Api view for a user to create a message and send to another user
+  ​
 
 ### JSON Shape
 
@@ -1053,29 +1008,17 @@ Output:
 
 ## Show Message
 
--   Endpoint path: api/messages/{:id}
--   Endpoint method: GET
-    ​
-    ​
+- Endpoint path: api/messages/{:message_id}
+- Endpoint method: GET
+  ​
+  ​
 
 ### Description
 
--   Api view for a user to create a message and send to another user
-    ​
+- Api view for a user to create a message and send to another user
+  ​
 
 ### JSON Shape
-
-Input:
-
-```JSON
-{
-  "id": int,
-  "user_id": int,
-  "chat_room_id": int,
-  "text": str,
-  "date_created": datetime
-}
-```
 
 Output:
 ​
@@ -1085,60 +1028,5 @@ Output:
   "chat_room_id": int,
   "text": str,
   "date_created": datetime
-}
-```
-
-## Show Message
-
--   Endpoint path: api/messages/{:id}
--   Endpoint method: GET
-    ​
-
-### Description
-
--   Api view to show messages
-    ​
-
-### JSON Shape
-
-Input:
-
-```JSON
-{
-  "id": int,
-  "user_id": int,
-  "chat_room_id": int,
-}
-```
-
-Output:
-​
-
--   Api view to show messages
-    ​
-
-### JSON Shape
-
-Input:
-
-```JSON
-{
-  "id": int,
-  "user_id": int,
-  "chat_room_id": int,
-}
-```
-
-Output:
-​
-
-```JSON
-{
-  "chat_room_id": int,
-  "text": str,
-  "date_created": datetime,
-  "chat_room_id": int,
-  "text": str,
-  "date_created": datetime,
 }
 ```
