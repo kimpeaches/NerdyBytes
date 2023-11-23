@@ -261,7 +261,7 @@ Output:
 ## Create Card
 
 - Endpoint path: /api/{:deck_id}/cards/
-- Endpoint method: PUT
+- Endpoint method: POST
 
 ### Description
 
