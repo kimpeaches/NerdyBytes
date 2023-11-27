@@ -16,9 +16,33 @@ class DeckOut(BaseModel):
     id: int
     user_id: int
     name: str
+    public_status: bool = False
+    study_count: int = 0
+    total_cards: int = 0
 
 
 class DeckRepository:
+    def get_one(self, id: int) -> Union[DeckOut, Error]:
+        with pool.connection() as conn:
+            with conn.cursor() as db:
+                result = db.execute(
+                    """
+                    SELECT * FROM deck WHERE id = %s;
+                    """,
+                    [id],
+                )
+                deck = result.fetchone()
+                if deck is None:
+                    return Error(message="Deck not found")
+                return DeckOut(
+                    id=deck[0],
+                    user_id=deck[1],
+                    name=deck[5],
+                    public_status=deck[2],
+                    study_count=deck[3],
+                    total_cards=deck[4],
+                )
+
     def create(self, info: DeckIn) -> Union[DeckOut, Error]:
         try:
             info = DeckIn(**info.dict())
