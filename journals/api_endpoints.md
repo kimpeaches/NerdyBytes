@@ -387,7 +387,7 @@ Output:
 
 ## Create Option
 
-- Endpoint path: /api/ption/{:option_id}
+- Endpoint path: /api/{user_id}/deck/{deck_id}/card/{card_id}/option
 - Endpoint method: PUT
 
 ### Description
