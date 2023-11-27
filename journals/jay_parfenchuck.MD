@@ -10,3 +10,12 @@ This week, our team successfully accomplished several key milestones in our proj
 While we initiated work on our authentication module, we were unable to complete it within this timeframe. We plan to prioritize this task starting Monday. The team has demonstrated exceptional dedication and efficiency, particularly through our adoption of mob programming techniques.
 
 This experience has been immensely valuable, providing us with practical insights into the agile workflow methodologies commonly employed in professional settings. We are enthusiastic about the progress we have made and look forward to continuing our momentum in the coming week.
+
+
+## November 27th, 2023
+
+This week, our team has been concentrating on finalizing the development of our endpoints. Progress on the backend has been massive, and we are optimistic about completing it within this timeframe. We have successfully established the foundation framework for our login page and intend further it by integrating a high-quality animated GIF login feature, as suggested by Harold and Jeff.
+
+However, I encountered a technical anomaly: a boolean I implemented for the card function is defaulting to true, despite being set to false in the SQL database. The cause of this discrepancy is not immediately clear, and further research is required to find this out.
+
+Overall, our team is confident in the progress of our project. We remain committed to maintaining this momentum and look foward to finishing this soon with the end seeming closer in sight!
