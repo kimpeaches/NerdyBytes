@@ -4,6 +4,7 @@ volumes:
 services:
     fastapi:
         environment:
+            SIGNING_KEY: 79632ce6089c52991a16fb4c6819192c534c1e9c5fdf7923c92058dada671220
             DATABASE_URL: postgresql://example_user:secret@postgres/example_db # postgresql://<<db_user>>:<<db_password>>@<<host>>/<<db_name>>.
             CORS_HOST: http://localhost:3000
         build:
@@ -16,7 +17,7 @@ services:
 
     ghi:
         image: node:lts-bullseye
-        command: /bin/docubash run.sh
+        command: /bin/bash run.sh
         working_dir: /app
         volumes:
             - ./ghi:/app
