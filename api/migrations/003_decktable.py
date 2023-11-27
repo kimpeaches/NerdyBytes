@@ -10,7 +10,7 @@ steps = [
             total_cards INT DEFAULT 0,
             name VARCHAR(75) NOT NULL,
             FOREIGN KEY (user_id) REFERENCES users(id)
-);
+        );
         """,
         # "Down" SQL statement
         """

@@ -385,6 +385,38 @@ Output:
 
 ```
 
+## Create Option
+
+- Endpoint path: /api/{user_id}/deck/{deck_id}/card/{card_id}/option
+- Endpoint method: PUT
+
+### Description
+
+- Api view to show ption.
+
+### JSON Shape
+
+Input:
+
+```JSON
+{
+  "card_id": int,
+  "possible_answer": str,
+  "is_correct": bool
+}
+```
+
+Output:
+
+```JSON
+{
+  "id": int,
+  "card_id": int,
+  "possible_answer": str,
+  "is_correct": bool
+}
+```
+
 ## Show Option
 
 - Endpoint path: /api/ption/{:option_id}

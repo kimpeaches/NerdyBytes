@@ -10,7 +10,7 @@ steps = [
             right_count INT DEFAULT 0,
             flag BOOLEAN DEFAULT false,
             FOREIGN KEY (deck_id) REFERENCES deck(id)
-);
+        );
         """,
         # "Down" SQL statement
         """
