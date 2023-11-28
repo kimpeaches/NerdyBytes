@@ -1,5 +1,24 @@
 # Journals
 
+## 2023-11-26 20:49:56
+
+### Items worked on today:
+
+- Approved merge request.
+- Assist a teammate with an endpoint bug.
+- Add Options Table to the database.
+- Add Create Options endpoint.
+- Started implementing list cards endpoint.
+
+### Reflection on any design conversations that I had
+
+- Urls for endpoints need to be revisited, I'm not so sure these long ones are being done right.
+
+### At least one ah-ha! moment that you had during your coding, however small
+
+- Chaining multiple terminal commands brings back the feeling of doing scripting automation at my old job.
+- Almost 20 years of troubleshooting desktop computers for C-Suite execs to senior software engineers and everything in between has translated pretty well to troubleshooting code. Managing an IT team for five years has helped me work in this group dynamic. I am grateful for my past experiences and great mentors over the years.
+
 ## 2023-11-21 19:00:03
 
 ### Items worked on today:
