@@ -4,9 +4,11 @@ from fastapi import (
     status,
     APIRouter,
     Request,
+    Response,
 )
+from typing import Union
 from pydantic import BaseModel
-from queries.deck import DeckIn, DeckRepository, DeckOut
+from queries.deck import DeckIn, DeckRepository, DeckOut, Error
 from authenticator import authenticator
 
 
@@ -59,4 +61,24 @@ def get_one_deck(
             detail="Deck not found.",
         )
 
+    return deck
+
+
+@router.put(
+    "/api/{user_id}/deck/{deck_id}", response_model=Union[DeckOut, Error]
+)
+def update_deck(
+    deck_id: int,
+    info: DeckIn,
+    response: Response,
+    account_data: dict = Depends(authenticator.get_current_account_data),
+    repo: DeckRepository = Depends(),
+) -> Union[DeckOut, Error]:
+    try:
+        deck = repo.update(deck_id, info)
+    except NoDeckError:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Cannot update deck.",
+        )
     return deck

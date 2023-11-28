@@ -10,6 +10,9 @@ class Error(BaseModel):
 class DeckIn(BaseModel):
     name: str
     user_id: int
+    public_status: bool = False
+    study_count: int = 0
+    total_cards: int = 0
 
 
 class DeckOut(BaseModel):
@@ -22,6 +25,34 @@ class DeckOut(BaseModel):
 
 
 class DeckRepository:
+    def update(self, deck_id: int, info: DeckIn) -> Union[DeckOut, Error]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        UPDATE deck
+                        SET user_id = %s
+                            , name = %s
+                            , public_status = %s
+                            , study_count = %s
+                            , total_cards = %s
+                            WHERE id = %s
+                        """,
+                        [
+                            info.user_id,
+                            info.name,
+                            info.public_status,
+                            info.study_count,
+                            info.total_cards,
+                            deck_id,
+                        ],
+                    )
+                    return self.deck_in_to_out(deck_id, info)
+        except Exception as e:
+            print(e)
+            return {"message": "Could not update a deck"}
+
     def get_one(self, id: int) -> Union[DeckOut, Error]:
         with pool.connection() as conn:
             with conn.cursor() as db:
