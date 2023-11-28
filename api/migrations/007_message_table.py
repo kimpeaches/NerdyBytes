@@ -4,7 +4,7 @@ steps = [
         """
         CREATE TABLE message (
             text VARCHAR(8000),
-            created DATE NOT NULL,
+            created DATE,
             username VARCHAR(20),
             chat_room_id INT,
             FOREIGN KEY (username) REFERENCES users(username),
