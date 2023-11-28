@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from queries.accounts import pool
+from queries.pool import pool
 from typing import Union, Type
 import inspect
 from fastapi import Form

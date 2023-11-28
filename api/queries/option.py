@@ -1,5 +1,5 @@
 from pydantic import BaseModel, ValidationError
-from queries.accounts import pool
+from queries.pool import pool
 from typing import Union
 
 

@@ -1,6 +1,6 @@
 from fastapi import Depends, HTTPException, status, APIRouter, Request
 from pydantic import BaseModel
-from queries.card import CardIn, CardRepository
+from queries.card import CardIn, CardRepository, CardOut
 from authenticator import authenticator
 from typing import List
 
@@ -41,13 +41,13 @@ async def create_card(
     return card
 
 
-@router.get("/api/{user_id}/deck/{deck_id}/card", response_model=List[CardIn])
+@router.get("/api/{user_id}/deck/{deck_id}/card", response_model=List[CardOut])
 async def get_all_cards(
     request: Request,
     deck_id: int,
     account_data: dict = Depends(authenticator.get_current_account_data),
     repo: CardRepository = Depends(),
-) -> List[CardIn]:
+) -> List[CardOut]:
     try:
         cards = repo.get_all(deck_id)
     except NoCardError:

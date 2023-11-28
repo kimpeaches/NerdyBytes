@@ -1,6 +1,6 @@
 from pydantic import BaseModel, BaseConfig, ValidationError, validator
 from pydantic.fields import ModelField
-from queries.accounts import pool
+from queries.pool import pool
 import time
 from typing import Union, Optional
 from pydantic.typing import is_union, get_args, get_origin

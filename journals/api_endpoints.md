@@ -2,6 +2,8 @@
 
 ## Log in
 
+- [x] Issue Created
+
 - Endpoint path: /login
 - Endpoint method: POST
 
@@ -23,6 +25,8 @@
 
 ## Log out
 
+- [x] Issue Created
+
 - Endpoint path: /logout
 - Endpoint method: DELETE
 
@@ -37,6 +41,8 @@
   ```
 
 ## List Decks
+
+- [x] Issue Created
 
 - Endpoint path: /api/decks/
 - Endpoint method: GET
@@ -74,6 +80,8 @@ Output:
 
 ## Show Deck
 
+- [x] Issue Created
+
 - Endpoint path: /api/decks/{:deck_id}
 - Endpoint method: GET
 
@@ -97,20 +105,14 @@ Output:
 
 ## Delete Deck
 
+- [x] Issue Created
+
 - Endpoint path: /api/decks/{:deck_id}
 - Endpoint method: DELETE
 
 ### Description
 
 This will be the delete method api for each card deck.
-
-### JSON Shape
-
-Input:
-
-Not needed. Id will be in the href/url of the DELETE request.
-
-Output:
 
 ### JSON Shape
 
@@ -127,6 +129,8 @@ Output:
 ```
 
 ## Create Deck
+
+- [x] Issue Created
 
 - Endpoint path: /api/{:user_id}/decks/
 - Endpoint method: POST
@@ -162,6 +166,8 @@ Output:
 
 ## Update Deck
 
+- [x] Issue Created
+
 - Endpoint path: /api/{:user_id}/decks/{:deck_id}
 - Endpoint method: PUT
 
@@ -192,6 +198,8 @@ Output:
 ```
 
 ## List Cards
+
+- [x] Issue Created
 
 - Endpoint path: /api/{:deck_id}/cards
 - Endpoint method: GET
@@ -237,6 +245,8 @@ Output:
 
 ## Show Card
 
+- [x] Issue Created
+
 - Endpoint path: /api/{:deck_id}/cards/{:card_id}
 - Endpoint method: GET
 
@@ -259,6 +269,8 @@ Output:
 ```
 
 ## Create Card
+
+- [x] Issue Created
 
 - Endpoint path: /api/{:deck_id}/cards/
 - Endpoint method: POST
@@ -295,6 +307,8 @@ Output:
 
 ## Update Card
 
+- [x] Issue Created
+
 - Endpoint path: /api/{:deck_id}/cards/{:card_id}
 - Endpoint method: PUT
 
@@ -330,6 +344,8 @@ Output:
 
 ## Delete Card
 
+- [x] Issue Created
+
 - Endpoint path: /api/{:deck_id}/cards/{:card_id}
 - Endpoint method: PUT
 
@@ -352,6 +368,8 @@ Output:
 ```
 
 ## List Options
+
+- [x] Issue Created
 
 - Endpoint path: /api/option/{:option_id}
 - Endpoint method: GET
@@ -387,6 +405,8 @@ Output:
 
 ## Create Option
 
+- [x] Issue Created
+
 - Endpoint path: /api/{user_id}/deck/{deck_id}/card/{card_id}/option
 - Endpoint method: PUT
 
@@ -419,6 +439,8 @@ Output:
 
 ## Show Option
 
+- [x] Issue Created
+
 - Endpoint path: /api/ption/{:option_id}
 - Endpoint method: PUT
 
@@ -441,6 +463,8 @@ Output:
 
 ## Delete Option
 
+- [x] Issue Created
+
 - Endpoint path: /api/option/{:option_id}
 - Endpoint method: DELETE
 
@@ -461,6 +485,8 @@ Not needed. Id will be in the href/url of the DELETE request.
 ```
 
 ## Update Option
+
+- [x] Issue Created
 
 - Endpoint path:/api/option/{:option_id}
 - Endpoint method:PUT
@@ -492,6 +518,8 @@ Output:
 ```
 
 ## List Dates
+
+- [x] Issue Created
 
 - Endpoint path: /api/date/
 - Endpoint method: get
@@ -531,103 +559,9 @@ Output:
 
 ```
 
-## Show Option
-
-- Endpoint path: /api/answer/{:option_id}
-- Endpoint method: PUT
-
-### Description
-
-- Api view to show answer.
-
-### JSON Shape
-
-Output:
-
-```JSON
-{
-  "id": int,
-  "card_id": int,
-  "possible_answer": str,
-  "is_correct": bool
-}
-```
-
-## Delete Option
-
-- Endpoint path: /api/option/{:option_id}
-- Endpoint method: DELETE
-
-### Description
-
-- Api to delete an option
-
-#option\_## JSON Shape
-
-Input:
-
-Not needed. Id will be in the href/url of the DELETE request.
-
-```JSON
-{
-  "delted": true
-}
-```
-
-## Update Option
-
-- Endpoint path:/api/options/{:options_id}
-- Endpoint method:PUT
-
-### Description
-
-API view to update an existing options.
-
-### JSON Shape
-
-Input:
-
-```JSON
-{
-  "text": str,
-  "is_correct": bool
-}
-```
-
-Output:
-
-```JSON
-{
-  "id": int,
-  "card_id": int,
-  "possible_answer": str,
-  "is_correct": bool
-}
-```
-
-## List Dates
-
-- Endpoint path: /api/date/
-- Endpoint method: get
-  ​
-
-### Description
-
-- get a list of all the dates.
-  ​
-
-### JSON Shape
-
-```JSON
-{
-  "id": int,
-  "user_id": int,
-  "date": date,
-  "studied_today": bool
-}
-```
-
 ## Show User
+
+- [x] Issue Created
 
 - Endpoint path: /api/user/{:user_id}
 - Endpoint method: GET
@@ -649,39 +583,9 @@ Output:
 }
 ```
 
-## Create User
-
-- Endpoint path:/api/users/
-- Endpoint method:POST
-
-### Description
-
-API view to create a new user account.
-
-### JSON Shape
-
-Input:
-
-```JSON
-{
-  "username": str,
-  "password": str,
-  "profile_picture": picture_url
-}
-```
-
-Output:
-
-```JSON
-{
-  "id": int,
-  "username": str,
-  "profile_picture": picture_url,
-  "creation_date": datetime
-}
-```
-
 ## Update User
+
+- [x] Issue Created
 
 - Endpoint path: /api/answer/{:user_id}
 - Endpoint method: PUT
@@ -703,6 +607,8 @@ Output:
 ```
 
 ## List Chat Rooms
+
+- [] Issue Created
 
 - Endpoint path: /api/rooms/{:user_id}
 - Endpoint method: GET
@@ -733,104 +639,9 @@ Output:
 }
 ```
 
-## Show Chat Room
-
-- Endpoint path: /api/rooms/{:room_id}
-- Endpoint method: GET
-  ​
-
-### Description
-
-- Api view to show a specific chat room
-  ​
-
-### JSON Shape
-
-Input:
-
-```JSON
-{
-  "id": int,
-  "name": str,
-}
-```
-
-Output:
-​
-
-```JSON
-{
-  "name": str
-}
-```
-
-## Create Chat Room
-
-- Endpoint path: /api/rooms
-- Endpoint method: POST
-  ​
-
-### Description
-
-- Api view for a user to create a chat room
-  ​
-
-### JSON Shape
-
-Input:
-
-```JSON
-{
-  "id": int,
-  "name": str,
-}
-```
-
-Output:
-​
-
-```JSON
-{
-  "name": str
-}
-```
-
-## Delete Chat Room
-
-- Endpoint path: /api/rooms/{:room_id}
-- Endpoint method: DELETE
-  ​
-
-### Description
-
-- Api view to delete a chat room
-  ​
-
-### JSON Shape
-
-Input:
-​
-Not needed. Id will be in the href/url of the DELETE request.
-​
-Output:
-​
-
-- Api to view user details.
-- This will be displayed on the dashboard.
-
-### JSON Shape
-
-```JSON
-{
-  "id": int,
-  "picture": picture_url,
-  "username": str,
-  "password": str,
-  "streak_count": int
-}
-```
-
 ## Create User
+
+- [x] Issue Created
 
 - Endpoint path:/api/users/
 - Endpoint method:POST
@@ -862,28 +673,9 @@ Output:
 }
 ```
 
-## Update User
-
-- Endpoint path: /api/users/{:user_id}
-- Endpoint method: PUT
-  ​
-
-### Description
-
-- Edit User profile (picture/password/name)
-  ​
-
-### JSON Shape
-
-```JSON
-{
-  "user_name": str,
-  "password": str,
-  "picture": picture_url,
-}
-```
-
 ## List Chat Rooms
+
+- [] Issue Created
 
 - Endpoint path: /api/rooms/{:room_id}
 - Endpoint method: GET
@@ -916,6 +708,8 @@ Output:
 
 ## Show Chat Room
 
+- [] Issue Created
+
 - Endpoint path: /api/rooms/{:room_id}
 - Endpoint method: GET
   ​
@@ -946,6 +740,8 @@ Output:
 ```
 
 ## Create Chat Room
+
+- [] Issue Created
 
 - Endpoint path: /api/rooms/
 - Endpoint method: POST
@@ -978,6 +774,8 @@ Output:
 
 ## Delete Chat Room
 
+- [] Issue Created
+
 - Endpoint path: /api/rooms/{:room_id}
 - Endpoint method: DELETE
   ​
@@ -1003,6 +801,8 @@ Output:
 ```
 
 ## Create Message
+
+- [] Issue Created
 
 - Endpoint path: api/message/
 - Endpoint method: POST
@@ -1039,6 +839,8 @@ Output:
 ```
 
 ## Show Message
+
+- [] Issue Created
 
 - Endpoint path: api/messages/{:message_id}
 - Endpoint method: GET
