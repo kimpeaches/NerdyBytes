@@ -56,3 +56,22 @@ async def get_all_cards(
             detail="Cannot get all cards.",
         )
     return cards
+
+
+@router.delete(
+    "/api/{user_id}/deck/{deck_id}/card/{card_id}", response_model=bool
+)
+async def delete_card(
+    request: Request,
+    card_id: int,
+    account_data: dict = Depends(authenticator.get_current_account_data),
+    repo: CardRepository = Depends(),
+) -> bool:
+    try:
+        result = repo.delete(card_id)
+    except NoCardError:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Cannot delete the card.",
+        )
+    return result

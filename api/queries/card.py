@@ -79,3 +79,16 @@ class CardRepository:
                     )
                     for card in cards
                 ]
+
+    def delete(self, id: int) -> Union[bool, Error]:
+        with pool.connection() as conn:
+            with conn.cursor() as db:
+                result = db.execute(
+                    """
+                    DELETE FROM card WHERE id = %s;
+                    """,
+                    [id],
+                )
+                if result.rowcount == 0:
+                    return Error(message="No card found to delete")
+                return True
