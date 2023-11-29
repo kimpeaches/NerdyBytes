@@ -35,7 +35,8 @@ def get_messages(
     repo: MessageRepository = Depends(),
 ) -> MessageOut:
     try:
-        messages = repo.get_by_username(message_id)
+        messages = repo.get_by_id(message_id)
+
     except MessageError:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
