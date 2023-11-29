@@ -30,7 +30,6 @@ class ChatRoomOut(BaseModel):
     class Config(BaseConfig):
         @classmethod
         def prepare_field(cls, field: ModelField) -> None:
-            # check if field is Optional
             if is_union(get_origin(field.outer_type_)) and type(
                 None
             ) in get_args(field.outer_type_):

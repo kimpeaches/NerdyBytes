@@ -3,6 +3,7 @@ steps = [
         # "Up" SQL statement
         """
         CREATE TABLE message (
+            id SERIAL PRIMARY KEY NOT NULL,
             text VARCHAR(8000),
             created DATE,
             username VARCHAR(20),
