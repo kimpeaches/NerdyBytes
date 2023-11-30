@@ -17,6 +17,11 @@ app.add_middleware(
 )
 
 
+@app.get("/")
+def root():
+    return {"message": "You hit the root path!"}
+
+
 app.include_router(user.router)
 app.include_router(authenticator.router)
 app.include_router(deck.router)

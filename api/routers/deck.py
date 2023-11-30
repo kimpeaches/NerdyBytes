@@ -6,7 +6,7 @@ from fastapi import (
     Request,
     Response,
 )
-from typing import Union
+from typing import List, Union
 from pydantic import BaseModel
 from queries.deck import DeckIn, DeckRepository, DeckOut, Error
 from authenticator import authenticator
@@ -82,3 +82,11 @@ def update_deck(
             detail="Cannot update deck.",
         )
     return deck
+
+
+@router.get("/api/{user_id}/deck", response_model=Union[List[DeckOut], Error])
+def get_all(
+    account_data: dict = Depends(authenticator.get_current_account_data),
+    repo: DeckRepository = Depends(),
+):
+    return repo.get_all()
