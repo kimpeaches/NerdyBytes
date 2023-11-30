@@ -75,3 +75,5 @@ async def delete_card(
             detail="Cannot delete the card.",
         )
     return result
+
+@router.put("/api/{user_id}/deck/{deck_id}/card", response_model=Union[CardOut, Error])
