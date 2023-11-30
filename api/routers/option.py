@@ -48,3 +48,23 @@ async def create_option(
         )
 
     return option
+
+
+@router.delete(
+    "/api/{user_id}/deck/{deck_id}/card/{card_id}/option/{option_id}",
+    response_model=bool,
+)
+async def delete_option(
+    request: Request,
+    option_id: int,
+    account_data: dict = Depends(authenticator.get_current_account_data),
+    repo: OptionRepository = Depends(),
+) -> bool:
+    try:
+        result = repo.delete(option_id)
+    except NoOptionError:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Cannot delete option.",
+        )
+    return result
