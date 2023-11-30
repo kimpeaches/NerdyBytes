@@ -124,19 +124,3 @@ class UserRepository:
     def user_in_to_out(self, id: int, user: UserIn):
         old_data = user.dict()
         return UserOut(id=id, **old_data)
-
-    def update(
-        self, id: int, username: str, hashed_password: str, picture_url: str
-    ) -> UserOut:
-        with pool.connection() as conn:
-            with conn.cursor() as db:
-                db.execute(
-                    """
-                    UPDATE users
-                    SET username = %s, password = %s, picture_url = %s
-                    WHERE id = %s
-                    """,
-                    [username, hashed_password, picture_url, id],
-                )
-
-        return self.get_user_by_id(id)
