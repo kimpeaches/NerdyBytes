@@ -1,5 +1,42 @@
 # Journals
 
+## 2023-11-29 20:49:56
+
+### Items worked on today:
+
+- CI/CD pipeline and deployment.
+- Code unit test and merge into main.
+- Start front end navigation.
+- Help with git issues.
+- Generate some color schemes for the team to vote on.
+
+### Reflection on any design conversations that I had
+
+- I'm glad we're still going to go with the owl animation for the login screen.
+
+### At least one ah-ha! moment that you had during your coding, however small
+
+- Seeing how CI/CD works in the real world is pretty cool. One of my coworkers transitioned from IT Operations to DevOps he's told me what he does. Finally getting to see it in action is very cool.
+
+## 2023-11-26 20:49:56
+
+### Items worked on today:
+
+- Approved merge request.
+- Assist a teammate with an endpoint bug.
+- Add Options Table to the database.
+- Add Create Options endpoint.
+- Started implementing list cards endpoint.
+
+### Reflection on any design conversations that I had
+
+- Urls for endpoints need to be revisited, I'm not so sure these long ones are being done right.
+
+### At least one ah-ha! moment that you had during your coding, however small
+
+- Chaining multiple terminal commands brings back the feeling of doing scripting automation at my old job.
+- Almost 20 years of troubleshooting desktop computers for C-Suite execs to senior software engineers and everything in between has translated pretty well to troubleshooting code. Managing an IT team for five years has helped me work in this group dynamic. I am grateful for my past experiences and great mentors over the years.
+
 ## 2023-11-21 19:00:03
 
 ### Items worked on today:
