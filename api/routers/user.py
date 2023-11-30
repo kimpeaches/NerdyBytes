@@ -101,3 +101,17 @@ async def get_by_cookie(
         "type": "Bearer",
         "account": account,
     }
+
+
+@router.put("/api/user/{id}")
+async def update_user(
+    id: int,
+    info: UserIn,
+    repo: UserRepository = Depends(),
+    current_account_data: dict = Depends(
+        authenticator.get_current_account_data
+    ),
+):
+    hashed_password = authenticator.hash_password(info.password)
+    user = repo.update(id, info.username, hashed_password, info.picture_url)
+    return user
