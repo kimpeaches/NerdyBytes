@@ -1,5 +1,5 @@
 from pydantic import BaseModel, ValidationError
-from queries.accounts import pool
+from queries.pool import pool
 from typing import Union
 
 
@@ -49,3 +49,16 @@ class OptionRepository:
     def option_in_to_out(self, id: int, option: OptionIn):
         old_data = option.dict()
         return OptionOut(id=id, **old_data)
+
+    def delete(self, id: int) -> Union[bool, Error]:
+        with pool.connection() as conn:
+            with conn.cursor() as db:
+                result = db.execute(
+                    """
+                    DELETE FROM option WHERE id = %s;
+                    """,
+                    [id],
+                )
+                if result.rowcount == 0:
+                    return Error(message="No option found to delete")
+                return True

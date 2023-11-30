@@ -3,8 +3,9 @@ steps = [
         # "Up" SQL statement
         """
         CREATE TABLE message (
+            id SERIAL PRIMARY KEY NOT NULL,
             text VARCHAR(8000),
-            created DATE NOT NULL,
+            created DATE,
             username VARCHAR(20),
             chat_room_id INT,
             FOREIGN KEY (username) REFERENCES users(username),
