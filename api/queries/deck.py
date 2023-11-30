@@ -1,6 +1,6 @@
 from pydantic import BaseModel, ValidationError
 from queries.pool import pool
-from typing import Union
+from typing import List, Union
 
 
 class Error(BaseModel):
@@ -25,6 +25,37 @@ class DeckOut(BaseModel):
 
 
 class DeckRepository:
+    def get_all(self) -> Union[List[DeckOut], Error]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT id,
+                        user_id, name,
+                        public_status,
+                        study_count,
+                        total_cards
+                        FROM deck
+                        ORDER BY name;
+                        """
+                    )
+                    result = []
+                    for record in db:
+                        deck = DeckOut(
+                            id=record[0],
+                            user_id=record[1],
+                            name=record[5],
+                            public_status=bool(record[2]),
+                            study_count=record[3],
+                            total_cards=record[4],
+                        )
+                        result.append(deck)
+                    return result
+        except Exception as e:
+            print(e)
+            return {"message": "Could not list all decks!"}
+
     def update(self, deck_id: int, info: DeckIn) -> Union[DeckOut, Error]:
         try:
             with pool.connection() as conn:
