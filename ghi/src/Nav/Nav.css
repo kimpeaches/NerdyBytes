@@ -1,0 +1,42 @@
+/* General Styles */
+.logo {
+  margin-bottom: 0.5rem;
+}
+
+.white-border {
+  border: 3px solid white;
+}
+
+.bg-primary {
+  background-color: var(--primary) !important;
+}
+
+/* Navigation Styles */
+.navbar-container {
+  max-width: 80%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+nav ul li {
+  margin-top: 1.5rem;
+  margin-left: 2rem;
+}
+
+nav a {
+  color: var(--background) !important;
+  font-size: 1.25rem;
+}
+
+/* Media Queries */
+@media (min-width: 992px) {
+  .container {
+    padding-right: 0;
+    padding-left: 0;
+    margin-right: 0;
+    margin-left: 0;
+    max-width: 100%;
+  }
+}

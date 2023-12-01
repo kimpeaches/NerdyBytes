@@ -1,7 +1,8 @@
 import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginForm from "./LoginForm";
-import Messages from "./Message";
+import Nav from "./Nav/Nav";
+import "./App.css";
 
 function App() {
     const domain = /https:\/\/[^/]+/;
@@ -10,17 +11,13 @@ function App() {
     return (
         <div className="container">
             <BrowserRouter basename={basename}>
+                <Nav />
                 <AuthProvider baseUrl="http://localhost:8000">
                     <Routes>
                         <Route
                             exact
                             path="/login"
                             element={<LoginForm />}
-                        ></Route>
-                        <Route
-                            exact
-                            path="/message"
-                            element={<Messages />}
                         ></Route>
                     </Routes>
                 </AuthProvider>
