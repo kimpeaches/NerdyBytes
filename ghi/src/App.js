@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginForm from "./LoginForm";
 import Nav from "./Nav/Nav";
 import "./App.css";
+import Messages from "./Message";
 
 function App() {
     const domain = /https:\/\/[^/]+/;
@@ -18,6 +19,11 @@ function App() {
                             exact
                             path="/login"
                             element={<LoginForm />}
+                        ></Route>
+                        <Route
+                            exact
+                            path="/messages"
+                            element={<Messages />}
                         ></Route>
                     </Routes>
                 </AuthProvider>

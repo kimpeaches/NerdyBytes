@@ -16,7 +16,7 @@ export default function Messages() {
     const lastItem = useRef(0);
     const fetchData = async () => {
         setIsLoading(true);
-        const res = await fetch("/api/messages/", {
+        const res = await fetch("/api/messages", {
             credentials: "include",
         });
         const response = await res.json();
@@ -28,7 +28,7 @@ export default function Messages() {
         e.preventDefault();
         const data = {};
         new FormData(e.target).forEach((value, key) => (data[key] = value));
-        const url = "/api/message";
+        const url = "/api/messages";
         const fetchConfig = {
             method: "POST",
             body: JSON.stringify(data),
