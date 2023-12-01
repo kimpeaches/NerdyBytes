@@ -129,3 +129,12 @@ class DeckRepository:
     def deck_in_to_out(self, id: int, deck: DeckIn):
         old_data = deck.dict()
         return DeckOut(id=id, **old_data)
+
+    def delete(self, id: int) -> Union[bool, Error]:
+        with pool.connection() as conn:
+            with conn.cursor() as db:
+                db.execute("DELETE FROM card WHERE deck_id = %s", [id])
+                result = db.execute("DELETE FROM deck WHERE id = %s", [id])
+                if result.rowcount == 0:
+                    return Error(message="No deck found to delete")
+                return True

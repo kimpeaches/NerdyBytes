@@ -90,3 +90,20 @@ def get_all(
     repo: DeckRepository = Depends(),
 ):
     return repo.get_all()
+
+
+@router.delete("/api/{user_id}/deck/{deck_id}", response_model=bool)
+async def delete_deck(
+    request: Request,
+    deck_id: int,
+    account_data: dict = Depends(authenticator.get_current_account_data),
+    repo: DeckRepository = Depends(),
+) -> bool:
+    try:
+        result = repo.delete(deck_id)
+    except NoDeckError:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Cannot delete deck.",
+        )
+    return result

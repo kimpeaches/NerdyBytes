@@ -2,7 +2,11 @@ from fastapi import Depends, HTTPException, status, APIRouter, Request
 from pydantic import BaseModel
 from queries.card import CardIn, CardRepository, CardOut
 from authenticator import authenticator
-from typing import List
+from typing import List, Union
+
+
+class Error(BaseModel):
+    message: str
 
 
 class NoCardError(ValueError):
@@ -75,3 +79,16 @@ async def delete_card(
             detail="Cannot delete the card.",
         )
     return result
+
+
+@router.put(
+    "/api/{user_id}/deck/{deck_id}/card/{card_id}",
+    response_model=Union[CardOut, Error],
+)
+def update_card(
+    card_id: int,
+    card: CardIn,
+    account_data: dict = Depends(authenticator.get_current_account_data),
+    repo: CardRepository = Depends(),
+) -> Union[CardOut, Error]:
+    return repo.update(card_id, card)
