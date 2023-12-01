@@ -72,7 +72,7 @@ class MessageRepository:
                         MessageOut(
                             id=message[0],
                             text=message[1],
-                            username=message[2],
+                            username=str(message[2]),
                             created=message[3],
                             chat_room_id=message[4],
                         )
