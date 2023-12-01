@@ -8,8 +8,8 @@ class Error(BaseModel):
 
 
 class DeckIn(BaseModel):
-    name: str
     user_id: int
+    name: str
     public_status: bool = False
     study_count: int = 0
     total_cards: int = 0
