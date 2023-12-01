@@ -25,6 +25,37 @@ class CardOut(BaseModel):
 
 
 class CardRepository:
+    def update(self, card_id: int, card: CardIn) -> Union[CardOut, Error]:
+        try:
+            # connect the database
+            with pool.connection() as conn:
+                # get cursor (something to run SQL with)
+                with conn.cursor() as db:
+                    # Run out SELECT statement
+                    db.execute(
+                        """
+                        UPDATE card
+                        SET deck_id = %s
+                        , question = %s
+                        , wrong_count = %s
+                        , right_count = %s
+                        , flag = %s
+                        WHERE id = %s
+                        """,
+                        [
+                            card.deck_id,
+                            card.question,
+                            card.wrong_count,
+                            card.right_count,
+                            card.flag,
+                            card_id,
+                        ],
+                    )
+                    return self.card_in_to_out(card_id, card)
+        except Exception as e:
+            print(e)
+            return {"message": "Could not update a card"}
+
     def create(self, info: CardIn) -> Union[CardOut, Error]:
         try:
             info = CardIn(**info.dict())
