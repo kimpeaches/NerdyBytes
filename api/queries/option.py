@@ -62,3 +62,22 @@ class OptionRepository:
                 if result.rowcount == 0:
                     return Error(message="No option found to delete")
                 return True
+
+    def get(self, id: int) -> OptionOut:
+        with pool.connection() as conn:
+            with conn.cursor() as db:
+                result = db.execute(
+                    """
+                    SELECT *
+                    FROM option
+                    WHERE id = %s
+                    """,
+                    [id],
+                )
+                option = result.fetchone()
+                return OptionOut(
+                    id=option[0],
+                    card_id=option[1],
+                    possible_answer=option[2],
+                    is_correct=option[3],
+                )

@@ -6,7 +6,7 @@ from fastapi import (
     Request,
 )
 from pydantic import BaseModel
-from queries.option import OptionIn, OptionRepository
+from queries.option import OptionIn, OptionRepository, OptionOut
 from authenticator import authenticator
 
 
@@ -68,3 +68,14 @@ async def delete_option(
             detail="Cannot delete option.",
         )
     return result
+
+
+@router.get("/api/option/{id}", response_model=OptionOut)
+async def get_option(
+    id: int,
+    repo: OptionRepository = Depends(),
+    current_account_data: dict = Depends(
+        authenticator.get_current_account_data
+    ),
+):
+    return repo.get(id)
