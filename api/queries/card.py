@@ -27,11 +27,8 @@ class CardOut(BaseModel):
 class CardRepository:
     def update(self, card_id: int, card: CardIn) -> Union[CardOut, Error]:
         try:
-            # connect the database
             with pool.connection() as conn:
-                # get cursor (something to run SQL with)
                 with conn.cursor() as db:
-                    # Run out SELECT statement
                     db.execute(
                         """
                         UPDATE card

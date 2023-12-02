@@ -32,7 +32,8 @@ class DeckRepository:
                     result = db.execute(
                         """
                         SELECT deck.id,
-                        deck.user_id, deck.name,
+                        deck.user_id,
+                        deck.name,
                         deck.public_status,
                         deck.study_count,
                         (SELECT COUNT(*) FROM card
