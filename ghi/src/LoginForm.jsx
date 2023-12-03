@@ -54,8 +54,11 @@ const LoginForm = () => {
                 onChange={(e) => setPassword(e.target.value)}
               ></input>
             </div>
-            <div className="wrapper">
+            <div className="login-btn wrapper">
               <button>Login</button>
+            </div>
+            <div className="sign-up">
+              <button className="mx-auto">Sign Up!</button>
             </div>
           </form>
         </div>
