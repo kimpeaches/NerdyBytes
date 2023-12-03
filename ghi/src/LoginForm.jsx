@@ -1,4 +1,5 @@
 import useToken from "@galvanize-inc/jwtdown-for-react";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "./Login.css";
 
@@ -6,18 +7,16 @@ const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useToken();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const token = login(username, password);
-      if (!token) {
-        throw new Error("Failed to get token after login. Got undefined");
-      }
+      await login(username, password);
+      navigate("/dashboard");
     } catch (error) {
-      console.error(error);
+      console.error("Login failed: ", error);
     }
-    e.target.reset();
   };
 
   return (
