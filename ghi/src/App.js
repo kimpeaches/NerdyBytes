@@ -1,8 +1,8 @@
-import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import LoginForm from "./LoginForm";
+import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 import Nav from "./components/shared/Nav/Nav";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import LoginForm from "./LoginForm";
 import "./App.css";
 
 function App() {
