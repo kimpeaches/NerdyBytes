@@ -1,9 +1,38 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
 
 function UserProfile() {
+  const { token } = useAuthContext();
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    async function getUser() {
+      const userId = 1; // TODO: get the user id from the token
+      const url = `http://localhost:8000/api/user/${userId}`;
+      const fetchOptions = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+        method: "GET",
+      };
+      const response = await fetch(url, fetchOptions);
+      if (response.ok) {
+        const data = await response.json();
+        setUser(data);
+      } else {
+        console.log("Error fetching user");
+      }
+    }
+    getUser();
+  }, [token]);
+
+  console.log(user);
+
   return (
     <div className="user-profile">
-      <h2>#2 This is the User Profile Component</h2>
+      <h2>Hello {user.username}!</h2>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Volutpat diam ut
