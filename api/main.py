@@ -1,6 +1,6 @@
 import os
 from fastapi import FastAPI
-from routers import user, deck, card, option, chat_room, message
+from routers import user, deck, card, option, chat_room, message, dates
 from authenticator import authenticator
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -29,3 +29,4 @@ app.include_router(card.router)
 app.include_router(option.router)
 app.include_router(chat_room.router)
 app.include_router(message.router)
+app.include_router(dates.router)
