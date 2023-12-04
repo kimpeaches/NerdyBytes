@@ -10,14 +10,14 @@ import UserDecks from "../../components/dashboard/UserDecks/UserDecks";
 import "./Dashboard.css";
 
 function Dashboard() {
-  const { token: loggedIn } = useAuthContext();
+  const { token } = useAuthContext();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!loggedIn) {
+    if (!token) {
       navigate("/login");
     }
-  }, [loggedIn, navigate]);
+  }, [token, navigate]);
 
   return (
     <div className="dashboard-container">
