@@ -18,8 +18,13 @@ body {
   font-family: "Grandstander", sans-serif;
   font-weight: 900;
   color: #4321b0;
-  font-size: 3rem;
-  margin-top: 2rem;
+  font-size: 5rem;
+  margin-top: 4rem;
+}
+
+.title,
+.motto {
+  margin-left: 5rem;
 }
 
 .motto {
