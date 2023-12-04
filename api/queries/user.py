@@ -7,10 +7,19 @@ from pydantic.fields import ModelField
 
 
 def as_form(cls: Type[BaseModel]):
+    """
+    Decorator function that converts the class into a form representation.
+
+    Args:
+        cls (Type[BaseModel]): The class to be converted.
+
+    Returns:
+        Type[BaseModel]: The converted class.
+    """
     new_parameters = []
 
     for field_name, model_field in cls.__fields__.items():
-        model_field: ModelField  # type: ignore
+        model_field: ModelField
 
         new_parameters.append(
             inspect.Parameter(
@@ -28,7 +37,7 @@ def as_form(cls: Type[BaseModel]):
 
     sig = inspect.signature(as_form_func)
     sig = sig.replace(parameters=new_parameters)
-    as_form_func.__signature__ = sig  # type: ignore
+    as_form_func.__signature__ = sig
     setattr(cls, "as_form", as_form_func)
     return cls
 

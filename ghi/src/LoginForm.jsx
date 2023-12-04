@@ -6,24 +6,22 @@ const LoginForm = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const { login } = useToken();
-    const handleSubmit = (e) => {
+    const navigate = useNavigate();
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const token = login(username, password);
-            if (!token) {
-                throw new Error(
-                    "Failed to get token after login. Got undefined"
-                );
-            }
+            await login(username, password);
+            navigate("/dashboard");
         } catch (error) {
-            console.error(error);
+            console.error("Login failed: ", error);
         }
-        e.target.reset();
     };
+
     return (
         <>
             <div>
-                <h2 className="title">NerdyBytes</h2>
+                <h1 className="title">NerdyBytes</h1>
                 <h4 className="motto">
                     Unleash your potential, one card at a time.
                 </h4>
@@ -57,7 +55,7 @@ const LoginForm = () => {
                                 onChange={(e) => setPassword(e.target.value)}
                             ></input>
                         </div>
-                        <div className="wrapper">
+                        <div className="login-btn wrapper">
                             <button>Login</button>
                         </div>
                     </form>
