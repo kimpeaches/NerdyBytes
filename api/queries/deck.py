@@ -8,8 +8,8 @@ class Error(BaseModel):
 
 
 class DeckIn(BaseModel):
-    name: str
     user_id: int
+    name: str
     public_status: bool = False
     study_count: int = 0
     total_cards: int = 0
@@ -31,13 +31,15 @@ class DeckRepository:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        SELECT id,
-                        user_id, name,
-                        public_status,
-                        study_count,
-                        total_cards
+                        SELECT deck.id,
+                        deck.user_id,
+                        deck.name,
+                        deck.public_status,
+                        deck.study_count,
+                        (SELECT COUNT(*) FROM card
+                        WHERE card.deck_id = deck.id) as total_cards
                         FROM deck
-                        ORDER BY name;
+                        ORDER BY deck.name;
                         """
                     )
                     result = []
@@ -45,10 +47,10 @@ class DeckRepository:
                         deck = DeckOut(
                             id=record[0],
                             user_id=record[1],
-                            name=record[5],
-                            public_status=bool(record[2]),
-                            study_count=record[3],
-                            total_cards=record[4],
+                            name=record[2],
+                            public_status=bool(record[3]),
+                            study_count=record[4],
+                            total_cards=record[5],
                         )
                         result.append(deck)
                     return result
@@ -89,20 +91,24 @@ class DeckRepository:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                    SELECT * FROM deck WHERE id = %s;
+                    SELECT deck.*,
+                    (SELECT COUNT(*) FROM card
+                    WHERE deck_id = deck.id) as total_cards
+                    FROM deck WHERE id = %s;
                     """,
                     [id],
                 )
                 deck = result.fetchone()
                 if deck is None:
                     return Error(message="Deck not found")
+
                 return DeckOut(
                     id=deck[0],
                     user_id=deck[1],
                     name=deck[5],
                     public_status=deck[2],
                     study_count=deck[3],
-                    total_cards=deck[4],
+                    total_cards=deck[6],
                 )
 
     def create(self, info: DeckIn) -> Union[DeckOut, Error]:
