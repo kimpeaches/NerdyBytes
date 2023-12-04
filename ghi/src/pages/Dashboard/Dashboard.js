@@ -10,15 +10,6 @@ import UserDecks from "../../components/dashboard/UserDecks/UserDecks";
 import "./Dashboard.css";
 
 function Dashboard() {
-  const { token } = useAuthContext();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!token) {
-      navigate("/login");
-    }
-  }, [token, navigate]);
-
   return (
     <div className="dashboard-container">
       <h1>#1 This is the Dashboard Component</h1>
