@@ -1,14 +1,78 @@
-.App {
-  text-align: center;
+:root[data-theme="light"] {
+  --text: rgb(2, 3, 8);
+  --background: rgb(216, 225, 248);
+  --primary: rgb(67, 33, 176);
+  --secondary: rgb(220, 169, 239);
+  --accent: rgb(134, 33, 171);
+}
+:root[data-theme="dark"] {
+  --text: rgb(247, 248, 253);
+  --background: rgb(7, 16, 39);
+  --primary: rgb(113, 79, 222);
+  --secondary: rgb(67, 16, 86);
+  --accent: rgb(185, 84, 222);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+body {
+  color: var(--text);
+  background-color: var(--background);
+}
+
+/* text colors */
+
+.text-primary {
+  color: var(--primary);
+}
+
+.text-secondary {
+  color: var(--secondary);
+}
+
+.text-accent {
+  color: var(--accent);
+}
+
+/* background colors */
+
+.bg-primary {
+  background-color: var(--primary);
+}
+
+.bg-secondary {
+  background-color: var(--secondary);
+}
+
+.bg-accent {
+  background-color: var(--accent);
+}
+
+/* border colors */
+
+.border-primary {
+  border-color: var(--primary);
+}
+
+.border-secondary {
+  border-color: var(--secondary);
+}
+
+.border-accent {
+  border-color: var(--accent);
+}
+
+/* button colors */
+
+.btn-primary {
+  color: var(--text);
+  background-color: var(--primary);
+}
+
+.btn-secondary {
+  color: var(--text);
+  background-color: var(--secondary);
+}
+
+.btn-accent {
+  color: var(--text);
+  background-color: var(--accent);
 }
