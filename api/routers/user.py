@@ -7,7 +7,7 @@ from fastapi import (
     Request,
 )
 
-
+from typing import List
 from jwtdown_fastapi.authentication import Token
 from authenticator import authenticator
 
@@ -37,6 +37,15 @@ class HttpError(BaseModel):
 
 
 router = APIRouter()
+
+
+@router.get("/api/users/")
+async def get_all_users(
+    accounts: UserRepository = Depends(),
+    _=Depends(authenticator.get_current_account_data),
+) -> List[UserOut]:
+    users = accounts.get_list()
+    return users
 
 
 @router.get("/api/user/{id}")

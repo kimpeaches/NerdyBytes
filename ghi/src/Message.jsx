@@ -1,6 +1,5 @@
 "use client";
 import SendIcon from "@mui/icons-material/Send";
-import Divider from "@mui/material/Divider";
 import Fab from "@mui/material/Fab";
 import Grid from "@mui/material/Grid";
 import List from "@mui/material/List";
@@ -16,21 +15,22 @@ export default function Messages() {
     const lastItem = useRef(0);
     const fetchData = async () => {
         setIsLoading(true);
-        const res = await fetch("/api/rooms/{chat_room_id}/messages", {
+        const res = await fetch("http://localhost:8000/api/rooms/1/messages", {
             credentials: "include",
         });
         const response = await res.json();
-        setMessages(response.data);
+        setMessages(response);
         setIsLoading(false);
     };
-    setInterval(fetchData, 1000);
     const submitMessage = async (e) => {
         e.preventDefault();
         const data = {};
         new FormData(e.target).forEach((value, key) => (data[key] = value));
+        data.chat_room_id = 1;
         const url = "http://localhost:8000/api/messages";
         const fetchConfig = {
             method: "POST",
+            credentials: "include",
             body: JSON.stringify(data),
             headers: {
                 "Content-Type": "application/json",
@@ -47,6 +47,7 @@ export default function Messages() {
     };
     useEffect(() => {
         fetchData();
+        setInterval(fetchData, 1000);
     }, []);
     if (lastItem && lastItem.scrollIntoView) {
         lastItem.scrollIntoView({ behavior: "smooth" });
@@ -54,23 +55,6 @@ export default function Messages() {
 
     const currentUsername = "kim";
     const checkCurrentUser = (username) => username === currentUsername;
-
-    //   let currentUsername;
-    //   let currentPassword;
-
-    //   const loginUser = (username, password) => {
-    //       if (isValidUsernameAndPassword(username, password)) {
-    //           currentUsername = username;
-    //           currentPassword = password;
-    //           return true;
-    //       } else {
-    //           return false;
-    //       }
-    //   };
-
-    //   const isValidUsernameAndPassword = (username, password) => {
-    //       return username ===  && password === ;
-    //   };
 
     return (
         <>
@@ -98,10 +82,7 @@ export default function Messages() {
                         })
                         .map((message) => (
                             <ListItem
-                                key={
-                                    message.username +
-                                    message.created?.$timestamp?.i
-                                }
+                                key={message.id}
                                 style={{ marginBottom: 15 }}
                             >
                                 <Grid container>

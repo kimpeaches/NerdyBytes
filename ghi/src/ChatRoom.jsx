@@ -15,11 +15,11 @@ export default function ChatRoom() {
     const [searchText, setSearchText] = useState("");
 
     const fetchData = async () => {
-        const res = await fetch("http://localhost:8000/api/user/{id}", {
+        const res = await fetch("http://localhost:8000/api/users/", {
             credentials: "include",
         });
         const response = await res.json();
-        setSearchUsers(response.data);
+        setSearchUsers(response ?? []);
     };
 
     useEffect(() => {
