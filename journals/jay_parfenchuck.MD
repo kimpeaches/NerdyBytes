@@ -19,3 +19,10 @@ This week, our team has been concentrating on finalizing the development of our 
 However, I encountered a technical anomaly: a boolean I implemented for the card function is defaulting to true, despite being set to false in the SQL database. The cause of this discrepancy is not immediately clear, and further research is required to find this out.
 
 Overall, our team is confident in the progress of our project. We remain committed to maintaining this momentum and look foward to finishing this soon with the end seeming closer in sight!
+
+
+## December 4th, 2023
+
+In the past week, our team made progress towards the completion of our backend endpoints for the FastAPI framework. We have a lot so that is a huge relief to have that finished soon . Additionally, we successfully implemented our Continuous Integration/Continuous Deployment (CI/CD) processes, a task accomplished through exemplary teamwork. Our efforts in establishing a functional unit testing framework have also borne fruit.
+
+We initiated the development of the front-end segment of our project. Notably, we are in the process of designing an aesthetically pleasing and user-friendly login page, alongside a profile page. Ready to start using hooks and use effects to with react and start getting this project moving foward.
