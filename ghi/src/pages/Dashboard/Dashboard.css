@@ -7,3 +7,8 @@
   padding: 20px;
   background-color: var(--background);
 }
+
+.user-profile,
+.calendar {
+  width: 50%;
+}

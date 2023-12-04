@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
 import { jwtDecode } from "jwt-decode";
+import "./UserProfile.css";
 
 function UserProfile() {
   const { token } = useAuthContext();
@@ -38,7 +39,11 @@ function UserProfile() {
     <div className="user-profile">
       <h2>Hello {user.username}!</h2>
       <p>Profile Picture</p>
-      <img src={user.picture_url} alt={`${user.username}'s profile`} />
+      <img
+        className="profile-img"
+        src={user.picture_url}
+        alt={`${user.username}'s profile`}
+      />
       <p>Just some filler content.</p>
     </div>
   );
