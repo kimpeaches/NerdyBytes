@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginForm from "./LoginForm";
 import Nav from "./Nav/Nav";
 import "./App.css";
+import Chat from "./ChatPage";
 import Messages from "./Message";
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
                             path="/login"
                             element={<LoginForm />}
                         ></Route>
+                        <Route exact path="/chat" element={<Chat />}></Route>
                         <Route
                             exact
                             path="/messages"

@@ -16,7 +16,7 @@ export default function Messages() {
     const lastItem = useRef(0);
     const fetchData = async () => {
         setIsLoading(true);
-        const res = await fetch("/api/messages", {
+        const res = await fetch("/api/rooms/{chat_room_id}/messages", {
             credentials: "include",
         });
         const response = await res.json();
@@ -28,7 +28,7 @@ export default function Messages() {
         e.preventDefault();
         const data = {};
         new FormData(e.target).forEach((value, key) => (data[key] = value));
-        const url = "/api/messages";
+        const url = "http://localhost:8000/api/messages";
         const fetchConfig = {
             method: "POST",
             body: JSON.stringify(data),
@@ -82,80 +82,86 @@ export default function Messages() {
                         padding: 0,
                     }}
                 />
-                {messages
-                    .sort((a, b) => {
-                        if (!a.created?.$timestamp?.i) {
-                            return -1;
-                        } else if (!b.created?.$timestamp?.i) {
-                            return 1;
-                        } else {
-                            return a.created?.$timestamp?.i <
-                                b.created?.$timestamp?.i
-                                ? 1
-                                : -1;
-                        }
-                    })
-                    .map((message) => (
-                        <ListItem
-                            key={
-                                message.username +
-                                message.created?.$timestamp?.i
+                {messages &&
+                    messages
+                        .sort((a, b) => {
+                            if (!a.created?.$timestamp?.i) {
+                                return -1;
+                            } else if (!b.created?.$timestamp?.i) {
+                                return 1;
+                            } else {
+                                return a.created?.$timestamp?.i <
+                                    b.created?.$timestamp?.i
+                                    ? 1
+                                    : -1;
                             }
-                            style={{ marginBottom: 15 }}
-                        >
-                            <Grid container>
-                                <Grid
-                                    item
-                                    xs={12}
-                                    align={
-                                        checkCurrentUser(message.username)
-                                            ? "right"
-                                            : "left"
-                                    }
-                                >
-                                    <ListItemText
-                                        primary={message.text}
-                                        className={
-                                            checkCurrentUser(message.username)
-                                                ? "c-user-current"
-                                                : "c-user-other"
-                                        }
-                                        style={{
-                                            display: "inline-block",
-                                            padding: "8px 12px",
-                                            borderRadius: "10px",
-                                        }}
-                                    ></ListItemText>
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <ListItemText
+                        })
+                        .map((message) => (
+                            <ListItem
+                                key={
+                                    message.username +
+                                    message.created?.$timestamp?.i
+                                }
+                                style={{ marginBottom: 15 }}
+                            >
+                                <Grid container>
+                                    <Grid
+                                        item
+                                        xs={12}
                                         align={
                                             checkCurrentUser(message.username)
                                                 ? "right"
                                                 : "left"
                                         }
-                                        style={{
-                                            marginTop: 0,
-                                        }}
-                                        secondary={
-                                            message.created?.$timestamp?.i
-                                                ? format(
-                                                      new Date(
-                                                          parseInt(
-                                                              message.created
-                                                                  ?.$timestamp
-                                                                  ?.i
-                                                          )
-                                                      ),
-                                                      "'Delivered on' eeee 'at' p"
-                                                  )
-                                                : "Sending..."
-                                        }
-                                    ></ListItemText>
+                                    >
+                                        <ListItemText
+                                            primary={message.text}
+                                            className={
+                                                checkCurrentUser(
+                                                    message.username
+                                                )
+                                                    ? "c-user-current"
+                                                    : "c-user-other"
+                                            }
+                                            style={{
+                                                display: "inline-block",
+                                                padding: "8px 12px",
+                                                borderRadius: "10px",
+                                            }}
+                                        ></ListItemText>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <ListItemText
+                                            align={
+                                                checkCurrentUser(
+                                                    message.username
+                                                )
+                                                    ? "right"
+                                                    : "left"
+                                            }
+                                            style={{
+                                                marginTop: 0,
+                                            }}
+                                            secondary={
+                                                message.created?.$timestamp?.i
+                                                    ? format(
+                                                          new Date(
+                                                              parseInt(
+                                                                  message
+                                                                      .created
+                                                                      ?.$timestamp
+                                                                      ?.i
+                                                              )
+                                                          ),
+                                                          "'Delivered on' eeee 'at' p"
+                                                      )
+                                                    : "Sending..."
+                                            }
+                                        ></ListItemText>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                        </ListItem>
-                    ))}
+                            </ListItem>
+                        ))}
             </List>
             <form className="c-message-form" onSubmit={submitMessage}>
                 <Grid container style={{ padding: "20px" }}>

@@ -40,7 +40,7 @@ const LoginForm = () => {
                     </div>
                     <form onSubmit={(e) => handleSubmit(e)} className="form">
                         <div className="control">
-                            <label for="username"></label>
+                            <label htmlFor="username"></label>
                             <input
                                 id="username"
                                 placeholder="Username"
@@ -49,7 +49,7 @@ const LoginForm = () => {
                             ></input>
                         </div>
                         <div className="control">
-                            <label for="password"></label>
+                            <label htmlFor="password"></label>
                             <input
                                 id="password"
                                 placeholder="Password"
@@ -57,7 +57,7 @@ const LoginForm = () => {
                                 onChange={(e) => setPassword(e.target.value)}
                             ></input>
                         </div>
-                        <div class="wrapper">
+                        <div className="wrapper">
                             <button>Login</button>
                         </div>
                     </form>
