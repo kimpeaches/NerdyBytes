@@ -1,0 +1,14 @@
+.user-profile,
+.calendar,
+.user-deck-list {
+  margin: 1rem;
+  border: 5px solid var(--primary);
+  border-radius: 10px;
+  padding: 20px;
+  background-color: var(--background);
+}
+
+.user-profile,
+.calendar {
+  width: 50%;
+}
