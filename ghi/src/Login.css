@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto");
 @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css");
 @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Courgette&family=Grandstander:ital,wght@0,400;0,900;1,400;1,900&family=Kaushan+Script&family=Roboto:wght@100&display=swap");
+
 body {
   background-image: url("/public/nbg.jpg");
   font-family: "Roboto", sans-serif;
@@ -8,25 +9,31 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .login {
   padding-top: 5%;
 }
+
 .title {
   font-family: "Grandstander", sans-serif;
   font-weight: 900;
   color: #4321b0;
   font-size: 3rem;
+  margin-top: 2rem;
 }
+
 .motto {
   font-family: "Grandstander", sans-serif;
   font-weight: 400;
   color: #4321b0;
   font-size: 1.3rem;
 }
+
 *:before,
 *:after {
   box-sizing: border-box;
 }
+
 .wrapper {
   position: relative;
   top: 20%;
@@ -36,9 +43,7 @@ body {
   display: flex;
   justify-content: center;
 }
-.sign-up {
-  margin: 0 auto;
-}
+
 button {
   display: block;
   width: 250px;
@@ -58,6 +63,7 @@ button {
   text-transform: uppercase;
   transition: all 0.35s;
 }
+
 button:before,
 button:after {
   position: absolute;
@@ -70,19 +76,24 @@ button:after {
   z-index: -1;
   transition: all 0.35s;
 }
+
 button:before {
   opacity: 0.5;
 }
+
 button:after {
   transition-delay: 0.2s;
 }
+
 button:hover {
   color: #fff;
 }
+
 button:hover:before,
 button:hover:after {
   top: 0;
 }
+
 .owl {
   margin: auto;
   width: 230px;
@@ -108,6 +119,7 @@ button:hover:after {
       }
     }
   }
+
   .arms {
     position: absolute;
     top: 58px;
@@ -135,6 +147,7 @@ button:hover:after {
     }
   }
 }
+
 .form {
   margin: auto;
   margin-top: -23px;

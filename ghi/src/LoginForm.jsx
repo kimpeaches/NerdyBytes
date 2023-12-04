@@ -22,7 +22,7 @@ const LoginForm = () => {
   return (
     <>
       <div>
-        <h2 className="title">NerdyBytes</h2>
+        <h1 className="title">NerdyBytes</h1>
         <h4 className="motto">Unleash your potential, one card at a time.</h4>
       </div>
       <div className="login">
@@ -56,9 +56,6 @@ const LoginForm = () => {
             </div>
             <div className="login-btn wrapper">
               <button>Login</button>
-            </div>
-            <div className="sign-up">
-              <button className="mx-auto">Sign Up!</button>
             </div>
           </form>
         </div>
