@@ -1,7 +1,4 @@
 import React from "react";
-import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 import UserProfile from "../../components/dashboard/UserProfile/UserProfile";
 import Calendar from "../../components/dashboard/Calendar/Calendar";
