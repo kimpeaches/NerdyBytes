@@ -1,5 +1,24 @@
 # Journals
 
+## 2023-12-03 22:24:00
+
+### Items worked on today:
+
+- Lots of front-end work.
+- Dashboard page
+- UserProfile component
+- Api calls for user profile
+- Routing from login to dashboard
+
+### Reflection on any design conversations that I had
+
+- none
+
+### At least one ah-ha! moment that you had during your coding, however small
+
+- Tasks are rarely as easy or challenging as I imagine they'll be. They're usually somewhere in between.
+- I don't want to be known as a "Pythonista." My first "Hello World!" was written in C++ back in 1999, damnit! 😂 I gotta say, though, Pythonic syntax like slice notation and list comprehensions are aesthetically beautiful. The C-style for loop is a monstrosity in comparison.
+
 ## 2023-11-29 20:49:56
 
 ### Items worked on today:
