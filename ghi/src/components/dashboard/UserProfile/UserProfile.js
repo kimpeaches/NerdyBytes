@@ -1,38 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
-import { jwtDecode } from "jwt-decode";
+import React, { useContext } from "react";
+import UserContext from "../../../contexts/UserContext";
 import "./UserProfile.css";
 
 function UserProfile() {
-  const { token } = useAuthContext();
-  const [user, setUser] = useState({});
+  const { user } = useContext(UserContext);
 
-  useEffect(() => {
-    async function getUser() {
-      if (token) {
-        const decodedToken = jwtDecode(token);
-        const userId = decodedToken.account.id;
-
-        const url = `http://localhost:8000/api/user/${userId}`;
-        const fetchOptions = {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            Accept: "application/json",
-          },
-          method: "GET",
-        };
-        const response = await fetch(url, fetchOptions);
-        if (response.ok) {
-          const data = await response.json();
-          setUser(data);
-        } else {
-          console.log("Error fetching user");
-        }
-      }
-    }
-
-    getUser();
-  }, [token]);
+  if (!user) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="user-profile">

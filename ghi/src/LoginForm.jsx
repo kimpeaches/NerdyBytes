@@ -1,18 +1,22 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import "./Login.css";
+import UserContext from "./contexts/UserContext";
+import { getUser } from "./utils/getUser";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useToken();
+  const { login, token } = useToken();
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await login(username, password);
+      await getUser(token, setUser);
       navigate("/dashboard");
     } catch (error) {
       console.error("Login failed: ", error);
