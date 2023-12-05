@@ -29,6 +29,7 @@ export default function Messages() {
         const data = {};
         new FormData(e.target).forEach((value, key) => (data[key] = value));
         data.chat_room_id = 1;
+        data.username = currentUser;
         const url = "http://localhost:8000/api/messages";
         const fetchConfig = {
             method: "POST",
@@ -75,7 +76,7 @@ export default function Messages() {
                         })
                         .map((message) => (
                             <ListItem
-                                key={message.id}
+                                key={message.username}
                                 style={{ marginBottom: 15 }}
                             >
                                 <Grid container>

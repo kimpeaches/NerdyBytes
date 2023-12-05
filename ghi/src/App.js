@@ -24,7 +24,7 @@ function App() {
                     }
                 );
                 const userData = await response.json();
-                setUsers(userData);
+                setCurrentUser(userData);
             } catch (error) {
                 console.error("Error fetching users:", error);
             }
