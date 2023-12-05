@@ -1,19 +1,25 @@
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useState } from "react";
-import "./Signup.css";
+import "../../App.css";
 import { useNavigate } from "react-router-dom";
 
 const SignupForm = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const { login } = useToken();
+    const [error, setError] = useState("");
+    const { register } = useToken();
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (password !== confirmPassword) {
+            console.error("Passwords do not match");
+            setError("Passwords do not match");
+            return;
+        }
         try {
-            await login(username, password);
+            await register(username, password);
             navigate("/dashboard");
         } catch (error) {
             console.error("Signup failed: ", error);
@@ -28,14 +34,6 @@ const SignupForm = () => {
             </div>
             <div className="signup">
                 <div>
-                    <div className="owl">
-                        <div className="hand"></div>
-                        <div className="hand hand-r"></div>
-                        <div className="arms">
-                            <div className="arm"></div>
-                            <div className="arm arm-r"></div>
-                        </div>
-                    </div>
                     <form onSubmit={(e) => handleSubmit(e)} className="form">
                         <div className="control">
                             <label htmlFor="username"></label>
@@ -52,9 +50,25 @@ const SignupForm = () => {
                                 id="password"
                                 placeholder="Password"
                                 type="password"
-                                onChange={(e) => setPassword(e.target.value)}
+                                onChange={(e) => {
+                                    setPassword(e.target.value);
+                                    setError("");
+                                }}
                             ></input>
                         </div>
+                        <div className="control">
+                            <label htmlFor="confirmPassword"></label>
+                            <input
+                                id="confirmPassword"
+                                placeholder="Confirm Password"
+                                type="password"
+                                onChange={(e) => {
+                                    setConfirmPassword(e.target.value);
+                                    setError("");
+                                }}
+                            ></input>
+                        </div>
+                        {error && <p>{error}</p>}
                         <div className="signup-btn wrapper">
                             <button>SignUp</button>
                         </div>
