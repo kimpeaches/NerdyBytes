@@ -1,5 +1,21 @@
 # Journals
 
+## 2023-12-04 17:26:19
+
+### Items worked on today:
+
+- Delivered standup of standups.
+- useContext for user info.
+- Helped team with merge conflicts and other git issues.
+
+### Reflection on any design conversations that I had
+
+- none
+
+### At least one ah-ha! moment that you had during your coding, however small
+
+- useContext is a pretty elegant way to pass data to components without having to pass props.
+
 ## 2023-12-03 22:24:00
 
 ### Items worked on today:
