@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from queries.accounts import pool
+from queries.pool import pool
 from typing import Union, Type
 import inspect
 from fastapi import Form
@@ -7,10 +7,19 @@ from pydantic.fields import ModelField
 
 
 def as_form(cls: Type[BaseModel]):
+    """
+    Decorator function that converts the class into a form representation.
+
+    Args:
+        cls (Type[BaseModel]): The class to be converted.
+
+    Returns:
+        Type[BaseModel]: The converted class.
+    """
     new_parameters = []
 
     for field_name, model_field in cls.__fields__.items():
-        model_field: ModelField  # type: ignore
+        model_field: ModelField
 
         new_parameters.append(
             inspect.Parameter(
@@ -28,7 +37,7 @@ def as_form(cls: Type[BaseModel]):
 
     sig = inspect.signature(as_form_func)
     sig = sig.replace(parameters=new_parameters)
-    as_form_func.__signature__ = sig  # type: ignore
+    as_form_func.__signature__ = sig
     setattr(cls, "as_form", as_form_func)
     return cls
 
@@ -65,6 +74,26 @@ class UserOutWithPassword(UserOut):
 
 
 class UserRepository:
+    def get_list(self) -> UserOut:
+        with pool.connection() as conn:
+            with conn.cursor() as db:
+                db.execute(
+                    """
+                    SELECT id, picture_url, username
+                    FROM users
+                    """
+                )
+                result = []
+                users = db.fetchall()
+                for user in users:
+                    u = UserOut(
+                        id=user[0],
+                        picture_url=user[1],
+                        username=user[2],
+                    )
+                    result.append(u)
+                return result
+
     def get_user_by_id(self, id: str) -> UserOutWithPassword:
         with pool.connection() as conn:
             with conn.cursor() as db:
@@ -124,3 +153,19 @@ class UserRepository:
     def user_in_to_out(self, id: int, user: UserIn):
         old_data = user.dict()
         return UserOut(id=id, **old_data)
+
+    def update(
+        self, id: int, username: str, hashed_password: str, picture_url: str
+    ) -> UserOut:
+        with pool.connection() as conn:
+            with conn.cursor() as db:
+                db.execute(
+                    """
+                    UPDATE users
+                    SET username = %s, password = %s, picture_url = %s
+                    WHERE id = %s
+                    """,
+                    [username, hashed_password, picture_url, id],
+                )
+
+        return self.get_user_by_id(id)

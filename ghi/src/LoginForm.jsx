@@ -1,54 +1,68 @@
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useState } from "react";
+import "./Login.css";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const { login } = useToken();
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const { login } = useToken();
+    const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    try {
-      const token = login(username, password);
-      if (!token) {
-        throw new Error("Failed to get token after login. Got undefined");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-    e.target.reset();
-  };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            await login(username, password);
+            navigate("/dashboard");
+        } catch (error) {
+            console.error("Login failed: ", error);
+        }
+    };
 
-  return (
-    <div className="card text-bg-light mb-3">
-      <h5 className="card-header">Login</h5>
-      <div className="card-body">
-        <form onSubmit={(e) => handleSubmit(e)}>
-          <div className="mb-3">
-            <label className="form-label">Username:</label>
-            <input
-              name="username"
-              type="text"
-              className="form-control"
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </div>
-          <div className="mb-3">
-            <label className="form-label">Password:</label>
-            <input
-              name="password"
-              type="password"
-              className="form-control"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <div>
-            <input className="btn btn-primary" type="submit" value="Login" />
-          </div>
-        </form>
-      </div>
-    </div>
-  );
+    return (
+        <>
+            <div>
+                <h1 className="title">NerdyBytes</h1>
+                <h4 className="motto">
+                    Unleash your potential, one card at a time.
+                </h4>
+            </div>
+            <div className="login">
+                <div>
+                    <div className="owl">
+                        <div className="hand"></div>
+                        <div className="hand hand-r"></div>
+                        <div className="arms">
+                            <div className="arm"></div>
+                            <div className="arm arm-r"></div>
+                        </div>
+                    </div>
+                    <form onSubmit={(e) => handleSubmit(e)} className="form">
+                        <div className="control">
+                            <label htmlFor="username"></label>
+                            <input
+                                id="username"
+                                placeholder="Username"
+                                type="text"
+                                onChange={(e) => setUsername(e.target.value)}
+                            ></input>
+                        </div>
+                        <div className="control">
+                            <label htmlFor="password"></label>
+                            <input
+                                id="password"
+                                placeholder="Password"
+                                type="password"
+                                onChange={(e) => setPassword(e.target.value)}
+                            ></input>
+                        </div>
+                        <div className="login-btn wrapper">
+                            <button>Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </>
+    );
 };
-
 export default LoginForm;
