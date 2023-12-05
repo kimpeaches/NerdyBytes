@@ -8,10 +8,12 @@ import ListItemText from "@mui/material/ListItemText";
 import TextField from "@mui/material/TextField";
 import { format } from "date-fns";
 import { default as React, useState, useEffect, useRef } from "react";
+import { useUserContext } from "../../UserContext";
 
 export default function Messages() {
     const [isLoading, setIsLoading] = useState(undefined);
     const [messages, setMessages] = useState([]);
+    const { currentUser } = useUserContext();
     const lastItem = useRef(0);
     const fetchData = async () => {
         setIsLoading(true);
@@ -53,31 +55,22 @@ export default function Messages() {
         lastItem.scrollIntoView({ behavior: "smooth" });
     }
 
-    const currentUsername = "kim";
-    const checkCurrentUser = (username) => username === currentUsername;
+    const checkCurrentUser = (username) => username === currentUser;
 
     return (
         <>
             <List className="c-message-area">
-                <ListItem
-                    ref={lastItem}
-                    style={{
-                        height: 1,
-                        padding: 0,
-                    }}
-                />
+                <ListItem ref={lastItem} style={{ height: 1, padding: 0 }} />
+
                 {messages &&
                     messages
                         .sort((a, b) => {
-                            if (!a.created?.$timestamp?.i) {
+                            if (!a.created) {
                                 return -1;
-                            } else if (!b.created?.$timestamp?.i) {
+                            } else if (!b.created) {
                                 return 1;
                             } else {
-                                return a.created?.$timestamp?.i <
-                                    b.created?.$timestamp?.i
-                                    ? 1
-                                    : -1;
+                                return a.created?.i < b.created ? 1 : -1;
                             }
                         })
                         .map((message) => (
@@ -95,8 +88,7 @@ export default function Messages() {
                                                 : "left"
                                         }
                                     >
-                                        <ListItemText
-                                            primary={message.text}
+                                        <div
                                             className={
                                                 checkCurrentUser(
                                                     message.username
@@ -108,11 +100,24 @@ export default function Messages() {
                                                 display: "inline-block",
                                                 padding: "8px 12px",
                                                 borderRadius: "10px",
+                                                backgroundColor:
+                                                    checkCurrentUser(
+                                                        message.username
+                                                    )
+                                                        ? "#1976D2"
+                                                        : "#e0e0e0",
+                                                color: checkCurrentUser(
+                                                    message.username
+                                                )
+                                                    ? "#fff"
+                                                    : "#000",
                                             }}
-                                        ></ListItemText>
+                                        >
+                                            {message.text}
+                                        </div>
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <ListItemText
+                                        <div
                                             align={
                                                 checkCurrentUser(
                                                     message.username
@@ -122,28 +127,28 @@ export default function Messages() {
                                             }
                                             style={{
                                                 marginTop: 0,
+                                                color: "#757575",
                                             }}
-                                            secondary={
-                                                message.created?.$timestamp?.i
-                                                    ? format(
+                                        >
+                                            {message.created?.i
+                                                ? format(
+                                                      format(
                                                           new Date(
                                                               parseInt(
-                                                                  message
-                                                                      .created
-                                                                      ?.$timestamp
-                                                                      ?.i
+                                                                  message.created
                                                               )
-                                                          ),
-                                                          "'Delivered on' eeee 'at' p"
-                                                      )
-                                                    : "Sending..."
-                                            }
-                                        ></ListItemText>
+                                                          )
+                                                      ),
+                                                      "'Delivered on' eeee 'at' p"
+                                                  )
+                                                : "Sending..."}
+                                        </div>
                                     </Grid>
                                 </Grid>
                             </ListItem>
                         ))}
             </List>
+
             <form className="c-message-form" onSubmit={submitMessage}>
                 <Grid container style={{ padding: "20px" }}>
                     <Grid item xs={9} sm={11}>
@@ -157,7 +162,7 @@ export default function Messages() {
                         <input
                             type="hidden"
                             name="username"
-                            value={currentUsername}
+                            value={currentUser}
                         />
                     </Grid>
                     <Grid
@@ -167,14 +172,7 @@ export default function Messages() {
                         align="right"
                         style={{ paddingLeft: "10px" }}
                     >
-                        <Fab
-                            color="primary"
-                            aria-label="add"
-                            type="submit"
-                            style={{
-                                backgroundColor: "#1976D2",
-                            }}
-                        >
+                        <Fab color="primary" aria-label="add" type="submit">
                             <SendIcon />
                         </Fab>
                     </Grid>
