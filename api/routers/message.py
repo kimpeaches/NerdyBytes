@@ -6,8 +6,9 @@ from fastapi import (
     Request,
 )
 from pydantic import BaseModel
-from queries.message import MessageRepository, MessageOut
+from queries.message import MessageRepository, MessageOut, Error
 from authenticator import authenticator
+from typing import List, Union
 
 
 class MessageError(ValueError):
@@ -27,26 +28,27 @@ class HttpError(BaseModel):
 router = APIRouter()
 
 
-@router.get("/api/messages/{id}", response_model=MessageOut)
-def get_messages(
+@router.get(
+    "/api/rooms/{chat_room_id}/messages",
+    response_model=Union[List[MessageOut], Error],
+)
+async def get_all_messages(
     request: Request,
-    message_id: int,
+    chat_room_id: int,
     account_data: dict = Depends(authenticator.get_current_account_data),
     repo: MessageRepository = Depends(),
-) -> MessageOut:
+) -> List[MessageOut]:
     try:
-        messages = repo.get_by_id(message_id)
-
+        messages = repo.get_all(chat_room_id)
     except MessageError:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Message not found.",
+            detail="Cannot get all message.",
         )
-
     return messages
 
 
-@router.post("/api/message", response_model=MessageOut)
+@router.post("/api/messages", response_model=MessageOut)
 async def create_message(
     request: Request,
     info: MessageForm,
