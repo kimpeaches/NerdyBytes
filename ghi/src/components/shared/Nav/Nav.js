@@ -1,8 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import "./Nav.css";
 
 const Nav = () => {
+  const location = useLocation();
+
+  if (location.pathname === "/login") {
+    return <></>;
+  }
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-primary p-2">
       <div className="navbar-container">
