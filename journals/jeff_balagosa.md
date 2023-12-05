@@ -1,5 +1,58 @@
 # Journals
 
+## 2023-12-04 17:26:19
+
+### Items worked on today:
+
+- Delivered standup of standups.
+- useContext for user info.
+- Helped team with merge conflicts and other git issues.
+
+### Reflection on any design conversations that I had
+
+- none
+
+### At least one ah-ha! moment that you had during your coding, however small
+
+- useContext is a pretty elegant way to pass data to components without having to pass props.
+
+## 2023-12-03 22:24:00
+
+### Items worked on today:
+
+- Lots of front-end work.
+- Dashboard page
+- UserProfile component
+- Api calls for user profile
+- Routing from login to dashboard
+
+### Reflection on any design conversations that I had
+
+- none
+
+### At least one ah-ha! moment that you had during your coding, however small
+
+- Tasks are rarely as easy or challenging as I imagine they'll be. They're usually somewhere in between.
+- I don't want to be known as a "Pythonista." My first "Hello World!" was written in C++ back in 1999, damnit! 😂 I gotta say, though, Pythonic syntax like slice notation and list comprehensions are aesthetically beautiful. The C-style for loop is a monstrosity in comparison.
+
+## 2023-11-29 20:49:56
+
+### Items worked on today:
+
+- CI/CD pipeline and deployment.
+- Code unit test and merge into main.
+- Start front end navigation.
+- Help with git issues.
+- Generate some color schemes for the team to vote on.
+
+### Reflection on any design conversations that I had
+
+- I'm glad we're still going to go with the owl animation for the login screen.
+
+### At least one ah-ha! moment that you had during your coding, however small
+
+- Seeing how CI/CD works in the real world is pretty cool. One of my coworkers transitioned from IT Operations to DevOps he's told me what he does. Finally getting to see it in action is very cool.
+
 ## 2023-11-26 20:49:56
 
 ### Items worked on today:
