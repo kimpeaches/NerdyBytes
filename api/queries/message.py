@@ -20,7 +20,7 @@ class MessageOut(BaseModel):
     username: str
     text: str
     id: int
-    chat_room_id: Optional[int]
+    chat_room_id: int
     created: Optional[str] = None
 
     class Config(BaseConfig):
@@ -33,51 +33,31 @@ class MessageOut(BaseModel):
 
 
 class MessageRepository:
-    def get_by_id(self, id: int) -> MessageOut:
-        with pool.connection() as conn:
-            with conn.cursor() as db:
-                result = db.execute(
-                    """
-                    SELECT *
-                    FROM message
-                    WHERE id = %s
-                    """,
-                    [id],
-                )
-                message = result.fetchone()
-                return MessageOut(
-                    id=message[0],
-                    text=message[1],
-                    username=message[3],
-                    created=str(message[2]),
-                    chat_room_id=message[4],
-                )
-
-    def get_by_username(self, username: str) -> MessageOut:
+    def get_all(self, chat_room_id: int) -> MessageOut:
         # with pool.connection() as conn:
         with pool.connection() as conn:
             with conn.cursor() as db:
-                result = db.execute(
+                db.execute(
                     """
                     SELECT *
                     FROM message
-                    WHERE username = %s
+                    WHERE chat_room_id = %s
                     """,
-                    [username],
+                    [chat_room_id],
                 )
-                messages = result.fetchall()
-                result_messages = []
-                for message in messages:
-                    result_messages.append(
-                        MessageOut(
-                            id=message[0],
-                            text=message[1],
-                            username=message[2],
-                            created=message[3],
-                            chat_room_id=message[4],
-                        )
+                result = []
+                records = db.fetchall()
+                for record in records:
+                    message = MessageOut(
+                        id=record[0],
+                        text=record[1],
+                        username=record[3],
+                        created=str(record[2]),
+                        chat_room_id=int(record[4]),
                     )
-                return result_messages
+                    result.append(message)
+
+                return result
 
     def create(
         self,
@@ -88,15 +68,16 @@ class MessageRepository:
                 result = db.execute(
                     """
                     INSERT INTO message
-                        (username, text, created)
+                        (username, text, created, chat_room_id)
                     VALUES
-                        (%s, %s, %s)
+                        (%s, %s, %s, %s)
                     RETURNING id;
                     """,
                     [
                         info.username,
                         info.text,
                         time.strftime("%Y-%m-%d %H:%M:%S"),
+                        info.chat_room_id,
                     ],
                 )
                 id = result.fetchone()[0]

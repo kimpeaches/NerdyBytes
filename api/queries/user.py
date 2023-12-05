@@ -74,6 +74,26 @@ class UserOutWithPassword(UserOut):
 
 
 class UserRepository:
+    def get_list(self) -> UserOut:
+        with pool.connection() as conn:
+            with conn.cursor() as db:
+                db.execute(
+                    """
+                    SELECT id, picture_url, username
+                    FROM users
+                    """
+                )
+                result = []
+                users = db.fetchall()
+                for user in users:
+                    u = UserOut(
+                        id=user[0],
+                        picture_url=user[1],
+                        username=user[2],
+                    )
+                    result.append(u)
+                return result
+
     def get_user_by_id(self, id: str) -> UserOutWithPassword:
         with pool.connection() as conn:
             with conn.cursor() as db:
