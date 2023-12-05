@@ -6,7 +6,7 @@ import "./Nav.css";
 const Nav = () => {
   const location = useLocation();
 
-  if (location.pathname === "/login") {
+  if (location.pathname === "/") {
     return <></>;
   }
 
