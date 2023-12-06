@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
+import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 import UserProfile from "../../components/dashboard/UserProfile/UserProfile";
 import Calendar from "../../components/dashboard/Calendar/Calendar";
 import UserDecks from "../../components/dashboard/UserDecks/UserDecks";
 
 import "./Dashboard.css";
-import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
-import { jwtDecode } from "jwt-decode";
 
 function Dashboard() {
   const { token } = useAuthContext();
   const [user, setUser] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getUser() {
@@ -30,11 +32,13 @@ function Dashboard() {
         } else {
           console.log("Error fetching user");
         }
+      } else {
+        navigate("/");
       }
     }
 
     getUser();
-  }, [token]);
+  }, [token, navigate]);
 
   return (
     <div className="dashboard-container">
@@ -43,7 +47,7 @@ function Dashboard() {
         <UserProfile user={user} />
         <Calendar />
       </div>
-      <UserDecks />
+      <UserDecks user={user} />
     </div>
   );
 }

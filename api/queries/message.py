@@ -1,5 +1,5 @@
 from pydantic import BaseModel, BaseConfig
-from queries.accounts import pool
+from queries.pool import pool
 from pydantic.fields import ModelField
 import time
 from typing import Union, Optional

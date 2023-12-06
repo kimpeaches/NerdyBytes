@@ -1,10 +1,29 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Nav.css";
 
 const Nav = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  async function logoutUser() {
+    const url = "http://localhost:8000/token";
+    const fetchOptions = {
+      credentials: "include",
+      method: "DELETE",
+    };
+    const response = await fetch(url, fetchOptions);
+    if (!response.ok) {
+      console.log("An error occurred during logout");
+    }
+  }
+
+  function handleLogout() {
+    logoutUser();
+    setTimeout(() => {
+      navigate("/");
+    }, 250);
+  }
 
   if (location.pathname === "/") {
     return <></>;
@@ -34,24 +53,19 @@ const Nav = () => {
         </button>
         <ul className="navbar-nav navbar-list">
           <li className="nav-item active">
-            <Link className="nav-link" to="/">
+            <Link className="nav-link" to="#">
               Study
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/">
+            <Link className="nav-link" to="#">
               Create Deck
             </Link>
           </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/">
-              Edit Deck
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/">
+          <li className="nav-item" onClick={handleLogout}>
+            <div className="nav-link" style={{ cursor: "pointer" }}>
               Logout
-            </Link>
+            </div>
           </li>
         </ul>
       </div>
