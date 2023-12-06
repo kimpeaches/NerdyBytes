@@ -5,46 +5,81 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import LoginForm from "./pages/Login/LoginForm";
 import "./App.css";
 import Chat from "./pages/Chat/ChatPage";
-import { UserProvider } from "./UserContext";
+import { UserProvider } from "./useContext/UserContext";
+import ChatRoomContext from "./useContext/ChatRoomContext";
 import { useState, useEffect } from "react";
 
 function App() {
-  const domain = /https:\/\/[^/]+/;
-  const basename = process.env.PUBLIC_URL.replace(domain, "");
-  const [users, setUsers] = useState([]);
+    const domain = /https:\/\/[^/]+/;
+    const basename = process.env.PUBLIC_URL.replace(domain, "");
+    const [users, setUsers] = useState([]);
+    const [chatRoomId, setChatRoomId] = useState(0);
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await fetch("http://localhost:8000/api/users/", {
-          credentials: "include",
-        });
-        const userData = await response.json();
-        setUsers(userData);
-      } catch (error) {
-        console.error("Error fetching users:", error);
-      }
-    };
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const response = await fetch(
+                    "http://localhost:8000/api/users/",
+                    {
+                        credentials: "include",
+                    }
+                );
+                const userData = await response.json();
+                setUsers(userData);
+            } catch (error) {
+                console.error("Error fetching users:", error);
+            }
+        };
 
-    fetchUsers();
-  }, []);
+        const fetchRoom = async () => {
+            try {
+                const response = await fetch(
+                    "http://localhost:8000/api/rooms/",
+                    {
+                        credentials: "include",
+                    }
+                );
+                const roomData = await response.json();
+                setChatRoomId(roomData.id);
+            } catch (error) {
+                console.error("Error fetching rooms:", error);
+            }
+        };
 
-  return (
-    <div className="container">
-      <BrowserRouter basename={basename}>
-        <Nav />
-        <AuthProvider baseUrl="http://localhost:8000">
-          <UserProvider currentUser={users}>
-            <Routes>
-              <Route exact path="/" element={<LoginForm />}></Route>
-              <Route exact path="/dashboard" element={<Dashboard />}></Route>
-              <Route exact path="/chat" element={<Chat />}></Route>
-            </Routes>
-          </UserProvider>
-        </AuthProvider>
-      </BrowserRouter>
-    </div>
-  );
+        fetchUsers();
+        fetchRoom();
+    }, []);
+
+    return (
+        <div className="container">
+            <BrowserRouter basename={basename}>
+                <Nav />
+                <AuthProvider baseUrl="http://localhost:8000">
+                    <UserProvider currentUser={users}>
+                        <ChatRoomContext.Provider value={chatRoomId}>
+                            <Routes>
+                                <Route
+                                    exact
+                                    path="/"
+                                    element={<LoginForm />}
+                                ></Route>
+                                <Route
+                                    exact
+                                    path="/dashboard"
+                                    element={<Dashboard />}
+                                ></Route>
+                                <Route
+                                    exact
+                                    path="/chat"
+                                    element={<Chat />}
+                                ></Route>
+                            </Routes>
+                        </ChatRoomContext.Provider>
+                    </UserProvider>
+                </AuthProvider>
+            </BrowserRouter>
+        </div>
+    );
 }
 
 export default App;

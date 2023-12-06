@@ -8,16 +8,19 @@ import ListItemText from "@mui/material/ListItemText";
 import TextField from "@mui/material/TextField";
 import { format } from "date-fns";
 import { default as React, useState, useEffect, useRef } from "react";
-import { useUserContext } from "../../UserContext";
+import { useUserContext } from "../../useContext/UserContext";
+import ChatRoomContext from "../../useContext/ChatRoomContext";
+import { useContext } from "react";
 
 export default function Messages() {
     const [isLoading, setIsLoading] = useState(undefined);
     const [messages, setMessages] = useState([]);
     const { currentUser } = useUserContext();
+    const chatRoomId = useContext(ChatRoomContext);
     const lastItem = useRef(0);
     const fetchData = async () => {
         setIsLoading(true);
-        const res = await fetch("http://localhost:8000/api/rooms/1/messages", {
+        const res = await fetch("http://localhost:8000/api/rooms/", {
             credentials: "include",
         });
         const response = await res.json();
@@ -28,7 +31,8 @@ export default function Messages() {
         e.preventDefault();
         const data = {};
         new FormData(e.target).forEach((value, key) => (data[key] = value));
-        data.chat_room_id = 1;
+        data.chat_room_id = chatRoomId;
+        data.username = currentUser;
         const url = "http://localhost:8000/api/messages";
         const fetchConfig = {
             method: "POST",
