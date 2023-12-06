@@ -4,10 +4,12 @@ import "../../App.css";
 import { useNavigate } from "react-router-dom";
 
 const SignupForm = () => {
+    const { token } = useToken();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
+    const [pictureUrl, setPictureUrl] = useState("");
     const { register } = useToken();
     const navigate = useNavigate();
 
@@ -19,10 +21,30 @@ const SignupForm = () => {
             return;
         }
         try {
-            await register(username, password);
-            navigate("/dashboard");
+            const formData = new FormData();
+            formData.append('username', username);
+            formData.append('password', password);
+            formData.append('pictureUrl', pictureUrl);
+
+            const headers = {
+                'Authorization': `Bearer ${token}`
+            };
+
+            const response = await register(formData);
+            const data = await response.json();
+            if (response.ok) {
+                navigate("/dashboard");
+            } else {
+                setError(response.message);
+            }
         } catch (error) {
-            console.error("Signup failed: ", error);
+            if (error.response) {
+                console.log("Error response data:", error.response.data);
+                console.log("Error response status:", error.response.status);
+                console.log("Error response headers:", error.response.headers);
+            } else {
+                console.log("The error is: ", error);
+            }
         }
     };
 
@@ -68,9 +90,18 @@ const SignupForm = () => {
                                 }}
                             ></input>
                         </div>
+                        <div className="control">
+                            <label htmlFor="pictureUrl"></label>
+                            <input
+                                id="pictureURL"
+                                placeholder="PictureUrl"
+                                type="text"
+                                onChange={(e) => setPictureUrl(e.target.value)}
+                            ></input>
+                        </div>
                         {error && <p>{error}</p>}
                         <div className="signup-btn wrapper">
-                            <button>SignUp</button>
+                            <button type="submit">SignUp</button>
                         </div>
                     </form>
                 </div>
