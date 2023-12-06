@@ -8,32 +8,34 @@ import ListItemText from "@mui/material/ListItemText";
 import TextField from "@mui/material/TextField";
 import { format } from "date-fns";
 import { default as React, useState, useEffect, useRef } from "react";
-import { UserProvider } from "../../useContext/UserContext";
-import ChatRoomContext from "../../useContext/ChatRoomContext";
-import { useContext } from "react";
+import { useUserContext } from "../../useContext/UserContext";
+import { useContext, useCallback } from "react";
+import { useParams } from "react-router";
 
 export default function Messages() {
+    const { chatRoomId } = useParams();
     const [isLoading, setIsLoading] = useState(undefined);
     const [messages, setMessages] = useState([]);
-    const currentUser = useContext(UserProvider);
-    const chatRoomId = useContext(ChatRoomContext);
+    const currentUser = useUserContext();
     const lastItem = useRef(0);
     const fetchData = async () => {
         setIsLoading(true);
-        const res = await fetch("http://localhost:8000/api/rooms/1/messages", {
-            credentials: "include",
-        });
+        const res = await fetch(
+            `http://localhost:8000/api/rooms/${chatRoomId}/messages`,
+            {
+                credentials: "include",
+            }
+        );
         const response = await res.json();
-        setMessages(response);
+        if (Array.isArray(response)) {
+            setMessages(response);
+        }
         setIsLoading(false);
     };
     const submitMessage = async (e) => {
         e.preventDefault();
         const data = {};
         new FormData(e.target).forEach((value, key) => (data[key] = value));
-        data.chat_room_id = 1;
-        data.username = "kim";
-        data.created = Date.now();
         const url = "http://localhost:8000/api/messages";
         const fetchConfig = {
             method: "POST",
@@ -48,21 +50,27 @@ export default function Messages() {
         const response = await fetch(url, fetchConfig);
         setIsLoading(false);
         if (response.ok) {
+            data.created = Date.now();
+            setMessages([...messages, data]);
             e.target.reset();
             fetchData();
         }
     };
+
     useEffect(() => {
+        setMessages([]);
         fetchData();
-        setInterval(fetchData, 1000);
-    }, []);
+        const intervalId = setInterval(() => fetchData(), 1800);
+        return () => clearInterval(intervalId);
+    }, [chatRoomId]);
+
     if (lastItem && lastItem.scrollIntoView) {
         lastItem.scrollIntoView({ behavior: "smooth" });
     }
 
-    const checkCurrentUser = (username) => username === currentUser;
+    const checkCurrentUser = (username) => username === currentUser?.username;
 
-    return (
+    return currentUser ? (
         <>
             <List className="c-message-area">
                 <ListItem ref={lastItem} style={{ height: 1, padding: 0 }} />
@@ -75,12 +83,14 @@ export default function Messages() {
                             } else if (!b.created) {
                                 return 1;
                             } else {
-                                return a.created?.i < b.created ? 1 : -1;
+                                return new Date(a.created) < new Date(b.created)
+                                    ? 1
+                                    : -1;
                             }
                         })
                         .map((message) => (
                             <ListItem
-                                key={message.id}
+                                key={message.id ?? "unsent"}
                                 style={{ marginBottom: 15 }}
                             >
                                 <Grid container>
@@ -88,9 +98,7 @@ export default function Messages() {
                                         item
                                         xs={12}
                                         align={
-                                            checkCurrentUser(
-                                                message.currentUser
-                                            )
+                                            checkCurrentUser(message.username)
                                                 ? "right"
                                                 : "left"
                                         }
@@ -98,7 +106,7 @@ export default function Messages() {
                                         <div
                                             className={
                                                 checkCurrentUser(
-                                                    message.currentUser
+                                                    message.username
                                                 )
                                                     ? "c-user-current"
                                                     : "c-user-other"
@@ -107,17 +115,6 @@ export default function Messages() {
                                                 display: "inline-block",
                                                 padding: "8px 12px",
                                                 borderRadius: "10px",
-                                                backgroundColor:
-                                                    checkCurrentUser(
-                                                        message.currentUser
-                                                    )
-                                                        ? "#1976D2"
-                                                        : "#e0e0e0",
-                                                color: checkCurrentUser(
-                                                    message.username
-                                                )
-                                                    ? "#fff"
-                                                    : "#000",
                                             }}
                                         >
                                             {message.text}
@@ -127,7 +124,7 @@ export default function Messages() {
                                         <div
                                             align={
                                                 checkCurrentUser(
-                                                    message.currentUser
+                                                    message.username
                                                 )
                                                     ? "right"
                                                     : "left"
@@ -137,14 +134,17 @@ export default function Messages() {
                                                 color: "#757575",
                                             }}
                                         >
-                                            {message.created?.i
-                                                ? format(
-                                                      new Date(
-                                                          parseInt(
-                                                              message.created
-                                                          )
-                                                      ),
-                                                      "'Delivered on' eeee 'at' p"
+                                            {message.created
+                                                ? // change timezone to local
+                                                  (checkCurrentUser(
+                                                      message.username
+                                                  )
+                                                      ? "You"
+                                                      : "@" +
+                                                        message.username) +
+                                                  format(
+                                                      new Date(message.created),
+                                                      "' said on' eeee 'at' p"
                                                   )
                                                 : "Sending..."}
                                         </div>
@@ -166,8 +166,13 @@ export default function Messages() {
                         />
                         <input
                             type="hidden"
+                            name="chat_room_id"
+                            value={chatRoomId}
+                        />
+                        <input
+                            type="hidden"
                             name="username"
-                            value={currentUser}
+                            value={currentUser?.username}
                         />
                     </Grid>
                     <Grid
@@ -184,5 +189,7 @@ export default function Messages() {
                 </Grid>
             </form>
         </>
+    ) : (
+        <div></div>
     );
 }
