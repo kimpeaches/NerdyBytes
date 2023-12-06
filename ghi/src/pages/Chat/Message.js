@@ -6,18 +6,22 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import TextField from "@mui/material/TextField";
 import { format } from "date-fns";
-import { default as React, useState, useEffect, useRef } from "react";
+import {
+    default as React,
+    useState,
+    useEffect,
+    useRef,
+    useCallback,
+} from "react";
 import { useUserContext } from "../../useContext/UserContext";
 import { useParams } from "react-router";
 
 export default function Messages() {
     const { chatRoomId } = useParams();
-    const [isLoading, setIsLoading] = useState(undefined);
     const [messages, setMessages] = useState([]);
     const currentUser = useUserContext();
     const lastItem = useRef(0);
-    const fetchData = async () => {
-        setIsLoading(true);
+    const fetchData = useCallback(async () => {
         const res = await fetch(
             `http://localhost:8000/api/rooms/${chatRoomId}/messages`,
             {
@@ -28,8 +32,7 @@ export default function Messages() {
         if (Array.isArray(response)) {
             setMessages(response);
         }
-        setIsLoading(false);
-    };
+    }, [chatRoomId]);
     const submitMessage = async (e) => {
         e.preventDefault();
         const data = {};
@@ -44,9 +47,7 @@ export default function Messages() {
             },
         };
         setMessages([...messages, data]);
-        setIsLoading(true);
         const response = await fetch(url, fetchConfig);
-        setIsLoading(false);
         if (response.ok) {
             data.created = Date.now();
             setMessages([...messages, data]);
@@ -60,7 +61,7 @@ export default function Messages() {
         fetchData();
         const intervalId = setInterval(() => fetchData(), 1800);
         return () => clearInterval(intervalId);
-    }, [chatRoomId]);
+    }, [chatRoomId, fetchData]);
 
     if (lastItem && lastItem.scrollIntoView) {
         lastItem.scrollIntoView({ behavior: "smooth" });
