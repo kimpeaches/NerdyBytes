@@ -37,6 +37,29 @@ class ChatRoomOut(BaseModel):
 
 
 class ChatRoomRepository:
+    def get_all(self) -> ChatRoomOut:
+        with pool.connection() as conn:
+            with conn.cursor() as db:
+                db.execute(
+                    """
+                    SELECT *
+                    FROM chat_room
+                    """
+                )
+                result = []
+                rooms = db.fetchall()
+                for room in rooms:
+                    print(room)
+                    r = ChatRoomOut(
+                        id=room[0],
+                        user_id=room[2],
+                        name=room[3],
+                        messages=room[4],
+                        created=str(room[1]),
+                    )
+                    result.append(r)
+                return result
+
     def get_by_id(self, id: int) -> ChatRoomOut:
         with pool.connection() as conn:
             with conn.cursor() as db:

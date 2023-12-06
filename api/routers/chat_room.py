@@ -12,6 +12,7 @@ from queries.chat_room import (
     ChatRoomRepository,
 )
 from authenticator import authenticator
+from typing import List
 
 
 class ChatError(ValueError):
@@ -29,6 +30,15 @@ class HttpError(BaseModel):
 
 
 router = APIRouter()
+
+
+@router.get("/api/rooms/")
+async def get_all_rooms(
+    accounts: ChatRoomRepository = Depends(),
+    _=Depends(authenticator.get_current_account_data),
+) -> List[ChatRoomOut]:
+    rooms = accounts.get_all()
+    return rooms
 
 
 @router.get("/api/rooms/{chat_room_id}", response_model=ChatRoomIn)
