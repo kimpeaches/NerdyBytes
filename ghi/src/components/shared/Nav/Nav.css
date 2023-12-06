@@ -25,7 +25,8 @@ nav ul li {
   margin-left: 2rem;
 }
 
-nav a {
+nav a,
+div.nav-link {
   color: var(--background) !important;
   font-size: 1.25rem;
 }

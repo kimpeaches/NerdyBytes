@@ -6,7 +6,8 @@ import LoginForm from "./pages/Login/LoginForm";
 import SignupForm from "./pages/Signup/SignupForm";
 import "./App.css";
 import Chat from "./pages/Chat/ChatPage";
-import { UserProvider } from "./UserContext";
+import { UserProvider } from "./useContext/UserContext";
+import ChatRoomContext from "./useContext/ChatRoomContext";
 import { useState, useEffect } from "react";
 
 function App() {
@@ -14,6 +15,10 @@ function App() {
   const basename = process.env.PUBLIC_URL.replace(domain, "");
   const [users, setUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
+  const domain = /https:\/\/[^/]+/;
+  const basename = process.env.PUBLIC_URL.replace(domain, "");
+  const [users, setUsers] = useState([]);
+  const [chatRoomId, setChatRoomId] = useState(0);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -40,7 +45,6 @@ function App() {
               <Route exact path="/login" element={<LoginForm />}></Route>
               <Route exact path="/dashboard" element={<Dashboard />}></Route>
               <Route exact path="/chat" element={<Chat />}></Route>
-              <Route exact path="/signup" element={<SignupForm />}></Route>
             </Routes>
           </UserProvider>
         </AuthProvider>
