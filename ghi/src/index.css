@@ -1,13 +1,65 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+        "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+        monospace;
+}
+
+.c-table {
+    min-width: 650;
+}
+.c-chat-section {
+    width: 100%;
+}
+.c-head-bg {
+    background-color: #e0e0e0;
+}
+.c-border-right-500 {
+    border-right: 1px solid #e0e0e0;
+}
+.c-message-area {
+    overflow-y: auto;
+    flex-direction: column-reverse;
+    display: flex;
+    width: 100%;
+    /* full height minus navbar (56px) minus message form (96px) */
+    height: calc(100vh - 152px);
+    background-color: #fff;
+    border: 1px solid #eee;
+}
+
+.c-message-form {
+    width: 100%;
+    background-color: #fff;
+}
+
+.overlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.c-user-current {
+    background: rgb(25, 118, 210);
+    color: #fff;
+}
+
+.c-user-other {
+    background: rgb(200, 200, 200);
+    color: #000;
+}
+
+.c-selected {
+    background: rgb(25, 118, 210);
+    color: #fff;
 }

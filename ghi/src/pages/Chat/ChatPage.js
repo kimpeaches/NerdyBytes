@@ -75,6 +75,8 @@ export default function Chat() {
                             open={isDrawerOpen}
                             variant="persistent"
                             style={{ zIndex: 2 }}
+                            onOpen={() => setIsDrawerOpen(true)}
+                            onClose={() => setIsDrawerOpen(false)}
                         >
                             <Grid item xs={12} className="c-border-right-500">
                                 <ChatRoom />

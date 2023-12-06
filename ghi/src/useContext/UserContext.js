@@ -8,7 +8,7 @@ export const useUserContext = () => {
 
 export const UserProvider = ({ children, currentUser }) => {
     return (
-        <UserContext.Provider value={{ currentUser }}>
+        <UserContext.Provider value={currentUser}>
             {children}
         </UserContext.Provider>
     );

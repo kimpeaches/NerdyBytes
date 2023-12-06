@@ -34,10 +34,10 @@ router = APIRouter()
 
 @router.get("/api/rooms/")
 async def get_all_rooms(
-    accounts: ChatRoomRepository = Depends(),
+    chat_rooms: ChatRoomRepository = Depends(),
     _=Depends(authenticator.get_current_account_data),
 ) -> List[ChatRoomOut]:
-    rooms = accounts.get_all()
+    rooms = chat_rooms.get_all()
     return rooms
 
 
