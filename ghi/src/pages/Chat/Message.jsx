@@ -8,19 +8,19 @@ import ListItemText from "@mui/material/ListItemText";
 import TextField from "@mui/material/TextField";
 import { format } from "date-fns";
 import { default as React, useState, useEffect, useRef } from "react";
-import { useUserContext } from "../../useContext/UserContext";
+import { UserProvider } from "../../useContext/UserContext";
 import ChatRoomContext from "../../useContext/ChatRoomContext";
 import { useContext } from "react";
 
 export default function Messages() {
     const [isLoading, setIsLoading] = useState(undefined);
     const [messages, setMessages] = useState([]);
-    const { currentUser } = useUserContext();
+    const currentUser = useContext(UserProvider);
     const chatRoomId = useContext(ChatRoomContext);
     const lastItem = useRef(0);
     const fetchData = async () => {
         setIsLoading(true);
-        const res = await fetch("http://localhost:8000/api/rooms/", {
+        const res = await fetch("http://localhost:8000/api/rooms/1/messages", {
             credentials: "include",
         });
         const response = await res.json();
@@ -31,8 +31,9 @@ export default function Messages() {
         e.preventDefault();
         const data = {};
         new FormData(e.target).forEach((value, key) => (data[key] = value));
-        data.chat_room_id = chatRoomId;
-        data.username = currentUser;
+        data.chat_room_id = 1;
+        data.username = "kim";
+        data.created = Date.now();
         const url = "http://localhost:8000/api/messages";
         const fetchConfig = {
             method: "POST",
@@ -87,7 +88,9 @@ export default function Messages() {
                                         item
                                         xs={12}
                                         align={
-                                            checkCurrentUser(message.username)
+                                            checkCurrentUser(
+                                                message.currentUser
+                                            )
                                                 ? "right"
                                                 : "left"
                                         }
@@ -95,7 +98,7 @@ export default function Messages() {
                                         <div
                                             className={
                                                 checkCurrentUser(
-                                                    message.username
+                                                    message.currentUser
                                                 )
                                                     ? "c-user-current"
                                                     : "c-user-other"
@@ -106,7 +109,7 @@ export default function Messages() {
                                                 borderRadius: "10px",
                                                 backgroundColor:
                                                     checkCurrentUser(
-                                                        message.username
+                                                        message.currentUser
                                                     )
                                                         ? "#1976D2"
                                                         : "#e0e0e0",
@@ -124,7 +127,7 @@ export default function Messages() {
                                         <div
                                             align={
                                                 checkCurrentUser(
-                                                    message.username
+                                                    message.currentUser
                                                 )
                                                     ? "right"
                                                     : "left"
@@ -136,11 +139,9 @@ export default function Messages() {
                                         >
                                             {message.created?.i
                                                 ? format(
-                                                      format(
-                                                          new Date(
-                                                              parseInt(
-                                                                  message.created
-                                                              )
+                                                      new Date(
+                                                          parseInt(
+                                                              message.created
                                                           )
                                                       ),
                                                       "'Delivered on' eeee 'at' p"

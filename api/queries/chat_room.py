@@ -49,7 +49,6 @@ class ChatRoomRepository:
                 result = []
                 rooms = db.fetchall()
                 for room in rooms:
-                    print(room)
                     r = ChatRoomOut(
                         id=room[0],
                         user_id=room[2],
