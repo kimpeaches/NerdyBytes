@@ -13,7 +13,6 @@ function App() {
     const domain = /https:\/\/[^/]+/;
     const basename = process.env.PUBLIC_URL.replace(domain, "");
     const [users, setUsers] = useState([]);
-    const [currentUser, setCurrentUser] = useState(null);
     const [chatRoomId, setChatRoomId] = useState(0);
 
     useEffect(() => {
@@ -26,7 +25,7 @@ function App() {
                     }
                 );
                 const userData = await response.json();
-                setCurrentUser(userData.id);
+                setUsers(userData);
             } catch (error) {
                 console.error("Error fetching users:", error);
             }
@@ -50,17 +49,18 @@ function App() {
         fetchUsers();
         fetchRoom();
     }, []);
+
     return (
         <div className="container">
             <BrowserRouter basename={basename}>
                 <Nav />
                 <AuthProvider baseUrl="http://localhost:8000">
-                    <UserProvider currentUser={currentUser}>
+                    <UserProvider currentUser={users}>
                         <ChatRoomContext.Provider value={chatRoomId}>
                             <Routes>
                                 <Route
                                     exact
-                                    path="/login"
+                                    path="/"
                                     element={<LoginForm />}
                                 ></Route>
                                 <Route
