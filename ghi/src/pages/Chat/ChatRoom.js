@@ -1,6 +1,5 @@
 "use client";
 
-import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
 import Grid from "@mui/material/Grid";
 import List from "@mui/material/List";
