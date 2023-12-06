@@ -55,14 +55,14 @@ export default function ChatRoom() {
             <Divider />
             <List>
                 {filteredRooms.map((room) => (
-                    <ListItemButton
-                        key={room.id}
-                        selected={parseInt(chatRoomId) === room.id}
-                    >
-                        <Link to={`/chat/${room.id}`}>
+                    <Link to={`/chat/${room.id}`}>
+                        <ListItemButton
+                            key={room.id}
+                            selected={parseInt(chatRoomId) === room.id}
+                        >
                             <ListItemText primary={room.name} />
-                        </Link>
-                    </ListItemButton>
+                        </ListItemButton>
+                    </Link>
                 ))}
             </List>
         </>
