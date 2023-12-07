@@ -8,10 +8,9 @@ function PublicDeck() {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await fetch(
-                    `http://localhost:8000/api/${user_id}/deck`,
-                    { credentials: "include" }
-                );
+                const response = await fetch(`http://localhost:8000/api/deck`, {
+                    credentials: "include",
+                });
                 const data = await response.json();
                 setDecks(data);
             } catch (error) {
@@ -45,7 +44,7 @@ function PublicDeck() {
             >
                 Decks
             </h2>
-            <div className="row">
+            <div className="row justify-content-center">
                 {decks &&
                     decks
                         .filter((deck) => deck.public_status)
@@ -53,7 +52,12 @@ function PublicDeck() {
                             <div
                                 key={deck.id}
                                 className="col-md-3 mb-4"
-                                style={cardStyle}
+                                style={{
+                                    ...cardStyle,
+                                    border: `2px solid var(--primary)`,
+                                    borderRadius: "10px",
+                                    overflow: "hidden",
+                                }}
                                 onMouseEnter={(e) => {
                                     e.currentTarget.style.transform =
                                         hoverStyle.transform;
@@ -62,13 +66,28 @@ function PublicDeck() {
                                     e.currentTarget.style.transform = "";
                                 }}
                             >
-                                <div className="card">
-                                    <div className="card-body bg-light">
+                                <div
+                                    className="card"
+                                    style={{
+                                        backgroundColor: "var(--background)",
+                                    }}
+                                >
+                                    <div className="card-body">
                                         <h5 className="card-title">
-                                            <a href="/">{deck.name}</a>
+                                            <a
+                                                href="/"
+                                                style={{
+                                                    color: "var(--primary)",
+                                                }}
+                                            >
+                                                {deck.name}
+                                            </a>
                                         </h5>
                                     </div>
-                                    <p className="card-text">
+                                    <p
+                                        className="card-text"
+                                        style={{ color: "var(--text)" }}
+                                    >
                                         New Card: {deck.total_cards}
                                     </p>
                                 </div>
