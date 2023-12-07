@@ -84,8 +84,8 @@ def update_deck(
     return deck
 
 
-@router.get("/api/{user_id}/deck", response_model=Union[List[DeckOut], Error])
-def get_all(
+@router.get("/api/deck", response_model=Union[List[DeckOut], Error])
+def get_all_decks(
     account_data: dict = Depends(authenticator.get_current_account_data),
     repo: DeckRepository = Depends(),
 ):

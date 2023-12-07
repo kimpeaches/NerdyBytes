@@ -4,3 +4,9 @@
   border-radius: 50%;
   border: 5px solid #ccc;
 }
+
+.profile-content {
+  margin: auto;
+  width: 50%;
+  text-align: center;
+}

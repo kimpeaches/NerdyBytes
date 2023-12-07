@@ -32,7 +32,6 @@ function App() {
         <Nav />
         <AuthProvider baseUrl="http://localhost:8000">
           <UserProvider currentUser={currentUser}>
-            {console.log(currentUser)};
             <Routes>
               <Route exact path="/" element={<LoginForm />}></Route>
               <Route exact path="/dashboard" element={<Dashboard />}></Route>
