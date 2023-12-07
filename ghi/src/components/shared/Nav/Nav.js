@@ -67,6 +67,11 @@ const Nav = () => {
                             Create Deck
                         </Link>
                     </li>
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/publicdeck">
+                            Public List
+                        </Link>
+                    </li>
                     <li className="nav-item" onClick={handleLogout}>
                         <div className="nav-link" style={{ cursor: "pointer" }}>
                             Logout
