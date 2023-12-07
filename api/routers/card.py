@@ -28,7 +28,7 @@ class HttpError(BaseModel):
 router = APIRouter()
 
 
-@router.post("/api/{user_id}/deck/{deck_id}/card", response_model=CardIn)
+@router.post("/api/card", response_model=CardIn)
 async def create_card(
     request: Request,
     info: CardForm,

@@ -4,6 +4,7 @@ import Nav from "./components/shared/Nav/Nav";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import LoginForm from "./pages/Login/LoginForm";
 import SignupForm from "./pages/Signup/SignupForm";
+import CardForm from "./pages/Card/CreateCard";
 import "./App.css";
 import Chat from "./pages/Chat/ChatPage";
 import { UserProvider } from "./useContext/UserContext";
@@ -37,6 +38,11 @@ function App() {
               <Route exact path="/dashboard" element={<Dashboard />}></Route>
               <Route exact path="/chat/:chatRoomId" element={<Chat />}></Route>
               <Route exact path="/signup" element={<SignupForm />}></Route>
+              <Route
+                exact
+                path="/create-card"
+                element={<CardForm currentUser={currentUser} />}
+              ></Route>
             </Routes>
           </UserProvider>
         </AuthProvider>
