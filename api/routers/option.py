@@ -29,10 +29,7 @@ class HttpError(BaseModel):
 router = APIRouter()
 
 
-@router.post(
-    "/api/{user_id}/deck/{deck_id}/card/{card_id}/option",
-    response_model=OptionIn,
-)
+@router.post("/api/option", response_model=OptionIn)
 async def create_option(
     request: Request,
     info: OptionIn,
@@ -46,7 +43,6 @@ async def create_option(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=e.message,
         )
-
     return option
 
 

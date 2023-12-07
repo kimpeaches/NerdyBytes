@@ -5,6 +5,7 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import LoginForm from "./pages/Login/LoginForm";
 import SignupForm from "./pages/Signup/SignupForm";
 import PublicDeck from "./pages/Deck/PublicDeck";
+import CardForm from "./pages/Card/CreateCard";
 import "./App.css";
 import Chat from "./pages/Chat/ChatPage";
 import { UserProvider } from "./useContext/UserContext";
@@ -49,6 +50,11 @@ function App() {
                                 exact
                                 path="/publicdeck"
                                 element={<PublicDeck />}
+                            ></Route>
+                            <Route
+                                exact
+                                path="/create-card"
+                                element={<CardForm currentUser={currentUser} />}
                             ></Route>
                             <Route
                                 exact
