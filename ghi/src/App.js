@@ -12,16 +12,17 @@ function App() {
     const domain = /https:\/\/[^/]+/;
     const basename = process.env.PUBLIC_URL.replace(domain, "");
     const [currentUser, setCurrentUser] = useState(undefined);
-    const fetchData = async () => {
-        const res = await fetch(`http://localhost:8000/token`, {
-            credentials: "include",
-        });
-        const response = await res.json();
-        if (response.account) {
-            setCurrentUser(response.account);
-        }
-    };
     useEffect(() => {
+        const fetchData = async () => {
+            const res = await fetch(`http://localhost:8000/token`, {
+                credentials: "include",
+            });
+            const response = await res.json();
+            if (response.account) {
+                setCurrentUser(response.account);
+            }
+        };
+
         fetchData();
     }, []);
     return (
@@ -30,6 +31,7 @@ function App() {
                 <Nav />
                 <AuthProvider baseUrl="http://localhost:8000">
                     <UserProvider currentUser={currentUser}>
+                        {console.log(currentUser)};
                         <Routes>
                             <Route
                                 exact
@@ -53,5 +55,4 @@ function App() {
         </div>
     );
 }
-
 export default App;
