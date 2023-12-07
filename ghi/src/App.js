@@ -9,11 +9,13 @@ import "./App.css";
 import Chat from "./pages/Chat/ChatPage";
 import { UserProvider } from "./useContext/UserContext";
 import { useState, useEffect } from "react";
+import CreateDeck from "./pages/CreateDeck/CreateDeck";
 
 function App() {
   const domain = /https:\/\/[^/]+/;
   const basename = process.env.PUBLIC_URL.replace(domain, "");
   const [currentUser, setCurrentUser] = useState(undefined);
+
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch(`http://localhost:8000/token`, {
@@ -43,6 +45,10 @@ function App() {
                 path="/create-card"
                 element={<CardForm currentUser={currentUser} />}
               ></Route>
+              <Route
+                path="/create-deck"
+                element={<CreateDeck currentUser={currentUser} />}
+              />
             </Routes>
           </UserProvider>
         </AuthProvider>
