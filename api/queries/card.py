@@ -120,3 +120,24 @@ class CardRepository:
                 if result.rowcount == 0:
                     return Error(message="No card found to delete")
                 return True
+
+    def get_one(self, card_id: int) -> Union[CardOut, Error]:
+        with pool.connection() as conn:
+            with conn.cursor() as db:
+                result = db.execute(
+                    """
+                    SELECT * FROM card WHERE id = %s;
+                    """,
+                    [card_id],
+                )
+                card = result.fetchone()
+                if not card:
+                    return Error(message="No card found")
+                return CardOut(
+                    id=card[0],
+                    deck_id=card[1],
+                    question=card[2],
+                    wrong_count=card[3],
+                    right_count=card[4],
+                    flag=card[5],
+                )

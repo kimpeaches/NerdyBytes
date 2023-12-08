@@ -32,7 +32,7 @@ const Nav = () => {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-primary p-2">
             <div className="navbar-container">
-                <Link className="navbar-brand" to="/">
+                <Link className="navbar-brand" to="/dashboard">
                     <img
                         className="logo rounded-circle white-border"
                         src="./NerdybytesLogo.jpg"
@@ -63,13 +63,13 @@ const Nav = () => {
                         </Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link" to="#">
-                            Create Deck
+                        <Link className="nav-link" to="/publicdeck">
+                            Public List
                         </Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link" to="/publicdeck">
-                            Public List
+                        <Link className="nav-link" to="/create-deck">
+                            Create Deck
                         </Link>
                     </li>
                     <li className="nav-item" onClick={handleLogout}>

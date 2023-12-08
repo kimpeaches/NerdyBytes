@@ -10,11 +10,13 @@ import "./App.css";
 import Chat from "./pages/Chat/ChatPage";
 import { UserProvider } from "./useContext/UserContext";
 import { useState, useEffect } from "react";
+import CreateDeck from "./pages/CreateDeck/CreateDeck";
 
 function App() {
     const domain = /https:\/\/[^/]+/;
     const basename = process.env.PUBLIC_URL.replace(domain, "");
     const [currentUser, setCurrentUser] = useState(undefined);
+
     useEffect(() => {
         const fetchData = async () => {
             const res = await fetch(`http://localhost:8000/token`, {
@@ -28,7 +30,6 @@ function App() {
 
         fetchData();
     }, []);
-
     return (
         <div className="container">
             <BrowserRouter basename={basename}>
@@ -48,16 +49,6 @@ function App() {
                             ></Route>
                             <Route
                                 exact
-                                path="/publicdeck"
-                                element={<PublicDeck />}
-                            ></Route>
-                            <Route
-                                exact
-                                path="/create-card"
-                                element={<CardForm currentUser={currentUser} />}
-                            ></Route>
-                            <Route
-                                exact
                                 path="/chat/:chatRoomId"
                                 element={<Chat />}
                             ></Route>
@@ -65,6 +56,22 @@ function App() {
                                 exact
                                 path="/signup"
                                 element={<SignupForm />}
+                            ></Route>
+                            <Route
+                                exact
+                                path="/create-card"
+                                element={<CardForm currentUser={currentUser} />}
+                            ></Route>
+                            <Route
+                                path="/create-deck"
+                                element={
+                                    <CreateDeck currentUser={currentUser} />
+                                }
+                            />
+                            <Route
+                                exact
+                                path="/publicdeck"
+                                element={<PublicDeck />}
                             ></Route>
                         </Routes>
                     </UserProvider>

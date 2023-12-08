@@ -92,3 +92,23 @@ def update_card(
     repo: CardRepository = Depends(),
 ) -> Union[CardOut, Error]:
     return repo.update(card_id, card)
+
+
+@router.get(
+    "/api/{user_id}/deck/{deck_id}/card/{card_id}", response_model=CardOut
+)
+def get_one_card(
+    request: Request,
+    card_id: int,
+    account_data: dict = Depends(authenticator.get_current_account_data),
+    repo: CardRepository = Depends(),
+) -> CardOut:
+    try:
+        card = repo.get_one(card_id)
+    except NoCardError:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Card not found.",
+        )
+
+    return card

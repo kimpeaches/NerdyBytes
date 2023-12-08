@@ -30,39 +30,43 @@ function UserDecks({ user }) {
     <div className="user-deck-list">
       <h1>Your Decks</h1>
       <div className="d-flex flex-wrap justify-content-around overflow-x-auto">
-        {userDecks.map((deck) => {
-          return (
-            <div
-              key={deck.id}
-              className="study-deck card rounded-3 m-2 shadow"
-              style={{ width: "18rem" }}
-            >
-              <div className="card-body">
-                <h5 className="card-title">{deck.name}</h5>
-                {/* TODO: Add deck description */}
-                <div className="d-flex justify-content-between">
-                  <Link href="#" className="card-link">
-                    Study
-                  </Link>
-                  <Link href="#" className="card-link">
-                    Browse
-                  </Link>
-                  <Link href="#" className="card-link">
-                    Edit
-                  </Link>
-                  <Link href="#" className="card-link">
-                    <img
-                      src="/trash.jpg"
-                      alt="trash"
-                      className="card-link"
-                      style={{ width: "30px" }}
-                    />
-                  </Link>
+        {userDecks.length === 0 ? (
+          <p>You Don't Have Any Decks. Please create one.</p>
+        ) : (
+          userDecks.map((deck) => {
+            return (
+              <div
+                key={deck.id}
+                className="study-deck card rounded-3 m-2 shadow"
+                style={{ width: "18rem" }}
+              >
+                <div className="card-body">
+                  <h5 className="card-title">{deck.name}</h5>
+                  {/* TODO: Add deck description */}
+                  <div className="d-flex justify-content-between">
+                    <Link href="#" className="card-link">
+                      Study
+                    </Link>
+                    <Link href="#" className="card-link">
+                      Browse
+                    </Link>
+                    <Link href="#" className="card-link">
+                      Edit
+                    </Link>
+                    <Link href="#" className="card-link">
+                      <img
+                        src="/trash.jpg"
+                        alt="trash"
+                        className="card-link"
+                        style={{ width: "30px" }}
+                      />
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })
+        )}
       </div>
     </div>
   );

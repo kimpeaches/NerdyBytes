@@ -12,7 +12,9 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await login(username, password);
-    navigate("/dashboard");
+    setTimeout(() => {
+      navigate("/dashboard");
+    }, 250);
     e.target.reset();
   };
 
