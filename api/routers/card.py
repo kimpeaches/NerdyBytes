@@ -45,21 +45,17 @@ async def create_card(
     return card
 
 
-@router.get("/api/{user_id}/deck/{deck_id}/card", response_model=List[CardOut])
+@router.get("/api/{deck_id}/card", response_model=List[CardOut])
 async def get_all_cards(
     request: Request,
     deck_id: int,
     account_data: dict = Depends(authenticator.get_current_account_data),
     repo: CardRepository = Depends(),
 ) -> List[CardOut]:
-    try:
-        cards = repo.get_all(deck_id)
-    except NoCardError:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Cannot get all cards.",
-        )
-    return cards
+    cards_or_error = repo.get_all(deck_id)
+    if isinstance(cards_or_error, Error):
+        return []
+    return cards_or_error
 
 
 @router.delete(

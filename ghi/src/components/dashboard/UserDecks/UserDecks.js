@@ -29,6 +29,7 @@ function UserDecks({ user }) {
   return (
     <div className="user-deck-list">
       <h1>Your Decks</h1>
+      {/* TODO: Add search bar */}
       <div className="d-flex flex-wrap justify-content-around overflow-x-auto">
         {userDecks.length === 0 ? (
           <p>You Don't Have Any Decks. Please create one.</p>
@@ -47,7 +48,7 @@ function UserDecks({ user }) {
                     <Link href="#" className="card-link">
                       Study
                     </Link>
-                    <Link href="#" className="card-link">
+                    <Link to={`/${deck.id}/cardlist`} className="card-link">
                       Browse
                     </Link>
                     <Link href="#" className="card-link">

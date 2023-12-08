@@ -1,6 +1,7 @@
 from pydantic import BaseModel, ValidationError
 from queries.pool import pool
 from typing import Union, List
+from fastapi import HTTPException
 
 
 class Error(BaseModel):
@@ -84,7 +85,7 @@ class CardRepository:
         old_data = card.dict()
         return CardOut(id=id, **old_data)
 
-    def get_all(self, deck_id: int) -> Union[List[CardOut], Error]:
+    def get_all(self, deck_id: int) -> List[CardOut]:
         with pool.connection() as conn:
             with conn.cursor() as db:
                 result = db.execute(
@@ -95,7 +96,9 @@ class CardRepository:
                 )
                 cards = result.fetchall()
                 if not cards:
-                    return Error(message="No cards found")
+                    raise HTTPException(
+                        status_code=404, detail="No cards found"
+                    )
                 return [
                     CardOut(
                         id=card[0],

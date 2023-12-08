@@ -1,0 +1,7 @@
+.card-list {
+  margin: 1rem;
+  border: 5px solid var(--primary);
+  border-radius: 10px;
+  padding: 20px;
+  background-color: var(--background);
+}
