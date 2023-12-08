@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import CardForm from "../../components/cardlist/Card/CreateCard";
 import "./CardList.css";
 
@@ -55,6 +55,9 @@ function CardList() {
               <th scope="col">Question</th>
               <th scope="col">Right Count</th>
               <th scope="col">Wrong Count</th>
+              <th scope="col">Options</th>
+              <th scope="col">Edit</th>
+              <th scope="col">Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -73,6 +76,15 @@ function CardList() {
                     <td>{card.question}</td>
                     <td>{card.right_count}</td>
                     <td>{card.wrong_count}</td>
+                    <td>
+                      <Link to={`/card/${card.id}/option`}>View</Link>
+                    </td>
+                    <td>
+                      <Link to={`/`}>Edit</Link>
+                    </td>
+                    <td>
+                      <Link to={`/`}>Delete</Link>
+                    </td>
                   </tr>
                 );
               })
