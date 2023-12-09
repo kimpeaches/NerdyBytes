@@ -46,7 +46,7 @@ async def create_deck(
     return deck
 
 
-@router.get("/api/{user_id}/deck/{deck_id}", response_model=DeckOut)
+@router.get("/api/deck/{deck_id}", response_model=DeckOut)
 def get_one_deck(
     request: Request,
     deck_id: int,

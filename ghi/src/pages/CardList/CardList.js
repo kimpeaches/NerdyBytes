@@ -7,8 +7,24 @@ function CardList() {
   const { deckId } = useParams();
   const [cards, setCards] = useState([]);
   const [reload, setReload] = useState(false);
+  const [deck, setDeck] = useState("");
 
   useEffect(() => {
+    async function getDeck() {
+      const url = `http://localhost:8000/api/deck/${deckId}`;
+      const fetchOptions = {
+        credentials: "include",
+        method: "GET",
+      };
+      const response = await fetch(url, fetchOptions);
+      if (response.ok) {
+        const data = await response.json();
+        setDeck(data);
+      } else {
+        console.log("Error fetching deck");
+      }
+    }
+
     async function getCards() {
       const url = `http://localhost:8000/api/${deckId}/card`;
       const fetchOptions = {
@@ -37,6 +53,7 @@ function CardList() {
       }
     }
 
+    getDeck();
     getCards();
   }, [reload, deckId]);
 
@@ -47,7 +64,7 @@ function CardList() {
   return (
     <>
       <div className="card-list">
-        <h1 className="mb-3 text-center">Cards</h1>
+        <h1 className="mb-3 text-center">Deck: {deck.name}</h1>
         <table className="table table-hover table-striped">
           <thead>
             <tr>
