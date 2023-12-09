@@ -64,9 +64,7 @@ def get_one_deck(
     return deck
 
 
-@router.put(
-    "/api/{user_id}/deck/{deck_id}", response_model=Union[DeckOut, Error]
-)
+@router.put("/api/deck/{deck_id}", response_model=Union[DeckOut, Error])
 def update_deck(
     deck_id: int,
     info: DeckIn,
