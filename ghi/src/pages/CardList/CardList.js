@@ -61,6 +61,22 @@ function CardList() {
     setReload(!reload);
   };
 
+  const deleteCard = async (e, cardId) => {
+    e.preventDefault();
+    const url = `http://localhost:8000/api/card/${cardId}`;
+    const fetchOptions = {
+      credentials: "include",
+      method: "DELETE",
+    };
+
+    const response = await fetch(url, fetchOptions);
+    if (response.ok) {
+      triggerReload();
+    } else {
+      console.log("failed to delete card");
+    }
+  };
+
   return (
     <>
       <div className="card-list">
@@ -100,7 +116,9 @@ function CardList() {
                       <Link to={`/`}>Edit</Link>
                     </td>
                     <td>
-                      <Link to={`/`}>Delete</Link>
+                      <button onClick={(e) => deleteCard(e, card.id)}>
+                        Delete
+                      </button>
                     </td>
                   </tr>
                 );

@@ -58,9 +58,7 @@ async def get_all_cards(
     return cards_or_error
 
 
-@router.delete(
-    "/api/{user_id}/deck/{deck_id}/card/{card_id}", response_model=bool
-)
+@router.delete("/api/card/{card_id}", response_model=bool)
 async def delete_card(
     request: Request,
     card_id: int,
