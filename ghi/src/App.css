@@ -16,6 +16,9 @@
 body {
   color: var(--text);
   background-color: var(--background);
+  background-image: url("/public/nbg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 /* text colors */
@@ -75,4 +78,12 @@ body {
 .btn-accent {
   color: var(--text);
   background-color: var(--accent);
+}
+
+@media (max-width: 1979px) {
+  body {
+    background-repeat: repeat;
+    background-size: cover;
+    background-attachment: fixed;
+  }
 }

@@ -1,7 +1,7 @@
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useState } from "react";
 import "./Login.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
@@ -27,7 +27,7 @@ const LoginForm = () => {
       <div className="login">
         <div>
           <div className="owl">
-            <div className="hand"></div>
+            <div className="hand hand-l"></div>
             <div className="hand hand-r"></div>
             <div className="arms">
               <div className="arm"></div>
@@ -55,6 +55,11 @@ const LoginForm = () => {
             </div>
             <div className="login-btn wrapper">
               <button>Login</button>
+            </div>
+            <div className="signup-btn wrapper" style={{ marginTop: "0.5rem" }}>
+              <Link to="/signup" style={{ textDecoration: "none" }}>
+                <button>SignUp</button>
+              </Link>
             </div>
           </form>
         </div>
