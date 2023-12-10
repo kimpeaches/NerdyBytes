@@ -5,22 +5,22 @@ import "./UserDecks.css";
 function UserDecks({ user }) {
   const [decks, setDecks] = useState([]);
 
-  async function getDecks() {
-    const url = `http://localhost:8000/api/deck`;
-    const fetchOptions = {
-      credentials: "include",
-      method: "GET",
-    };
-    const response = await fetch(url, fetchOptions);
-    if (response.ok) {
-      const data = await response.json();
-      setDecks(data);
-    } else {
-      console.log("Error fetching decks");
-    }
-  }
-
   useEffect(() => {
+    async function getDecks() {
+      const url = `http://localhost:8000/api/deck`;
+      const fetchOptions = {
+        credentials: "include",
+        method: "GET",
+      };
+      const response = await fetch(url, fetchOptions);
+      if (response.ok) {
+        const data = await response.json();
+        setDecks(data);
+      } else {
+        console.log("Error fetching decks");
+      }
+    }
+
     getDecks();
   }, []);
 
@@ -45,7 +45,7 @@ function UserDecks({ user }) {
                   <h5 className="card-title">{deck.name}</h5>
                   {/* TODO: Add deck description */}
                   <div className="d-flex justify-content-between">
-                    <Link to={`/${deck.id}/study`} className="card-link">
+                    <Link href="#" className="card-link">
                       Study
                     </Link>
                     <Link to={`/${deck.id}/cardlist`} className="card-link">

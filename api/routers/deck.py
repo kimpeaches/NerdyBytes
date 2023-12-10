@@ -90,7 +90,7 @@ def get_all_decks(
     return repo.get_all()
 
 
-@router.delete("/api/{user_id}/deck/{deck_id}", response_model=bool)
+@router.delete("/api/deck/{deck_id}", response_model=bool)
 async def delete_deck(
     request: Request,
     deck_id: int,
