@@ -64,7 +64,7 @@ const Study = () => {
 
   // Using useCallback to memoize the function so it doesn't change on every state change render
   const getOptions = useCallback(async (cardId) => {
-    const url = `http://localhost:8000/api/${cardId}/option`;
+    const url = `${process.env.REACT_APP_API_HOST}/api/${cardId}/option`;
     const fetchOptions = {
       credentials: "include",
       method: "GET",
@@ -79,7 +79,7 @@ const Study = () => {
   }, []);
 
   const getCard = useCallback(async () => {
-    const url = `http://localhost:8000/api/${deckId}/study/card`;
+    const url = `${process.env.REACT_APP_API_HOST}/api/${deckId}/study/card`;
     const fetchOptions = {
       credentials: "include",
       method: "GET",
@@ -108,7 +108,7 @@ const Study = () => {
   }, [deckId, getOptions]);
 
   const getDeck = useCallback(async () => {
-    const url = `http://localhost:8000/api/deck/${deckId}`;
+    const url = `${process.env.REACT_APP_API_HOST}/api/deck/${deckId}`;
     const fetchOptions = {
       credentials: "include",
       method: "GET",

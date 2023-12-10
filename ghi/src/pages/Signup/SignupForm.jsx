@@ -42,7 +42,7 @@ const SignupForm = () => {
       picture_url: pictureUrl,
     };
 
-    const registrationUrl = "http://localhost:8000/api/user";
+    const registrationUrl = `${process.env.REACT_APP_API_HOST}/api/user`;
 
     try {
       await register(userData, registrationUrl);

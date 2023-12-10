@@ -7,7 +7,7 @@ const Nav = () => {
   const navigate = useNavigate();
 
   async function logoutUser() {
-    const url = "http://localhost:8000/token";
+    const url = `${process.env.REACT_APP_API_HOST}/token`;
     const fetchOptions = {
       credentials: "include",
       method: "DELETE",

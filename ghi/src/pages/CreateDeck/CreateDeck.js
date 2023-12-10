@@ -18,7 +18,7 @@ const DeckForm = ({ currentUser }) => {
       name: deckName,
       user_id: currentUser.id,
     };
-    const url = "http://localhost:8000/api/deck";
+    const url = `${process.env.REACT_APP_API_HOST}/api/deck`;
     const fetchOptions = {
       method: "POST",
       headers: {

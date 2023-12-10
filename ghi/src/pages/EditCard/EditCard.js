@@ -26,7 +26,7 @@ const EditCard = ({ currentUser }) => {
       flag: false,
     };
 
-    const url = `http://localhost:8000/api/deck/${deckId}/card/${cardId}`;
+    const url = `${process.env.REACT_APP_API_HOST}/api/deck/${deckId}/card/${cardId}`;
     const fetchOptions = {
       method: "PUT",
       headers: {

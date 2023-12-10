@@ -7,7 +7,7 @@ function UserDecks({ user }) {
 
   useEffect(() => {
     async function getDecks() {
-      const url = `http://localhost:8000/api/deck`;
+      const url = `${process.env.REACT_APP_API_HOST}/api/deck`;
       const fetchOptions = {
         credentials: "include",
         method: "GET",
@@ -27,7 +27,7 @@ function UserDecks({ user }) {
   const userDecks = decks.filter((deck) => deck.user_id === user.id);
 
   async function deleteDeck(deck_id) {
-    const url = `http://localhost:8000/api/deck/${deck_id}`;
+    const url = `${process.env.REACT_APP_API_HOST}/api/deck/${deck_id}`;
     const fetchOptions = {
       credentials: "include",
       method: "DELETE",
@@ -60,7 +60,7 @@ function UserDecks({ user }) {
                   <h5 className="card-title">{deck.name}</h5>
                   {/* TODO: Add deck description */}
                   <div className="d-flex justify-content-between">
-                    <Link href="#" className="card-link">
+                    <Link to={`/${deck.id}/study`} className="card-link">
                       Study
                     </Link>
                     <Link to={`/${deck.id}/cardlist`} className="card-link">

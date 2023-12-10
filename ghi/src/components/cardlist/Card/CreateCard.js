@@ -24,7 +24,7 @@ const CardForm = ({ triggerReload }) => {
       flag: false,
     };
 
-    const url = `http://localhost:8000/api/card`;
+    const url = `${process.env.REACT_APP_API_HOST}/api/card`;
     const fetchOptions = {
       method: "POST",
       headers: {
