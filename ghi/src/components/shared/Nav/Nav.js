@@ -35,7 +35,7 @@ const Nav = () => {
         <Link className="navbar-brand" to="/dashboard">
           <img
             className="logo rounded-circle white-border"
-            src="./NerdybytesLogo.jpg"
+            src="/NerdybytesLogo.jpg"
             alt="Nerdybytes Logo"
             width="100"
           />

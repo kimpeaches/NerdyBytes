@@ -1,3 +1,7 @@
 div.study-deck {
-  margin-top: 2rem;
+  margin: 2rem;
+  border: 5px solid var(--accent);
+  border-radius: 10px;
+  padding: 20px;
+  background-color: var(--background);
 }

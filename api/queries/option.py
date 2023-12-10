@@ -81,3 +81,25 @@ class OptionRepository:
                     possible_answer=option[2],
                     is_correct=option[3],
                 )
+
+    def get_all_options(self, card_id: int) -> list[OptionOut]:
+        with pool.connection() as conn:
+            with conn.cursor() as db:
+                result = db.execute(
+                    """
+                    SELECT *
+                    FROM option
+                    WHERE card_id = %s
+                    """,
+                    [card_id],
+                )
+                options = result.fetchall()
+                return [
+                    OptionOut(
+                        id=option[0],
+                        card_id=option[1],
+                        possible_answer=option[2],
+                        is_correct=option[3],
+                    )
+                    for option in options
+                ]

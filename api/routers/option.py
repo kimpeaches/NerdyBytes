@@ -75,3 +75,23 @@ async def get_option(
     ),
 ):
     return repo.get(id)
+
+
+@router.get("/api/{card_id}/option", response_model=list[OptionOut])
+async def get_options(
+    card_id: int,
+    request: Request,
+    repo: OptionRepository = Depends(),
+    current_account_data: dict = Depends(
+        authenticator.get_current_account_data
+    ),
+):
+    try:
+        options = repo.get_all_options(card_id)
+    except NoOptionError:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Cannot get options.",
+        )
+
+    return options

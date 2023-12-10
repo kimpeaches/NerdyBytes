@@ -2,6 +2,7 @@ from pydantic import BaseModel, ValidationError
 from queries.pool import pool
 from typing import Union, List
 from fastapi import HTTPException
+import random
 
 
 class Error(BaseModel):
@@ -136,6 +137,28 @@ class CardRepository:
                 card = result.fetchone()
                 if not card:
                     return Error(message="No card found")
+                return CardOut(
+                    id=card[0],
+                    deck_id=card[1],
+                    question=card[2],
+                    wrong_count=card[3],
+                    right_count=card[4],
+                    flag=card[5],
+                )
+
+    def get_one_random(self, deck_id: int) -> Union[CardOut, Error]:
+        with pool.connection() as conn:
+            with conn.cursor() as db:
+                result = db.execute(
+                    """
+                    SELECT * FROM card WHERE deck_id = %s;
+                    """,
+                    [deck_id],
+                )
+                cards = result.fetchall()
+                if not cards:
+                    return Error(message="No cards found")
+                card = random.choice(cards)
                 return CardOut(
                     id=card[0],
                     deck_id=card[1],
