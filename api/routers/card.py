@@ -28,7 +28,7 @@ class HttpError(BaseModel):
 router = APIRouter()
 
 
-@router.post("/api/{user_id}/deck/{deck_id}/card", response_model=CardIn)
+@router.post("/api/card", response_model=CardIn)
 async def create_card(
     request: Request,
     info: CardForm,
@@ -45,26 +45,20 @@ async def create_card(
     return card
 
 
-@router.get("/api/{user_id}/deck/{deck_id}/card", response_model=List[CardOut])
+@router.get("/api/{deck_id}/card", response_model=List[CardOut])
 async def get_all_cards(
     request: Request,
     deck_id: int,
     account_data: dict = Depends(authenticator.get_current_account_data),
     repo: CardRepository = Depends(),
 ) -> List[CardOut]:
-    try:
-        cards = repo.get_all(deck_id)
-    except NoCardError:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Cannot get all cards.",
-        )
-    return cards
+    cards_or_error = repo.get_all(deck_id)
+    if isinstance(cards_or_error, Error):
+        return []
+    return cards_or_error
 
 
-@router.delete(
-    "/api/{user_id}/deck/{deck_id}/card/{card_id}", response_model=bool
-)
+@router.delete("/api/card/{card_id}", response_model=bool)
 async def delete_card(
     request: Request,
     card_id: int,
@@ -82,7 +76,7 @@ async def delete_card(
 
 
 @router.put(
-    "/api/{user_id}/deck/{deck_id}/card/{card_id}",
+    "/api/deck/{deck_id}/card/{card_id}",
     response_model=Union[CardOut, Error],
 )
 def update_card(
@@ -92,3 +86,41 @@ def update_card(
     repo: CardRepository = Depends(),
 ) -> Union[CardOut, Error]:
     return repo.update(card_id, card)
+
+
+@router.get(
+    "/api/{user_id}/deck/{deck_id}/card/{card_id}", response_model=CardOut
+)
+def get_one_card(
+    request: Request,
+    card_id: int,
+    account_data: dict = Depends(authenticator.get_current_account_data),
+    repo: CardRepository = Depends(),
+) -> CardOut:
+    try:
+        card = repo.get_one(card_id)
+    except NoCardError:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Card not found.",
+        )
+
+    return card
+
+
+@router.get("/api/{deck_id}/study/card", response_model=CardOut)
+def get_one_random_card(
+    request: Request,
+    deck_id: int,
+    account_data: dict = Depends(authenticator.get_current_account_data),
+    repo: CardRepository = Depends(),
+) -> CardOut:
+    try:
+        card = repo.get_one_random(deck_id)
+    except NoCardError:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Card not found.",
+        )
+
+    return card

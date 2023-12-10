@@ -37,6 +37,28 @@ class ChatRoomOut(BaseModel):
 
 
 class ChatRoomRepository:
+    def get_all(self) -> ChatRoomOut:
+        with pool.connection() as conn:
+            with conn.cursor() as db:
+                db.execute(
+                    """
+                    SELECT *
+                    FROM chat_room
+                    """
+                )
+                result = []
+                rooms = db.fetchall()
+                for room in rooms:
+                    r = ChatRoomOut(
+                        id=room[0],
+                        user_id=room[2],
+                        name=room[3],
+                        messages=room[4],
+                        created=str(room[1]),
+                    )
+                    result.append(r)
+                return result
+
     def get_by_id(self, id: int) -> ChatRoomOut:
         with pool.connection() as conn:
             with conn.cursor() as db:
@@ -87,3 +109,14 @@ class ChatRoomRepository:
         old_data = chat_room.dict()
         old_data["created"] = time.strftime("%Y-%m-%d %H:%M:%S")
         return ChatRoomOut(id=id, **old_data)
+
+    def delete(self, id: int) -> Union[bool, Error]:
+        with pool.connection() as conn:
+            with conn.cursor() as db:
+                db.execute("DELETE FROM message WHERE chat_room_id = %s", [id])
+                result = db.execute(
+                    "DELETE FROM chat_room WHERE id = %s", [id]
+                )
+                if result.rowcount == 0:
+                    return Error(message="No room found to delete")
+                return True

@@ -12,6 +12,7 @@ from queries.chat_room import (
     ChatRoomRepository,
 )
 from authenticator import authenticator
+from typing import List
 
 
 class ChatError(ValueError):
@@ -29,6 +30,15 @@ class HttpError(BaseModel):
 
 
 router = APIRouter()
+
+
+@router.get("/api/rooms/")
+async def get_all_rooms(
+    chat_rooms: ChatRoomRepository = Depends(),
+    _=Depends(authenticator.get_current_account_data),
+) -> List[ChatRoomOut]:
+    rooms = chat_rooms.get_all()
+    return rooms
 
 
 @router.get("/api/rooms/{chat_room_id}", response_model=ChatRoomIn)
@@ -66,3 +76,20 @@ async def create_chat_room(
         )
 
     return chat_room
+
+
+@router.delete("/api/rooms/{chat_room_id}", response_model=bool)
+async def delete_chat_room(
+    request: Request,
+    chat_room_id: int,
+    account_data: dict = Depends(authenticator.get_current_account_data),
+    repo: ChatRoomRepository = Depends(),
+) -> bool:
+    try:
+        result = repo.delete(chat_room_id)
+    except ChatError:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Cannot delete chat room.",
+        )
+    return result

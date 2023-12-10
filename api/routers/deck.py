@@ -28,7 +28,7 @@ class HttpError(BaseModel):
 router = APIRouter()
 
 
-@router.post("/api/{user_id}/deck", response_model=DeckIn)
+@router.post("/api/deck", response_model=DeckIn)
 async def create_deck(
     request: Request,
     info: DeckIn,
@@ -46,7 +46,7 @@ async def create_deck(
     return deck
 
 
-@router.get("/api/{user_id}/deck/{deck_id}", response_model=DeckOut)
+@router.get("/api/deck/{deck_id}", response_model=DeckOut)
 def get_one_deck(
     request: Request,
     deck_id: int,
@@ -64,9 +64,7 @@ def get_one_deck(
     return deck
 
 
-@router.put(
-    "/api/{user_id}/deck/{deck_id}", response_model=Union[DeckOut, Error]
-)
+@router.put("/api/deck/{deck_id}", response_model=Union[DeckOut, Error])
 def update_deck(
     deck_id: int,
     info: DeckIn,
@@ -84,15 +82,15 @@ def update_deck(
     return deck
 
 
-@router.get("/api/{user_id}/deck", response_model=Union[List[DeckOut], Error])
-def get_all(
+@router.get("/api/deck", response_model=Union[List[DeckOut], Error])
+def get_all_decks(
     account_data: dict = Depends(authenticator.get_current_account_data),
     repo: DeckRepository = Depends(),
 ):
     return repo.get_all()
 
 
-@router.delete("/api/{user_id}/deck/{deck_id}", response_model=bool)
+@router.delete("/api/deck/{deck_id}", response_model=bool)
 async def delete_deck(
     request: Request,
     deck_id: int,

@@ -1,0 +1,7 @@
+button.btn.btn-primary {
+  color: var(--background);
+}
+
+.larger-text {
+  font-size: 1rem;
+}

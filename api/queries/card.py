@@ -1,6 +1,8 @@
 from pydantic import BaseModel, ValidationError
 from queries.pool import pool
 from typing import Union, List
+from fastapi import HTTPException
+import random
 
 
 class Error(BaseModel):
@@ -84,7 +86,7 @@ class CardRepository:
         old_data = card.dict()
         return CardOut(id=id, **old_data)
 
-    def get_all(self, deck_id: int) -> Union[List[CardOut], Error]:
+    def get_all(self, deck_id: int) -> List[CardOut]:
         with pool.connection() as conn:
             with conn.cursor() as db:
                 result = db.execute(
@@ -95,7 +97,9 @@ class CardRepository:
                 )
                 cards = result.fetchall()
                 if not cards:
-                    return Error(message="No cards found")
+                    raise HTTPException(
+                        status_code=404, detail="No cards found"
+                    )
                 return [
                     CardOut(
                         id=card[0],
@@ -120,3 +124,46 @@ class CardRepository:
                 if result.rowcount == 0:
                     return Error(message="No card found to delete")
                 return True
+
+    def get_one(self, card_id: int) -> Union[CardOut, Error]:
+        with pool.connection() as conn:
+            with conn.cursor() as db:
+                result = db.execute(
+                    """
+                    SELECT * FROM card WHERE id = %s;
+                    """,
+                    [card_id],
+                )
+                card = result.fetchone()
+                if not card:
+                    return Error(message="No card found")
+                return CardOut(
+                    id=card[0],
+                    deck_id=card[1],
+                    question=card[2],
+                    wrong_count=card[3],
+                    right_count=card[4],
+                    flag=card[5],
+                )
+
+    def get_one_random(self, deck_id: int) -> Union[CardOut, Error]:
+        with pool.connection() as conn:
+            with conn.cursor() as db:
+                result = db.execute(
+                    """
+                    SELECT * FROM card WHERE deck_id = %s;
+                    """,
+                    [deck_id],
+                )
+                cards = result.fetchall()
+                if not cards:
+                    return Error(message="No cards found")
+                card = random.choice(cards)
+                return CardOut(
+                    id=card[0],
+                    deck_id=card[1],
+                    question=card[2],
+                    wrong_count=card[3],
+                    right_count=card[4],
+                    flag=card[5],
+                )

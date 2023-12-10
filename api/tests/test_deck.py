@@ -40,7 +40,7 @@ def test_get_one_deck():
     # creates a mock token
     headers = {"Authorization": "Bearer mock_token"}
     # sends a request to the endpoint with the mock token
-    response = client.get("/api/1/deck/1", headers=headers)
+    response = client.get("/api/deck/1", headers=headers)
 
     assert response.status_code == 200
     assert response.json() == {
