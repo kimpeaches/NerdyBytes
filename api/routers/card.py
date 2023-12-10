@@ -76,7 +76,7 @@ async def delete_card(
 
 
 @router.put(
-    "/api/{user_id}/deck/{deck_id}/card/{card_id}",
+    "/api/deck/{deck_id}/card/{card_id}",
     response_model=Union[CardOut, Error],
 )
 def update_card(

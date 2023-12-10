@@ -26,7 +26,6 @@ export default function ChatRoom() {
 
     useEffect(() => {
         fetchRooms();
-        // check new rooms
         setInterval(fetchRooms, 60000);
     }, []);
 

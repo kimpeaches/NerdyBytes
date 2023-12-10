@@ -4,7 +4,7 @@ import "../Login/Login.css";
 import { useParams } from "react-router";
 
 const EditDeck = ({ currentUser }) => {
-    const { deck_id } = useParams();
+    const { deckId } = useParams();
     const [deckName, setDeckName] = useState("");
     const [publicStatus, setPublicStatus] = useState(false);
     const [deckUpdated, setDeckUpdated] = useState(false);
@@ -27,7 +27,7 @@ const EditDeck = ({ currentUser }) => {
             user_id: currentUser.id,
             public_status: publicStatus,
         };
-        const url = `http://localhost:8000/api/deck/${deck_id}`;
+        const url = `http://localhost:8000/api/deck/${deckId}`;
         const fetchOptions = {
             method: "PUT",
             headers: {
