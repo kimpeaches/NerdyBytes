@@ -55,7 +55,7 @@ build-front-end-job:
     # You need to substitute in your real values for
     # GROUP_NAME, PROJECT_NAME, & WEBSERVICE_NAME below.
     PUBLIC_URL: https://nerdybytes.gitlab.io/nerdy-bytes/
-    REACT_APP_API_HOST: https://aug-2023-4-et-nerdybytesapi.mod3projects.com/
+    REACT_APP_API_HOST: https://aug-2023-4-et-nerdybytesapi.mod3projects.com
   script:
     - cd ghi
     - npm install
