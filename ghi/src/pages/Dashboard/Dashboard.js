@@ -20,7 +20,7 @@ function Dashboard() {
         const decodedToken = jwtDecode(token);
         const userId = decodedToken.account.id;
 
-        const url = `http://localhost:8000/api/user/${userId}`;
+        const url = `${process.env.REACT_APP_API_HOST}/${userId}`;
         const fetchOptions = {
           credentials: "include",
           method: "GET",
