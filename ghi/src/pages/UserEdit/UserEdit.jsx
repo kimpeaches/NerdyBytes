@@ -3,18 +3,16 @@ import { useState, useEffect } from "react";
 import "../../App.css";
 import { useNavigate, Link } from "react-router-dom";
 
-const EditProfileForm = () => {
+function useFetchUser() {
   const [user, setUser] = useState({
     username: "",
     password: "",
     confirmPassword: "",
     pictureUrl: "",
   });
-  const { updateProfile } = useToken();
-  const navigate = useNavigate();
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Fetch current user data and populate form fields
     fetch("http://localhost:8000/api/user")
       .then((response) => response.json())
       .then((data) => {
@@ -22,8 +20,17 @@ const EditProfileForm = () => {
       })
       .catch((error) => {
         console.error("Error:", error);
+        setError("An error occurred while fetching user data.");
       });
   }, []);
+
+  return { user, error };
+}
+
+const EditProfileForm = () => {
+  const { user, setUser, error } = useFetchUser();
+  const { updateProfile } = useToken();
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -60,6 +67,7 @@ const EditProfileForm = () => {
 
   return (
     <>
+      {error && <p>{error}</p>}
       <div>
         <h1 className="title">Edit Profile</h1>
         <h4 className="motto">Update your details here.</h4>
@@ -120,4 +128,5 @@ const EditProfileForm = () => {
     </>
   );
 };
+
 export default EditProfileForm;
