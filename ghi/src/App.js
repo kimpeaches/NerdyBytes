@@ -14,6 +14,8 @@ import CreateDeck from "./pages/CreateDeck/CreateDeck";
 import Study from "./pages/Study/Study";
 import EditDeck from "./pages/EditDeck/EditDeck";
 import EditCard from "./pages/EditCard/EditCard";
+import AddOption from "./pages/CreateOption/AddOption";
+import EditOption from "./pages/EditOption/EditOption";
 
 function App() {
   const domain = /https:\/\/[^/]+/;
@@ -67,6 +69,16 @@ function App() {
                 element={<EditCard currentUser={currentUser} />}
               ></Route>
               <Route exact path="/:deckId/study" element={<Study />}></Route>
+              <Route
+                exact
+                path="/card/:cardId/option"
+                element={<AddOption />}
+              ></Route>
+              <Route
+                exact
+                path="/decks/:deckId/cards/:cardId/options/:optionId/edit"
+                element={<EditOption currentUser={currentUser} />}
+              ></Route>
             </Routes>
           </UserProvider>
         </AuthProvider>

@@ -6,8 +6,9 @@ from fastapi import (
     Request,
 )
 from pydantic import BaseModel
-from queries.option import OptionIn, OptionRepository, OptionOut
+from queries.option import OptionIn, OptionRepository, OptionOut, Error
 from authenticator import authenticator
+from typing import Union
 
 
 class NoOptionError(ValueError):
@@ -46,10 +47,7 @@ async def create_option(
     return option
 
 
-@router.delete(
-    "/api/{user_id}/deck/{deck_id}/card/{card_id}/option/{option_id}",
-    response_model=bool,
-)
+@router.delete("/api/option/{option_id}", response_model=bool)
 async def delete_option(
     request: Request,
     option_id: int,
@@ -95,3 +93,20 @@ async def get_options(
         )
 
     return options
+
+
+@router.put(
+    "/api/option/{option_id}",
+    response_model=Union[OptionOut, Error],
+)
+def update_option(
+    option_id: int,
+    option: OptionIn,
+    account_data: dict = Depends(authenticator.get_current_account_data),
+    repo: OptionRepository = Depends(),
+) -> Union[OptionOut, Error]:
+    try:
+        updated_option = repo.update(option_id, option)
+        return updated_option
+    except Exception as e:
+        return Error(detail=str(e))

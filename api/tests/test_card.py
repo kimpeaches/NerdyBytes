@@ -35,7 +35,7 @@ def test_get_one_card():
     app.dependency_overrides[CardRepository] = MockCardRepository
 
     headers = {"Authorization": "Bearer mock_token"}
-    response = client.get("/api/1/deck/1/card/1", headers=headers)
+    response = client.get("/api/card/1", headers=headers)
 
     assert response.status_code == 200
     assert response.json() == {

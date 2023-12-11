@@ -88,9 +88,7 @@ def update_card(
     return repo.update(card_id, card)
 
 
-@router.get(
-    "/api/{user_id}/deck/{deck_id}/card/{card_id}", response_model=CardOut
-)
+@router.get("/api/card/{card_id}", response_model=CardOut)
 def get_one_card(
     request: Request,
     card_id: int,

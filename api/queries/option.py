@@ -103,3 +103,29 @@ class OptionRepository:
                     )
                     for option in options
                 ]
+
+    def update(
+        self, option_id: int, option: OptionIn
+    ) -> Union[OptionOut, Error]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        UPDATE option
+                        SET card_id = %s
+                        , possible_answer = %s
+                        , is_correct = %s
+                        WHERE id = %s
+                        """,
+                        [
+                            option.card_id,
+                            option.possible_answer,
+                            option.is_correct,
+                            option_id,
+                        ],
+                    )
+                    return self.option_in_to_out(option_id, option)
+        except Exception as e:
+            print(e)
+            return {"message": "Could not update an option"}
