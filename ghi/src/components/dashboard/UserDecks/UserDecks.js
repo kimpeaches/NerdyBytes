@@ -1,29 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import "./UserDecks.css";
 
-function UserDecks({ user }) {
-  const [decks, setDecks] = useState([]);
-
-  useEffect(() => {
-    async function getDecks() {
-      const url = `${process.env.REACT_APP_API_HOST}/api/deck`;
-      const fetchOptions = {
-        credentials: "include",
-        method: "GET",
-      };
-      const response = await fetch(url, fetchOptions);
-      if (response.ok) {
-        const data = await response.json();
-        setDecks(data);
-      } else {
-        console.log("Error fetching decks");
-      }
-    }
-
-    getDecks();
-  }, []);
-
+function UserDecks({ user, decks, setDecks }) {
   const userDecks = decks.filter((deck) => deck.user_id === user.id);
 
   async function deleteDeck(deck_id) {
@@ -44,7 +23,6 @@ function UserDecks({ user }) {
   return (
     <div className="user-deck-list">
       <h1>Your Decks</h1>
-      {/* TODO: Add search bar */}
       <div className="d-flex flex-wrap justify-content-around overflow-x-auto">
         {userDecks.length === 0 ? (
           <p>You Don't Have Any Decks. Please create one.</p>
@@ -58,7 +36,6 @@ function UserDecks({ user }) {
               >
                 <div className="card-body">
                   <h5 className="card-title">{deck.name}</h5>
-                  {/* TODO: Add deck description */}
                   <div className="d-flex justify-content-between">
                     <Link to={`/${deck.id}/study`} className="card-link">
                       Study

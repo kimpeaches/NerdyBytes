@@ -14,6 +14,7 @@ function Dashboard() {
   const { token } = useAuthContext();
   const [user, setUser] = useState({});
   const navigate = useNavigate();
+  const [decks, setDecks] = useState([]);
 
   if (!token) {
     navigate("/");
@@ -40,6 +41,21 @@ function Dashboard() {
       }
     }
 
+    async function getDecks() {
+      const url = `${process.env.REACT_APP_API_HOST}/api/deck`;
+      const fetchOptions = {
+        credentials: "include",
+        method: "GET",
+      };
+      const response = await fetch(url, fetchOptions);
+      if (response.ok) {
+        const data = await response.json();
+        setDecks(data);
+      } else {
+        console.log("Error fetching decks");
+      }
+    }
+    getDecks();
     getUser();
   }, [token]);
 
@@ -51,7 +67,7 @@ function Dashboard() {
         <UserProfile user={user} />
         <Calendar user={user} />
       </div>
-      <UserDecks user={user} />
+      <UserDecks user={user} decks={decks} setDecks={setDecks} />
     </div>
   );
 }
