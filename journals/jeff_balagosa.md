@@ -1,5 +1,25 @@
 # Journals
 
+## 2023-12-11 17:26:19
+
+### Items worked on today:
+
+- Api endpoints documentation.
+- Updating fetch links for deployment.
+- Study page.
+- Streak counter.
+- Delivering stand up of stand ups.
+- Helping team with git issues.
+- Helping team with docker issues.
+
+### Reflection on any design conversations that I had
+
+- I don't know what I was thinking with the original urls for our api endpoints. I'm glad we changed them. They look a lot better now.
+
+### At least one ah-ha! moment that you had during your coding, however small
+
+- We thought fetch was failing again on a delete item. But it was just SQL stopping the deletion because of a foreign key constraint. I didn't even think of that. Props to Jay for catching/fixing it.
+
 ## 2023-12-04 17:26:19
 
 ### Items worked on today:
