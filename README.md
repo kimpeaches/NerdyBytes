@@ -13,10 +13,9 @@ Nerdy-Bytes - Unlock your potential one card at a time
 
 ---
 
-- [API design]()
-- [Data model]()
-- [GHI]()
-- [Integrations]()
+- [API design](/docs/api-design.md)
+- [Data model](/docs/data-model.MD)
+- [GHI](/docs/ghi.md)
 
 ## Intended market
 
