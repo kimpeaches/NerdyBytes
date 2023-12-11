@@ -63,13 +63,30 @@ function CardList() {
 
   const deleteCard = async (e, cardId) => {
     e.preventDefault();
-    const url = `${process.env.REACT_APP_API_HOST}/api/card/${cardId}`;
-    const fetchOptions = {
+
+    const optionsUrl = `${process.env.REACT_APP_API_HOST}/api/${cardId}/option`;
+    const optionsFetchOptions = {
+      credentials: "include",
+      method: "GET",
+    };
+    const optionsResponse = await fetch(optionsUrl, optionsFetchOptions);
+    const options = optionsResponse.ok ? await optionsResponse.json() : [];
+
+    for (const option of options) {
+      const deleteOptionUrl = `${process.env.REACT_APP_API_HOST}/api/option/${option.id}`;
+      const deleteOptionOptions = {
+        credentials: "include",
+        method: "DELETE",
+      };
+      await fetch(deleteOptionUrl, deleteOptionOptions);
+    }
+
+    const deleteCardUrl = `${process.env.REACT_APP_API_HOST}/api/card/${cardId}`;
+    const deleteCardOptions = {
       credentials: "include",
       method: "DELETE",
     };
-
-    const response = await fetch(url, fetchOptions);
+    const response = await fetch(deleteCardUrl, deleteCardOptions);
     if (response.ok) {
       triggerReload();
     } else {
