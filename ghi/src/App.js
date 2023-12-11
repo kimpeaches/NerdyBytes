@@ -13,6 +13,7 @@ import CardList from "./pages/CardList/CardList";
 import CreateDeck from "./pages/CreateDeck/CreateDeck";
 import Study from "./pages/Study/Study";
 import EditDeck from "./pages/EditDeck/EditDeck";
+import EditProfileForm from "./pages/UserEdit/UserEdit";
 
 function App() {
   const domain = /https:\/\/[^/]+/;
@@ -44,6 +45,11 @@ function App() {
               <Route exact path="/dashboard" element={<Dashboard />}></Route>
               <Route exact path="/chat/:chatRoomId" element={<Chat />}></Route>
               <Route exact path="/signup" element={<SignupForm />}></Route>
+              <Route
+                exact
+                path="/UserEdit"
+                element={<EditProfileForm />}
+              ></Route>
               <Route
                 exact
                 path="/:deckId/cardlist"

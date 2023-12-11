@@ -4,55 +4,44 @@ import "../../App.css";
 import { useNavigate, Link } from "react-router-dom";
 
 const EditProfileForm = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [pictureUrl, setPictureUrl] = useState("");
+  const [user, setUser] = useState({
+    username: "",
+    password: "",
+    confirmPassword: "",
+    pictureUrl: "",
+  });
   const { updateProfile } = useToken();
   const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch current user data and populate form fields
-    // This is just a placeholder. Replace it with your actual logic.
-    const currentUser = {
-      username: "currentUsername",
-      password: "currentPassword",
-      picture_url: "currentPictureUrl",
-    };
-    setUsername(currentUser.username);
-    setPassword(currentUser.password);
-    setPictureUrl(currentUser.picture_url);
+    fetch("http://localhost:8000/api/user")
+      .then((response) => response.json())
+      .then((data) => {
+        setUser(data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   }, []);
 
-  const handleUsernameChange = (e) => {
-    const value = e.target.value;
-    setUsername(value);
-  };
-  const handlePasswordChange = (e) => {
-    const value = e.target.value;
-    setPassword(value);
-  };
-  const handleConfirmPasswordChange = (e) => {
-    const value = e.target.value;
-    setConfirmPassword(value);
-  };
-  const handlePictureUrlChange = (e) => {
-    const value = e.target.value;
-    setPictureUrl(value);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (password !== confirmPassword) {
+    if (user.password !== user.confirmPassword) {
       alert("Passwords do not match");
       return;
     }
 
     const userData = {
-      username: username,
-      password: password,
-      picture_url: pictureUrl,
+      username: user.username,
+      password: user.password,
+      picture_url: user.pictureUrl,
     };
 
     const updateUrl = "http://localhost:8000/api/user";
@@ -81,41 +70,45 @@ const EditProfileForm = () => {
             <div className="control">
               <label htmlFor="username"></label>
               <input
-                value={username}
+                name="username"
+                value={user.username}
                 id="username"
                 placeholder="Username"
                 type="text"
-                onChange={handleUsernameChange}
+                onChange={handleInputChange}
               ></input>
             </div>
             <div className="control">
               <label htmlFor="password"></label>
               <input
-                value={password}
+                name="password"
+                value={user.password}
                 id="password"
                 placeholder="Password"
                 type="password"
-                onChange={handlePasswordChange}
+                onChange={handleInputChange}
               ></input>
             </div>
             <div className="control">
               <label htmlFor="confirmPassword"></label>
               <input
-                value={confirmPassword}
+                name="confirmPassword"
+                value={user.confirmPassword}
                 id="confirmPassword"
                 placeholder="Confirm Password"
                 type="password"
-                onChange={handleConfirmPasswordChange}
+                onChange={handleInputChange}
               ></input>
             </div>
             <div className="control">
               <label htmlFor="pictureUrl"></label>
               <input
-                value={pictureUrl}
+                name="pictureUrl"
+                value={user.pictureUrl}
                 id="pictureURL"
                 placeholder="PictureUrl"
                 type="text"
-                onChange={handlePictureUrlChange}
+                onChange={handleInputChange}
               ></input>
             </div>
             <div className="signup-btn wrapper">
