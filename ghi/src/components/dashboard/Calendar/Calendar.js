@@ -1,54 +1,91 @@
-import React from "react";
+import * as React from "react";
+import { useState, useEffect } from "react";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import getStreak from "../../../utils/getStreak";
+import "./Calendar.css";
 
-function Calendar() {
+const Calendar = ({ user }) => {
+  const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [dateList, setDateList] = useState([]);
+
+  useEffect(() => {
+    const getDates = async () => {
+      const url = `${process.env.REACT_APP_API_HOST}/api/dates`;
+      const fetchOptions = {
+        credentials: "include",
+        method: "GET",
+      };
+      const response = await fetch(url, fetchOptions);
+      if (response.ok) {
+        const data = await response.json();
+        setDateList(data);
+      } else {
+        console.log("Error fetching dates");
+      }
+    };
+    getDates();
+  }, [user]);
+
+  const currentStreak = getStreak(dateList, user);
+
+  const handleDayClick = (day) => {
+    console.log("Day clicked:", day);
+  };
+
+  const handleMonthChange = (increment) => {
+    setCurrentMonth((prevMonth) => {
+      const newMonth = new Date(
+        prevMonth.getFullYear(),
+        prevMonth.getMonth() + increment
+      );
+      return newMonth;
+    });
+  };
+
   return (
-    <div className="calendar">
-      <h2>#3 This is the Calendar Component</h2>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Volutpat diam ut
-        venenatis tellus in metus vulputate. Malesuada fames ac turpis egestas
-        integer eget aliquet nibh praesent. Laoreet id donec ultrices tincidunt
-        arcu non sodales neque sodales. In cursus turpis massa tincidunt. Turpis
-        egestas pretium aenean pharetra magna ac. Eleifend mi in nulla posuere
-        sollicitudin aliquam ultrices sagittis orci. Quis lectus nulla at
-        volutpat diam. Sit amet mattis vulputate enim nulla aliquet. Tellus in
-        metus vulputate eu scelerisque. Leo vel orci porta non pulvinar. Lacus
-        viverra vitae congue eu consequat ac felis. Condimentum mattis
-        pellentesque id nibh tortor id aliquet lectus proin. Nibh mauris cursus
-        mattis molestie. Semper feugiat nibh sed pulvinar. Varius quam quisque
-        id diam vel. Eget mi proin sed libero enim sed faucibus turpis. Eget
-        aliquet nibh praesent tristique magna sit amet purus gravida.
-      </p>
-      <p>
-        Id venenatis a condimentum vitae sapien. In massa tempor nec feugiat
-        nisl pretium fusce id. Adipiscing tristique risus nec feugiat in
-        fermentum posuere. Laoreet suspendisse interdum consectetur libero.
-        Volutpat commodo sed egestas egestas. Morbi enim nunc faucibus a
-        pellentesque sit amet porttitor. Fringilla ut morbi tincidunt augue. At
-        in tellus integer feugiat scelerisque varius morbi enim nunc. Ac
-        placerat vestibulum lectus mauris ultrices eros in. Erat imperdiet sed
-        euismod nisi porta lorem mollis. Etiam non quam lacus suspendisse. Id
-        diam maecenas ultricies mi eget mauris pharetra et. Suscipit adipiscing
-        bibendum est ultricies integer. Volutpat consequat mauris nunc congue
-        nisi vitae suscipit. Sodales neque sodales ut etiam. Nam libero justo
-        laoreet sit amet cursus sit amet dictum. Sed tempus urna et pharetra
-        pharetra massa. Nisi scelerisque eu ultrices vitae auctor eu augue.
-        Fermentum odio eu feugiat pretium nibh.
-      </p>
-      <p>
-        Eu consequat ac felis donec et odio. Faucibus et molestie ac feugiat
-        sed. Natoque penatibus et magnis dis parturient montes nascetur
-        ridiculus. Aliquam sem et tortor consequat id porta nibh venenatis cras.
-        Tristique risus nec feugiat in. Ac tincidunt vitae semper quis lectus
-        nulla. Tortor dignissim convallis aenean et. In tellus integer feugiat
-        scelerisque. Et netus et malesuada fames ac. Amet luctus venenatis
-        lectus magna fringilla urna porttitor rhoncus dolor. Fames ac turpis
-        egestas sed tempus urna et. Tempus urna et pharetra pharetra massa
-        massa.
-      </p>
-    </div>
+    <>
+      <div className="calendar">
+        <Typography variant="h6" align="center" gutterBottom>
+          {currentMonth.toLocaleString("default", { month: "long" })}{" "}
+          {currentMonth.getFullYear()}
+        </Typography>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DateCalendar
+            date={currentMonth}
+            onDayClick={handleDayClick}
+            toolbarTitle={() => (
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <IconButton onClick={() => handleMonthChange(-1)}>
+                  <KeyboardArrowLeftIcon />
+                </IconButton>
+                <Typography variant="h6">
+                  {currentMonth.toLocaleString("default", {
+                    month: "long",
+                  })}{" "}
+                  {currentMonth.getFullYear()}
+                </Typography>
+                <IconButton onClick={() => handleMonthChange(1)}>
+                  <KeyboardArrowRightIcon />
+                </IconButton>
+              </Box>
+            )}
+          />
+        </LocalizationProvider>
+        <h3>Current Streak: {currentStreak}</h3>
+      </div>
+    </>
   );
-}
+};
 
 export default Calendar;

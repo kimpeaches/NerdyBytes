@@ -1,0 +1,8 @@
+.calendar {
+  margin: 1rem !important;
+  border: 5px solid var(--primary);
+  border-radius: 10px;
+  padding: 20px;
+  background-color: var(--background);
+  width: 75%;
+}

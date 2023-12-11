@@ -34,7 +34,7 @@ def test_get_user_by_id():
     app.dependency_overrides[DatesRepository] = MockDatesRepository
 
     headers = {"Authorization": "Bearer mock_token"}
-    response = client.get("/api/1/dates/", headers=headers)
+    response = client.get("/api/dates/", headers=headers)
 
     assert response.status_code == 200
     assert response.json() == [

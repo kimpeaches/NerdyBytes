@@ -14,6 +14,7 @@ import CreateDeck from "./pages/CreateDeck/CreateDeck";
 import Study from "./pages/Study/Study";
 import EditDeck from "./pages/EditDeck/EditDeck";
 import EditCard from "./pages/EditCard/EditCard";
+import Calendar from "./components/dashboard/Calendar/Calendar";
 import AddOption from "./pages/CreateOption/AddOption";
 import EditOption from "./pages/EditOption/EditOption";
 
@@ -44,6 +45,7 @@ function App() {
           <UserProvider currentUser={currentUser}>
             <Routes>
               <Route exact path="/" element={<LoginForm />}></Route>
+              <Route exact path="/calendar" element={<Calendar />}></Route>
               <Route exact path="/dashboard" element={<Dashboard />}></Route>
               <Route exact path="/chat/:chatRoomId" element={<Chat />}></Route>
               <Route exact path="/signup" element={<SignupForm />}></Route>

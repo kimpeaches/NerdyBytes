@@ -52,3 +52,28 @@ class DatesRepository:
         except Exception as e:
             print(e)
             return {"message": "Could not get all dates"}
+
+    def add_date(self, date: DatesIn) -> Union[DatesOut, Error]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        INSERT INTO date (user_id, date, studied_today)
+                        VALUES (%s, %s, %s)
+                        RETURNING id, user_id, date, studied_today;
+                        """,
+                        (date.user_id, date.date, date.studied_today),
+                    )
+                    record = db.fetchone()
+                    print(record)
+                    dates = DatesOut(
+                        id=record[0],
+                        user_id=record[1],
+                        date=record[2],
+                        studied_today=record[3],
+                    )
+                    return dates
+        except Exception as e:
+            print(e)
+            return {"message": "Could not add date"}

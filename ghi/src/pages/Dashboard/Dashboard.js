@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Calendar from "../../components/dashboard/Calendar/Calendar";
 import UserDecks from "../../components/dashboard/UserDecks/UserDecks";
 import UserProfile from "../../components/dashboard/UserProfile/UserProfile";
+import checkIn from "../../utils/checkIn";
 
 import "./Dashboard.css";
 
@@ -13,6 +14,10 @@ function Dashboard() {
   const { token } = useAuthContext();
   const [user, setUser] = useState({});
   const navigate = useNavigate();
+
+  if (!token) {
+    navigate("/");
+  }
 
   useEffect(() => {
     async function getUser() {
@@ -31,19 +36,20 @@ function Dashboard() {
           setUser(data);
         } else {
           console.log("Error fetching user");
-          navigate("/");
         }
       }
     }
 
     getUser();
-  }, [token, navigate]);
+  }, [token]);
+
+  checkIn(user);
 
   return (
     <div className="dashboard-container">
       <div className="d-flex">
         <UserProfile user={user} />
-        <Calendar />
+        <Calendar user={user} />
       </div>
       <UserDecks user={user} />
     </div>
