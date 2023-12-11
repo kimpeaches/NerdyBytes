@@ -97,7 +97,56 @@ having trouble with git. I was behind by some commits but I was not seeing this 
 took my time to navigate around to see if I can get the correct screen to view but I just could not see
 it. Will talk to Jeff about it on Monday so I don't have to hunt around for the correct screen.
 
-## Dec 04 2023
+## Dec 04, 2023
 
-Today, I created an issue for creating a frontend sign up and I assigned it to myself. Still working
+Today, I created an issue for creating a frontend signup and I assigned it to myself. Still working
 on it at the end of the day. Also did two merge requests for Kim and Jeff.
+
+## Dec 05, 2023
+
+Today, I am still working on the createing a frontend signup. Will get help from Jeff and the team
+If I can't figure it out.
+
+Ok, got part of the frontend signup working. I am able to get to it from the frontend and enter
+a new user and sign up with a password. I even got the password to be verified with a not match
+message showing if the password did not match. For some unknown reason I am not getting a token
+and this could be because the new user information is not being saved on the backend. Somehow,
+after testing for quite a while I got a new user to save but since the page was not logging me
+in I ended up changing the code to something that is not saveing the user again and not getting
+a token. Jeff is helping me with the issues. Did a merge request for Jeff and Kim today.
+
+## Dec 06, 2023
+
+Today, Jeff and I were going over the signup code for the front end. I was having isssues with
+some merge conflicts and for some reason I cannot get into localhost:3000 to test out the code.
+Trying to work through the issue. Also did a merge request for Jeff twice today.
+
+## Dec 07, 2023
+
+Created an issue for a backend unit test and assigned it to myself. It is for get all dates.
+I worked on this all of today as I was having technical issues with my computer. I attempted
+to do a merge request for Jeff but my front end kept coming up with errors. To test to see if
+it was my computer or his code he asked another team member, Kim, to test out his code. It
+worked on her computer so she completed the merge request. After that my docker started
+showing error messages in fastapi. I attempted to drop and rebuild the tables twice and
+even uninstalled some programs that I thought might be causing the problems. After a while I
+informed the team that I was going to post a help me understand message to get some help.
+Jeff told me that I should try shutting down my computer and rebooting everything. I did and
+the issue cleared up. I finally finished the unit test and will ask someone to merge it
+tomorrow.
+
+## Dec 08, 2023
+
+Today I worked on delete card for card list in the front end. It took a while and I got stuck
+on the routing. Jeff wanted to make the routing simpler so while he was showing me how it works
+and trouble shooting the code we changed the routing for the backend. Started issue 100 delete
+a deck from the front end.
+
+## Dec 09, 2023
+
+Today worked on and completed issue 100 delete a deck from the front end. Jeff did my merge request
+and I completed a merge request for him.
+
+## Dec 11, 2023
+
+Today worked on edit a user profile and worked on and completed the Readme.md main page.
