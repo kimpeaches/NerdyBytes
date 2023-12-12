@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import TrashIcon from "../../shared/TrashIcon/TrashIcon";
 import "./UserDecks.css";
 
 function UserDecks({ user }) {
@@ -68,13 +69,7 @@ function UserDecks({ user }) {
                       Edit
                     </Link>
                     <Link href="#" className="card-link">
-                      <img
-                        src="/trash.jpg"
-                        alt="trash"
-                        className="card-link"
-                        style={{ width: "30px" }}
-                        onClick={() => deleteDeck(deck.id)}
-                      />
+                      <TrashIcon onClick={() => deleteDeck(deck.id)} />
                     </Link>
                   </div>
                 </div>
