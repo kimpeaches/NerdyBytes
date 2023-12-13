@@ -14,6 +14,10 @@ const DeckForm = ({ currentUser }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!currentUser) {
+      console.log("currentUser is not defined");
+      return;
+    }
     const data = {
       name: deckName,
       user_id: currentUser.id,
