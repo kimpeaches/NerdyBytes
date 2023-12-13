@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../Login/Login.css";
 import { useParams } from "react-router";
@@ -6,7 +6,7 @@ import { useParams } from "react-router";
 const EditCard = ({ currentUser }) => {
   const { cardId, deckId } = useParams();
   const [cardCreated, setCardUpdated] = useState(false);
-  const [question, setQuestion] = useState("");
+  const [question, setQuestion] = useState("Initial value");
 
   const handleQuestionChange = (event) => {
     const value = event.target.value;
@@ -48,6 +48,26 @@ const EditCard = ({ currentUser }) => {
       console.log(error);
     }
   };
+
+  async function getCard() {
+    const url = `${process.env.REACT_APP_API_HOST}/api/card/${cardId}`;
+    const fetchOptions = {
+      credentials: "include",
+      method: "GET",
+    };
+    const response = await fetch(url, fetchOptions);
+    if (response.ok) {
+      const data = await response.json();
+      setQuestion(data.question);
+    } else {
+      console.log("Error fetching card");
+    }
+  }
+
+  useEffect(() => {
+    getCard();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
