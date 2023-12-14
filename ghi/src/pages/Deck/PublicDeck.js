@@ -82,63 +82,60 @@ function PublicDeck() {
             <List>
                 <div className="row">
                     {filteredDeck &&
-                        filteredDeck
-                            .filter((deck) => deck.public_status)
-                            .map((deck) => (
+                        filteredDeck.map((deck) => (
+                            <div
+                                key={deck.id}
+                                className="col-md-3 mb-4"
+                                style={{
+                                    ...cardStyle,
+                                    border: `2px solid var(--primary)`,
+                                    borderRadius: "10px",
+                                    overflow: "hidden",
+                                    margin: "10px",
+                                }}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.transform =
+                                        hoverStyle.transform;
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.transform = "";
+                                }}
+                            >
                                 <div
-                                    key={deck.id}
-                                    className="col-md-3 mb-4"
+                                    className="card"
                                     style={{
-                                        ...cardStyle,
-                                        border: `2px solid var(--primary)`,
-                                        borderRadius: "10px",
-                                        overflow: "hidden",
-                                        margin: "10px",
-                                    }}
-                                    onMouseEnter={(e) => {
-                                        e.currentTarget.style.transform =
-                                            hoverStyle.transform;
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        e.currentTarget.style.transform = "";
+                                        backgroundColor: "var(--background)",
+                                        height: "100%",
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        justifyContent: "space-between",
                                     }}
                                 >
                                     <div
-                                        className="card"
-                                        style={{
-                                            backgroundColor:
-                                                "var(--background)",
-                                            height: "100%",
-                                            display: "flex",
-                                            flexDirection: "column",
-                                            justifyContent: "space-between",
-                                        }}
+                                        className="card-body text-center"
+                                        style={{ flex: "1" }}
                                     >
-                                        <div
-                                            className="card-body text-center"
-                                            style={{ flex: "1" }}
-                                        >
-                                            <h5 className="card-title">
-                                                <a
-                                                    href="/"
-                                                    style={{
-                                                        color: "var(--primary)",
-                                                        textDecoration: "none",
-                                                    }}
-                                                >
-                                                    {deck.name}
-                                                </a>
-                                            </h5>
-                                        </div>
-                                        <p
-                                            className="card-text text-center"
-                                            style={{ color: "var(--text)" }}
-                                        >
-                                            New Card: {deck.total_cards}
-                                        </p>
+                                        <h5 className="card-title">
+                                            <a
+                                                href={`/${deck.id}/cardlist`}
+                                                style={{
+                                                    color: "var(--primary)",
+                                                    textDecoration: "none",
+                                                }}
+                                            >
+                                                {deck.name}
+                                            </a>
+                                        </h5>
                                     </div>
+                                    <p
+                                        className="card-text text-center"
+                                        style={{ color: "var(--text)" }}
+                                    >
+                                        New Card: {deck.total_cards}
+                                    </p>
                                 </div>
-                            ))}
+                            </div>
+                        ))}
                 </div>
             </List>
         </div>
