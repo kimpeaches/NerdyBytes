@@ -9,14 +9,18 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChatRoom from "./ChatRoom";
 import Messages from "./Message";
+import { ChatRoomProvider } from "../../useContext/ChatRoomContext";
+
 export default function Chat() {
     const [isLoading, setIsLoading] = useState(false);
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const [chatRoomId, setChatRoomId] = useState(1);
     const handleDrawerOpen = () => setIsDrawerOpen(true);
     const handleDrawerClose = () => setIsDrawerOpen(false);
+    const handleRoomChange = (id) => setChatRoomId(id);
 
     return (
-        <div>
+        <ChatRoomProvider value={{ chatRoomId }}>
             <Grid container>
                 <Grid item xs={12}>
                     <LinearProgress
@@ -52,12 +56,12 @@ export default function Chat() {
                     anchor="left"
                     open={isDrawerOpen}
                     variant="persistent"
-                    style={{ zIndex: 2 }}
+                    style={{ zIndex: 5 }}
                     onOpen={() => {}}
                     onClose={() => {}}
                 >
                     <Grid item xs={12} className="c-border-right-500">
-                        <ChatRoom />
+                        <ChatRoom onRoomChange={handleRoomChange} />
                     </Grid>
                 </SwipeableDrawer>
                 <div
@@ -69,6 +73,6 @@ export default function Chat() {
                     <Messages setIsLoading={setIsLoading} />
                 </Grid>
             </Grid>
-        </div>
+        </ChatRoomProvider>
     );
 }

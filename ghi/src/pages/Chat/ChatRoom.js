@@ -6,13 +6,16 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import TextField from "@mui/material/TextField";
-import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router";
-export default function ChatRoom() {
-    const { chatRoomId = 1 } = useParams();
+import { useChatRoomContext } from "../../useContext/ChatRoomContext";
+import { useUserContext } from "../../useContext/UserContext";
+
+export default function ChatRoom({ onRoomChange }) {
     const [searchRooms, setSearchRooms] = useState([]);
     const [searchText, setSearchText] = useState("");
+    const currentUser = useUserContext();
+    const { chatRoomId } = useChatRoomContext();
+    const handleRoomChange = (roomId) => onRoomChange(roomId);
     const fetchRooms = async () => {
         const res = await fetch(
             `${process.env.REACT_APP_API_HOST}/api/rooms/`,
@@ -28,12 +31,33 @@ export default function ChatRoom() {
         setInterval(fetchRooms, 60000);
     }, []);
     const handleChange = (e) => setSearchText(e.target.value);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const data = {};
+        new FormData(e.target).forEach((value, key) => (data[key] = value));
+        const url = `${process.env.REACT_APP_API_HOST}/api/rooms`;
+        const fetchConfig = {
+            method: "POST",
+            credentials: "include",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        };
+        const response = await fetch(url, fetchConfig);
+        if (response.ok) {
+            e.target.reset();
+            fetchRooms();
+        }
+    };
+
     const filteredRooms = searchText
         ? searchRooms.filter((room) =>
               room.name.toLowerCase().includes(searchText.toLowerCase())
           )
         : searchRooms;
-    return (
+    return currentUser ? (
         <>
             <List>
                 <ListItem key="SearchBar">
@@ -49,15 +73,28 @@ export default function ChatRoom() {
             <Divider />
             <List>
                 {filteredRooms.map((room) => (
-                    <Link key={room.id} to={`/chat/${room.id}`}>
-                        <ListItemButton
-                            selected={parseInt(chatRoomId) === room.id}
-                        >
-                            <ListItemText primary={room.name} />
-                        </ListItemButton>
-                    </Link>
+                    <ListItemButton
+                        key={room.id}
+                        selected={parseInt(chatRoomId) === room.id}
+                        onClick={() => handleRoomChange(room.id)}
+                    >
+                        <ListItemText primary={room.name} />
+                    </ListItemButton>
                 ))}
             </List>
+            <h4>Create a new room</h4>
+            <form onSubmit={handleSubmit}>
+                <input name="name" placeholder="Room Name" />
+                <input type="hidden" name="user_id" value={currentUser?.id} />
+                <input
+                    type="hidden"
+                    name="messages"
+                    value={currentUser?.messages}
+                />
+                <button type="submit">Create</button>
+            </form>
         </>
+    ) : (
+        <></>
     );
 }
