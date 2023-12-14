@@ -94,3 +94,7 @@ body {
     right: 20px; /* Adjust this value to change the distance from the right */
     z-index: 999; /* Adjust this value if the chat should be on top of other elements */
 }
+
+#btn-room {
+    width: 100px;
+}

@@ -59,6 +59,33 @@ export default function ChatRoom({ onRoomChange }) {
         : searchRooms;
     return currentUser ? (
         <>
+            <h5 style={{ display: "flex", justifyContent: "center" }}>
+                Create a new room
+            </h5>
+            <form
+                onSubmit={handleSubmit}
+                style={{ display: "flex", justifyContent: "center" }}
+            >
+                <input name="name" placeholder="Room Name" />
+                <input type="hidden" name="user_id" value={currentUser?.id} />
+                <input
+                    type="hidden"
+                    name="messages"
+                    value={currentUser?.messages}
+                />
+                <button id="btn-room" type="submit">
+                    Create
+                </button>
+            </form>
+            <h5
+                style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    paddingTop: "30px",
+                }}
+            >
+                Search a study room
+            </h5>
             <List>
                 <ListItem key="SearchBar">
                     <Grid item xs={12} style={{ padding: "10px" }}>
@@ -82,19 +109,6 @@ export default function ChatRoom({ onRoomChange }) {
                     </ListItemButton>
                 ))}
             </List>
-            <h4>Create a new room</h4>
-            <form onSubmit={handleSubmit}>
-                <input name="name" placeholder="Room Name" />
-                <input type="hidden" name="user_id" value={currentUser?.id} />
-                <input
-                    type="hidden"
-                    name="messages"
-                    value={currentUser?.messages}
-                />
-                <button id="buttons" type="submit">
-                    Create
-                </button>
-            </form>
         </>
     ) : (
         <></>
