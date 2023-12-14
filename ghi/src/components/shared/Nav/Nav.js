@@ -35,7 +35,7 @@ const Nav = () => {
         <Link className="navbar-brand" to="/dashboard">
           <img
             className="logo rounded-circle white-border"
-            src={process.env.PUBLIC_URL + "/NerdybytesLogo.jpg"}
+            src="http://grapplingwithsyntax.com/side_scroll_paralax/NerdyBytesLogo.jpg"
             alt="Nerdybytes Logo"
             width="100"
           />
