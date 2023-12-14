@@ -1,10 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import TrashIcon from "../../shared/TrashSvg/TrashSvg";
 import { useUserContext } from "../../../useContext/UserContext";
+import { useNavigate } from "react-router-dom";
+import TrashIcon from "../../shared/TrashSvg/TrashSvg";
 import "./UserDecks.css";
 
 function UserDecks({ decks, setDecks }) {
+  const navigate = useNavigate();
   const currentUser = useUserContext();
   const userDecks = decks.filter((deck) => deck.user_id === currentUser.id);
 
