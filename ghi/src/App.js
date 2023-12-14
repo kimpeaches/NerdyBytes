@@ -60,7 +60,7 @@ function App() {
               <Route
                 exact
                 path="/:deckId/editdeck"
-                element={<EditDeck currentUser={currentUser} />}
+                element={<EditDeck />}
               ></Route>
               <Route
                 exact

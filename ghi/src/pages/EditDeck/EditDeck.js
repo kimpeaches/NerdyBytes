@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../Login/Login.css";
 import { useParams } from "react-router";
+import { useUserContext } from "../../useContext/UserContext";
 
-const EditDeck = ({ currentUser }) => {
+const EditDeck = () => {
+  const currentUser = useUserContext();
   const { deckId } = useParams();
   const [deckName, setDeckName] = useState("");
   const [publicStatus, setPublicStatus] = useState(false);
@@ -49,6 +51,27 @@ const EditDeck = ({ currentUser }) => {
       console.log(error);
     }
   };
+
+  async function getDeck() {
+    const url = `${process.env.REACT_APP_API_HOST}/api/deck/${deckId}`;
+    const fetchOptions = {
+      credentials: "include",
+      method: "GET",
+    };
+    const response = await fetch(url, fetchOptions);
+    if (response.ok) {
+      const data = await response.json();
+      setDeckName(data.name);
+      setPublicStatus(data.public_status);
+    } else {
+      console.log("Error fetching deck");
+    }
+  }
+
+  useEffect(() => {
+    getDeck();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
