@@ -54,10 +54,6 @@ const Calendar = () => {
   return (
     <>
       <div className="calendar">
-        <Typography variant="h6" align="center" gutterBottom>
-          {currentMonth.toLocaleString("default", { month: "long" })}{" "}
-          {currentMonth.getFullYear()}
-        </Typography>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DateCalendar
             date={currentMonth}

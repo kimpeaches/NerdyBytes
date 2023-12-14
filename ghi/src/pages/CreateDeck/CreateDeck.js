@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./CreateDeck.css";
 import { Link } from "react-router-dom";
 import { useUserContext } from "../../useContext/UserContext";
+import "../Login/Login.css";
 
 const DeckForm = () => {
   const [deckName, setDeckName] = useState("");
@@ -16,10 +17,6 @@ const DeckForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!currentUser) {
-      console.log("currentUser is not defined");
-      return;
-    }
     const data = {
       name: deckName,
       user_id: currentUser.id,
@@ -66,7 +63,7 @@ const DeckForm = () => {
               />
               <label htmlFor="deckName">Deck Name</label>
             </div>
-            <button type="submit" className="btn btn-primary">
+            <button id="buttons" type="submit">
               Create Deck
             </button>
           </form>

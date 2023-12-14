@@ -35,24 +35,39 @@ function UserDecks({ decks, setDecks }) {
               <div
                 key={deck.id}
                 className="study-deck card rounded-3 m-2 shadow p-0"
+                style={{ width: "20rem" }}
               >
                 <div className="card-body">
                   <h5 className="card-title">{deck.name}</h5>
                   <div className="d-flex justify-content-between">
-                    <Link to={`/${deck.id}/study`} className="card-link">
+                    <button
+                      id="btn-study"
+                      onClick={() => navigate(`/${deck.id}/study`)}
+                      className="card-link"
+                    >
                       Study
-                    </Link>
-                    <Link to={`/${deck.id}/cardlist`} className="card-link">
+                    </button>
+                    <button
+                      id="btn-study"
+                      onClick={() => navigate(`/${deck.id}/cardlist`)}
+                      className="card-link"
+                    >
                       Browse
-                    </Link>
-                    <Link to={`/${deck.id}/editdeck`} className="card-link">
+                    </button>
+                    <button
+                      id="btn-study"
+                      onClick={() => navigate(`/${deck.id}/editdeck`)}
+                      className="card-link"
+                    >
                       Edit
-                    </Link>
-                    <Link href="#" className="card-link"></Link>
+                    </button>
                     <TrashIcon
                       className="card-link"
                       onClick={() => deleteDeck(deck.id)}
-                      style={{ cursor: "pointer" }}
+                      style={{
+                        cursor: "pointer",
+                        width: "50%",
+                      }}
                     />
                   </div>
                 </div>

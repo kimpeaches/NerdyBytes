@@ -44,7 +44,7 @@ function App() {
         <Nav />
         <AuthProvider baseUrl={`${process.env.REACT_APP_API_HOST}`}>
           <UserProvider currentUser={currentUser}>
-            {currentUser && <ChatFlyover></ChatFlyover>}
+            {currentUser && <ChatFlyover className="Chatflyover"></ChatFlyover>}
             <Routes>
               <Route exact path="/" element={<LoginForm />}></Route>
               <Route exact path="/calendar" element={<Calendar />}></Route>

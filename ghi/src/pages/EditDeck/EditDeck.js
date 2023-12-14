@@ -102,7 +102,7 @@ const EditDeck = () => {
                 onChange={handlePublicStatusChange}
               />
             </div>
-            <button type="submit" className="wrapper">
+            <button id="buttons" type="submit" className="wrapper">
               Update Deck
             </button>
           </form>

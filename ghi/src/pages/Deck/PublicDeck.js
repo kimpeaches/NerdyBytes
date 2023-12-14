@@ -80,7 +80,7 @@ function PublicDeck() {
                 Decks
             </h2>
             <List>
-                <div className="row">
+                <div className="row justify-content-center">
                     {filteredDeck &&
                         filteredDeck.map((deck) => (
                             <div
@@ -92,6 +92,8 @@ function PublicDeck() {
                                     borderRadius: "10px",
                                     overflow: "hidden",
                                     margin: "10px",
+                                    boxShadow: "0 4px 8px rgba(0, 0, 0, 1)",
+                                    background: "transparent",
                                 }}
                                 onMouseEnter={(e) => {
                                     e.currentTarget.style.transform =
@@ -104,7 +106,7 @@ function PublicDeck() {
                                 <div
                                     className="card"
                                     style={{
-                                        backgroundColor: "var(--background)",
+                                        backgroundColor: "transparent",
                                         height: "100%",
                                         display: "flex",
                                         flexDirection: "column",

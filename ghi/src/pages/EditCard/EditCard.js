@@ -6,7 +6,7 @@ import { useParams } from "react-router";
 const EditCard = ({ currentUser }) => {
   const { cardId, deckId } = useParams();
   const [cardCreated, setCardUpdated] = useState(false);
-  const [question, setQuestion] = useState("Initial value");
+  const [question, setQuestion] = useState("");
 
   const handleQuestionChange = (event) => {
     const value = event.target.value;
@@ -88,7 +88,7 @@ const EditCard = ({ currentUser }) => {
               />
               <label htmlFor="question">Question</label>
             </div>
-            <button type="submit" className="wrapper">
+            <button id="buttons" type="submit" className="wrapper">
               Update Card
             </button>
           </form>

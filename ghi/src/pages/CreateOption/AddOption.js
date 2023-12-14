@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
+import "./AddOption.css";
 
 function AddOption() {
   const { cardId } = useParams();
@@ -162,6 +163,7 @@ function AddOption() {
                 <td>{option.is_correct ? "Yes" : "No"}</td>
                 <td>
                   <button
+                    id="buttons"
                     onClick={() =>
                       navigate(
                         `/decks/${cardId}/cards/${option.id}/options/${option.id}/edit`
@@ -172,7 +174,7 @@ function AddOption() {
                   </button>
                 </td>
                 <td>
-                  <button onClick={() => handleDelete(option.id)}>
+                  <button id="buttons" onClick={() => handleDelete(option.id)}>
                     Delete
                   </button>
                 </td>
@@ -209,8 +211,8 @@ function AddOption() {
             </div>
             {loading && <p>Loading...</p>}
             {error && <p>Error: {error}</p>}
-            <button type="submit" className="btn btn-primary mt-3">
-              Add Possible Answer
+            <button id="buttons" type="submit" className="btn btn-primary mt-3">
+              Create Possible Answer
             </button>
           </form>
         </div>
