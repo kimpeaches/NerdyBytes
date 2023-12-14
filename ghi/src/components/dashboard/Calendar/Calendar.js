@@ -8,10 +8,12 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import { useUserContext } from "../../../useContext/UserContext";
 import getStreak from "../../../utils/getStreak";
 import "./Calendar.css";
 
-const Calendar = ({ user }) => {
+const Calendar = () => {
+  const currentUser = useUserContext();
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [dateList, setDateList] = useState([]);
 
@@ -31,9 +33,9 @@ const Calendar = ({ user }) => {
       }
     };
     getDates();
-  }, [user]);
+  }, [currentUser]);
 
-  const currentStreak = getStreak(dateList, user);
+  const currentStreak = getStreak(dateList, currentUser);
 
   const handleDayClick = (day) => {
     console.log("Day clicked:", day);

@@ -1,8 +1,11 @@
-const checkIn = async (user) => {
+import { useUserContext } from "../useContext/UserContext";
+
+const CheckIn = async () => {
+  const currentUser = useUserContext();
   const today = new Date().toISOString().slice(0, 10);
 
   const data = {
-    user_id: user.id,
+    user_id: currentUser.id,
     date: today,
     studied_today: true,
   };
@@ -24,4 +27,4 @@ const checkIn = async (user) => {
   }
 };
 
-export default checkIn;
+export default CheckIn;

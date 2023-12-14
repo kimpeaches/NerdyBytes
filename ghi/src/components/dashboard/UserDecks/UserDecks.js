@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import TrashIcon from "../../shared/TrashSvg/TrashSvg";
-
+import { useUserContext } from "../../../useContext/UserContext";
 import "./UserDecks.css";
 
-function UserDecks({ user, decks, setDecks }) {
-  const userDecks = decks.filter((deck) => deck.user_id === user.id);
+function UserDecks({ decks, setDecks }) {
+  const currentUser = useUserContext();
+  const userDecks = decks.filter((deck) => deck.user_id === currentUser.id);
 
   async function deleteDeck(deck_id) {
     const url = `${process.env.REACT_APP_API_HOST}/api/deck/${deck_id}`;

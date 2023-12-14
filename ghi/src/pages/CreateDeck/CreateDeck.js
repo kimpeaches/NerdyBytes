@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import "./CreateDeck.css";
 import { Link } from "react-router-dom";
+import { useUserContext } from "../../useContext/UserContext";
 
-const DeckForm = ({ currentUser }) => {
+const DeckForm = () => {
   const [deckName, setDeckName] = useState("");
   const [deckCreated, setDeckCreated] = useState(false);
+  const currentUser = useUserContext();
 
   const handleDeckNameChange = (e) => {
     const value = e.target.value;
