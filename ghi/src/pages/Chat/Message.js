@@ -14,9 +14,10 @@ import {
     useCallback,
 } from "react";
 import { useUserContext } from "../../useContext/UserContext";
-import { useParams } from "react-router";
+import { useChatRoomContext } from "../../useContext/ChatRoomContext";
+
 export default function Messages() {
-    const { chatRoomId } = useParams();
+    const { chatRoomId } = useChatRoomContext();
     const [messages, setMessages] = useState([]);
     const currentUser = useUserContext();
     const lastItem = useRef(0);
