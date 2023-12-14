@@ -185,9 +185,7 @@ function AddOption() {
       <div className="card shadow m-5 p-3 col-6 mx-auto">
         <div className="card-body">
           <form onSubmit={handleSubmit} id="create-option-form">
-            <h1 className="card-title">
-              Add Possible Answer to Card: {card.question}
-            </h1>
+            <h1 className="card-title">Add Possible Answer</h1>
             <div className="form-group">
               <input
                 type="text"
@@ -212,7 +210,7 @@ function AddOption() {
             {loading && <p>Loading...</p>}
             {error && <p>Error: {error}</p>}
             <button type="submit" className="btn btn-primary mt-3">
-              Create Possible Answer
+              Add Possible Answer
             </button>
           </form>
         </div>
