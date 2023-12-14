@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import TrashIcon from "../../shared/TrashSvg/TrashSvg";
+
 import "./UserDecks.css";
 
 function UserDecks({ user }) {
@@ -53,7 +55,7 @@ function UserDecks({ user }) {
                         return (
                             <div
                                 key={deck.id}
-                                className="study-deck card rounded-3 m-2 shadow"
+                                className="study-deck card rounded-3 m-2 shadow p-0"
                                 style={{ width: "20rem" }}
                             >
                                 <div className="card-body">
@@ -86,17 +88,14 @@ function UserDecks({ user }) {
                                         >
                                             Edit
                                         </button>
-                                        <Link href="#" className="card-link">
-                                            <img
-                                                src="/trash.jpg"
-                                                alt="trash"
-                                                className="card-link"
-                                                style={{ width: "30px" }}
-                                                onClick={() =>
-                                                    deleteDeck(deck.id)
-                                                }
-                                            />
-                                        </Link>
+                                        <TrashIcon
+                                            className="card-link"
+                                            onClick={() => deleteDeck(deck.id)}
+                                            style={{
+                                                cursor: "pointer",
+                                                width: "50%",
+                                            }}
+                                        />
                                     </div>
                                 </div>
                             </div>
