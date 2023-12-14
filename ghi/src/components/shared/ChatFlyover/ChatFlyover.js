@@ -7,7 +7,7 @@ export default function ChatFlyover() {
 
     return (
         <div id="chat-flyover" style={{ zIndex: 3, position: "relative" }}>
-            <button onClick={handleChange}>
+            <button onClick={handleChange} id="buttons">
                 {isOpen ? "Close" : "Open"} Chat
             </button>
             <dialog open={isOpen}>

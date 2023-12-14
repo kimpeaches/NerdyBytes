@@ -91,7 +91,9 @@ export default function ChatRoom({ onRoomChange }) {
                     name="messages"
                     value={currentUser?.messages}
                 />
-                <button type="submit">Create</button>
+                <button id="buttons" type="submit">
+                    Create
+                </button>
             </form>
         </>
     ) : (

@@ -12,80 +12,80 @@ import getStreak from "../../../utils/getStreak";
 import "./Calendar.css";
 
 const Calendar = ({ user }) => {
-  const [currentMonth, setCurrentMonth] = useState(new Date());
-  const [dateList, setDateList] = useState([]);
+    const [currentMonth, setCurrentMonth] = useState(new Date());
+    const [dateList, setDateList] = useState([]);
 
-  useEffect(() => {
-    const getDates = async () => {
-      const url = `${process.env.REACT_APP_API_HOST}/api/dates`;
-      const fetchOptions = {
-        credentials: "include",
-        method: "GET",
-      };
-      const response = await fetch(url, fetchOptions);
-      if (response.ok) {
-        const data = await response.json();
-        setDateList(data);
-      } else {
-        console.log("Error fetching dates");
-      }
+    useEffect(() => {
+        const getDates = async () => {
+            const url = `${process.env.REACT_APP_API_HOST}/api/dates`;
+            const fetchOptions = {
+                credentials: "include",
+                method: "GET",
+            };
+            const response = await fetch(url, fetchOptions);
+            if (response.ok) {
+                const data = await response.json();
+                setDateList(data);
+            } else {
+                console.log("Error fetching dates");
+            }
+        };
+        getDates();
+    }, [user]);
+
+    const currentStreak = getStreak(dateList, user);
+
+    const handleDayClick = (day) => {
+        console.log("Day clicked:", day);
     };
-    getDates();
-  }, [user]);
 
-  const currentStreak = getStreak(dateList, user);
+    const handleMonthChange = (increment) => {
+        setCurrentMonth((prevMonth) => {
+            const newMonth = new Date(
+                prevMonth.getFullYear(),
+                prevMonth.getMonth() + increment
+            );
+            return newMonth;
+        });
+    };
 
-  const handleDayClick = (day) => {
-    console.log("Day clicked:", day);
-  };
-
-  const handleMonthChange = (increment) => {
-    setCurrentMonth((prevMonth) => {
-      const newMonth = new Date(
-        prevMonth.getFullYear(),
-        prevMonth.getMonth() + increment
-      );
-      return newMonth;
-    });
-  };
-
-  return (
-    <>
-      <div className="calendar">
-        <Typography variant="h6" align="center" gutterBottom>
-          {currentMonth.toLocaleString("default", { month: "long" })}{" "}
-          {currentMonth.getFullYear()}
-        </Typography>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DateCalendar
-            date={currentMonth}
-            onDayClick={handleDayClick}
-            toolbarTitle={() => (
-              <Box
-                display="flex"
-                justifyContent="space-between"
-                alignItems="center"
-              >
-                <IconButton onClick={() => handleMonthChange(-1)}>
-                  <KeyboardArrowLeftIcon />
-                </IconButton>
-                <Typography variant="h6">
-                  {currentMonth.toLocaleString("default", {
-                    month: "long",
-                  })}{" "}
-                  {currentMonth.getFullYear()}
-                </Typography>
-                <IconButton onClick={() => handleMonthChange(1)}>
-                  <KeyboardArrowRightIcon />
-                </IconButton>
-              </Box>
-            )}
-          />
-        </LocalizationProvider>
-        <h3>Current Streak: {currentStreak}</h3>
-      </div>
-    </>
-  );
+    return (
+        <>
+            <div className="calendar">
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DateCalendar
+                        date={currentMonth}
+                        onDayClick={handleDayClick}
+                        toolbarTitle={() => (
+                            <Box
+                                display="flex"
+                                justifyContent="space-between"
+                                alignItems="center"
+                            >
+                                <IconButton
+                                    onClick={() => handleMonthChange(-1)}
+                                >
+                                    <KeyboardArrowLeftIcon />
+                                </IconButton>
+                                <Typography variant="h6">
+                                    {currentMonth.toLocaleString("default", {
+                                        month: "long",
+                                    })}{" "}
+                                    {currentMonth.getFullYear()}
+                                </Typography>
+                                <IconButton
+                                    onClick={() => handleMonthChange(1)}
+                                >
+                                    <KeyboardArrowRightIcon />
+                                </IconButton>
+                            </Box>
+                        )}
+                    />
+                </LocalizationProvider>
+                <h3>Current Streak: {currentStreak}</h3>
+            </div>
+        </>
+    );
 };
 
 export default Calendar;

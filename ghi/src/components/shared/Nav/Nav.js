@@ -58,11 +58,6 @@ const Nav = () => {
                         </Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link" to="/chat/1">
-                            Chat
-                        </Link>
-                    </li>
-                    <li className="nav-item">
                         <Link className="nav-link" to="/publicdeck">
                             Public List
                         </Link>
