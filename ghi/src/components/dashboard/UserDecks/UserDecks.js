@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import TrashIcon from "../../shared/TrashSvg/TrashSvg";
+
 import "./UserDecks.css";
 
 function UserDecks({ user }) {
@@ -52,8 +54,7 @@ function UserDecks({ user }) {
             return (
               <div
                 key={deck.id}
-                className="study-deck card rounded-3 m-2 shadow"
-                style={{ width: "18rem" }}
+                className="study-deck card rounded-3 m-2 shadow p-0"
               >
                 <div className="card-body">
                   <h5 className="card-title">{deck.name}</h5>
@@ -67,15 +68,12 @@ function UserDecks({ user }) {
                     <Link to={`/${deck.id}/editdeck`} className="card-link">
                       Edit
                     </Link>
-                    <Link href="#" className="card-link">
-                      <img
-                        src="/trash.jpg"
-                        alt="trash"
-                        className="card-link"
-                        style={{ width: "30px" }}
-                        onClick={() => deleteDeck(deck.id)}
-                      />
-                    </Link>
+                    <Link href="#" className="card-link"></Link>
+                    <TrashIcon
+                      className="card-link"
+                      onClick={() => deleteDeck(deck.id)}
+                      style={{ cursor: "pointer" }}
+                    />
                   </div>
                 </div>
               </div>
